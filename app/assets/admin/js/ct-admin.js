@@ -25,21 +25,21 @@
 
         $( '#cart_type' ).on( 'change', function(e) {
             if ( 'products' === e.target.value ) {
-                $( '.products-label' ).css( 'display', 'block' );
-                $( '.products-container' ).css( 'display', 'block' );
-                $( '.number-label' ).css( 'display', 'none' );
-                $( '.number-container' ).css( 'display', 'none' );
+                $( '.products-setting' ).removeClass( 'hidden' );
+                $( '.number-setting' ).addClass( 'hidden' );
+                $( '.condition-setting' ).addClass( 'hidden' );
             } else {
-                $( '.products-label' ).css( 'display', 'none' );
-                $( '.products-container' ).css( 'display', 'none' );
-                $( '.number-label' ).css( 'display', 'block' );
-                $( '.number-container' ).css( 'display', 'block' );
+                $( '.products-setting' ).addClass( 'hidden' );
+                $( '.number-setting' ).removeClass( 'hidden' );
+                $( '.condition-setting' ).removeClass( 'hidden' );
             }
         });
 
 
         $( '#save-ct-settings' ).on( 'click', function(e) {
             e.preventDefault();
+
+            $('.loading-spinner').addClass('loading');
 
             var formData = new FormData();
             formData.append('action', 'ct_save_settings');
@@ -57,6 +57,7 @@
                 contentType : false,
 			    processData : false,
                 success : function( response ) {
+                    $('.loading-spinner').removeClass('loading');
                     console.log( response );
                 },
                 error: function( error ) {
