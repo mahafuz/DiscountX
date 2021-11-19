@@ -1,0 +1,132 @@
+/**
+ * Cart Targeting Admin CSS.
+ *
+ * @author Mahafuz
+ * @package CT
+ * @version 1.0.0
+ */
+
+/* Base CSS */
+.ct-flex {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    align-content: center;
+    padding: 0 20px;
+    box-sizing: border-box;
+}
+
+.ct-container {
+    max-width: 860px;
+    margin: 0 auto;
+    margin: 0 auto;
+}
+
+/* Settings Box */
+.ct-options-box-header {
+    background: #ffffff;
+    border-bottom: 1px solid #e6e6e6;
+    font-size: 14px;
+    padding: 12px 12px;
+    margin: 0;
+    line-height: 1.4;
+}
+
+.ct-options-settings-section {
+    border-bottom: 1px solid #eee;
+}
+
+.ct-options-settings-section ul {
+    margin: 0;
+}
+
+.ct-options-settings-section ul li {
+    padding: 10px 0;
+    margin-bottom: 0;
+}
+
+.ct-options-settings-section ul li:nth-child(odd) {
+    width: 74%;
+}
+
+.ct-options-settings-section ul li:nth-child(even) {
+    width: 26%;
+    text-align: right;
+}
+
+.ct-entry-wrap {
+    margin-top: 20px;
+    width: 100%;
+    display: flex;
+}
+
+.ct-entry-wrap .hndle {
+    padding: 8px 12px;
+    margin: 0;
+    font-size: 14px;
+}
+
+.ct-entry-left {
+    flex-basis: 70%;
+}
+
+.ct-entry-right {
+    flex-basis: 28%;
+    margin-left: 30px;
+}
+
+table.wp-list-table.widefat.fixed.striped.posts {
+    border: none;
+}
+
+.ct-entry-right .button {
+    display: flex;
+    align-items: center;
+}
+
+/* Settings Controls */
+.ct-options-settings-section .switch-control input[type="checkbox"] {
+    display: none;
+}
+
+.ct-options-settings-section .switch-control input:checked + .switch {
+    background-color: #2196f3;
+}
+
+.ct-options-settings-section .switch-control label {
+    position: relative;
+    display: inline-block;
+    width: 60px;
+    height: 34px;
+}
+
+.ct-options-settings-section .switch-control.is-rounded .switch {
+    border-radius: 34px;
+}
+.ct-options-settings-section .switch-control .switch {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    transition: 0.4s;
+}
+
+.ct-options-settings-section .switch-control input:checked + .switch::before {
+    transform: translateX(26px);
+}
+.ct-options-settings-section .switch-control.is-rounded .switch::before {
+    border-radius: 50%;
+}
+.ct-options-settings-section .switch-control .switch::before {
+    position: absolute;
+    content: "";
+    height: 26px;
+    width: 26px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    transition: 0.4s;
+}
