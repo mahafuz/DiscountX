@@ -22,6 +22,8 @@ class Admin {
         add_action( 'admin_init', [ $this, 'redirect' ] );
         add_action( 'admin_enqueue_scripts', [ $this, 'scripts' ] );
 		add_action( 'in_admin_header', [ $this, 'remove_notice' ], 1000 );
+
+        add_action( 'wp_ajax_ct_save_settings', [ $this, 'save' ] );
 	}
 
 	/**
@@ -59,14 +61,78 @@ class Admin {
 	public function scripts() {
 		$screen = get_current_screen();
 
-		if ( 'toplevel_page_ct-settings' === $screen->id ) {
-			wp_enqueue_style( 'pqfw-admin', CT_PLUGIN_URI . '/app/assets/admin/css/style.css' );
+		if ( 'toplevel_page_ct-settings' !== $screen->id ) {
+			return;
 		}
+
+        // Stylesheets
+        wp_enqueue_style(
+            'select2',
+            CT_PLUGIN_URI . '/app/assets/admin/libs/select2/select2.min.css',
+            '',
+            '4.1.0',
+            'all'
+        );
+
+        wp_enqueue_style(
+            'ct-admin',
+            CT_PLUGIN_URI . '/app/assets/admin/css/ct-admin.css',
+            '',
+            '1.0.0',
+            'all'
+        );
+
+        // Scripts
+        wp_enqueue_script(
+            'select2',
+            CT_PLUGIN_URI . '/app/assets/admin/libs/select2/select2.min.js',
+            [ 'jquery' ],
+            '4.1.0',
+            true
+        );
+
+        wp_enqueue_script(
+            'ct-admin',
+            CT_PLUGIN_URI . '/app/assets/admin/js/ct-admin.js',
+            [ 'jquery' ],
+            '4.1.0',
+            true
+        );
+
+        wp_localize_script( 'ct-admin', 'CT_ADMIN', [
+            'ajaxUrl' => admin_url( 'admin-ajax.php' )
+        ] );
 	}
 
 	public function display() {
+        $products   = ct()->helpers->getProductsList();
+        $settings   = ct()->helpers->getSettings();
+        $productIds = ct()->helpers->getSavedProductIds();
+
 		include CT_PLUGIN_DIR . 'app/views/settings.php';
 	}
+
+    public function save() {
+        if ( empty( $_REQUEST['nonce'] ) || ! wp_verify_nonce( $_REQUEST['nonce'], 'ct_save_settings_action' ) ) {
+			wp_send_json_error( [ 'message' => __( 'Invalid request.', 'cart-targeting' ) ] );
+		}
+
+        if ( ! is_array( $_REQUEST ) ) {
+            wp_send_json_error( [ 'message' => __( 'Invalid data.', 'cart-targeting' ) ] );
+        }
+
+        unset( $_REQUEST['nonce'] );
+        unset( $_REQUEST['action'] );
+
+        $saved = update_option( 'ct_settings', wp_json_encode( $_REQUEST ) );
+
+        if ( $saved ) {
+            wp_send_json_success([
+                'message' => __( 'Settings successfully saved.', 'cart-targeting' )
+            ]);
+        }
+        die();
+    }
 
     /**
      * Redirect to options page
