@@ -12,6 +12,11 @@ defined('ABSPATH') || exit;
  */
 class Notices {
 
+    /**
+     * Class constructor.
+     * 
+     * @since 1.0.0
+     */
     public function __construct() {
         add_action( 'admin_notices', array( $this, 'notice' ) );
     }
@@ -20,6 +25,9 @@ class Notices {
      * Check if a plugin is installed
      *
      * @since 1.0.0
+     * 
+     * @param  string $basename Plugin basename.
+     * @return boolean          Plugin installed status.
      */
     public function isPluginInstalled( $basename ) {
         if ( ! function_exists( 'get_plugins' ) ) {
@@ -34,8 +42,9 @@ class Notices {
 	 * Checks for plugin active or not
 	 *
 	 * @since 1.0.0
-	 * @param $plugin
-	 * @return bool
+     * 
+	 * @param  string $plugin Plugin name.
+	 * @return bool           Plugin activate status.
 	 */
     public function isPluginActive( $plugin ) {
         if ( ! function_exists( 'is_plugin_active' ) ){
@@ -48,7 +57,8 @@ class Notices {
     /**
      * Displays admin notices.
      * 
-     * @since 1.0.0
+     * @since  1.0.0
+     * @return void
      */
     public function notice() {
         $plugin = 'woocommerce/woocommerce.php';

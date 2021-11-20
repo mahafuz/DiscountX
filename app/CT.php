@@ -33,6 +33,11 @@ final class CT {
 		return self::$instance;
 	}
 
+    /**
+     * Class constructor.
+     * 
+     * @since 1.0.0
+     */
     public function __construct() {
         $this->notices      = new \CT\Notices;
         $this->admin        = new \CT\Admin;

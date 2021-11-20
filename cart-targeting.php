@@ -24,6 +24,7 @@ define( 'CT_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
 define( 'CT_PLUGIN_URI', plugins_url( '', __FILE__ ) );
 define ( 'CT_PLUGIN_BASENAME', plugin_basename( __FILE__ ) );
 
+// Including necessary files.
 require_once CT_PLUGIN_DIR . 'app/includes/Admin.php';
 require_once CT_PLUGIN_DIR . 'app/includes/Notices.php';
 require_once CT_PLUGIN_DIR . 'app/includes/Helpers.php';
@@ -31,7 +32,7 @@ require_once CT_PLUGIN_DIR . 'app/includes/Popup.php';
 require_once CT_PLUGIN_DIR . 'app/CT.php';
 
 /**
- * Activation redirects
+ * Activation redirects and default settings.
  *
  * @since 1.0.0
  */

@@ -12,6 +12,12 @@ defined('ABSPATH') || exit;
  */
 class Helpers {
 
+    /**
+     * Retrives product list from db.
+     * 
+     * @since  1.0.0
+     * @return        Products list with id and title.
+     */
 	public function getProductsList() {
         global $wpdb;
 
@@ -25,6 +31,12 @@ class Helpers {
         return $result;
 	}
 
+    /**
+     * Retrives cart product ids.
+     * 
+     * @since  1.0.0
+     * @return       Product ids.
+     */
     public function getCartProductIds() {
         $cart = WC()->cart->get_cart();
         $ids = [];
@@ -36,6 +48,15 @@ class Helpers {
         return $ids;
     }
 
+    /**
+     * Retrive settings from the options.
+     * 
+     * @since 1.0.0
+     * 
+     * @param  string $key     The settings key.
+     * @param  mixed  $default The default value to return.
+     * @return                  Retrived setting value.
+     */
     public function getSettings( $key = '', $default = '' ) {
         $settings = json_decode( get_option( 'ct_settings', [] ) );
 
@@ -52,9 +73,14 @@ class Helpers {
         }
     }
 
+    /**
+     * Retrives saved product ids.
+     * 
+     * @since  1.0.0
+     * @return array Saved product ids.
+     */
     public function getSavedProductIds() {
         $ids = $this->getSettings( 'products' );
         return array_map( 'intval', explode(',', $ids ));
     }
-
 }

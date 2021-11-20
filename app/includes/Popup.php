@@ -24,6 +24,11 @@ class Popup {
         add_action( 'wp_ajax_ct_apply_cupon_code', [ $this, 'applyCupon' ] );
 	}
 
+    /**
+     * Handles display popup condition.
+     * 
+     * @since 1.0.0
+     */
     public function displayPopup() {
         $cartTotal      = WC()->cart->cart_contents_total;
         $cartProductIds = ct()->helpers->getCartProductIds();
@@ -89,10 +94,22 @@ class Popup {
         }
     }
 
+    /**
+     * Set popup close status.
+     * 
+     * @since  1.0.0
+     * @return void
+     */
     public function setPopupClose() {
         set_transient( 'ct_popup_close_status', 'dont-show', 72 * HOUR_IN_SECONDS);
     }
 
+    /**
+     * Loading popup assets on the frontend.
+     * 
+     * @since  1.0.0
+     * @return void
+     */
     public function scripts() {
         if ( is_cart() ) {
             wp_enqueue_style(
@@ -102,6 +119,7 @@ class Popup {
                 '1.0.0',
                 'all'
             );
+
             wp_enqueue_script(
                 'ct-popup',
                 CT_PLUGIN_URI . '/app/assets/frontend/js/ct-popup.js',
@@ -118,19 +136,35 @@ class Popup {
         }
     }
 
+    /**
+     * Handles applying coupon on the cart.
+     * 
+     * @since  1.0.0
+     * @return void
+     */
     public function applyCupon() {
         $coupon = ct()->helpers->getSettings( 'coupon_code' );
+
+        if ( empty( $coupon ) ) {
+            wp_send_json_error( [ 'message' => __( 'Coupon code is empty' ) ] );
+        }
+
+        // apply coupon
         $applied = WC()->cart->apply_coupon( $coupon );
-        $success = sprintf( __('Coupon "%s" Applied successfully.'), $coupon );
-        $error   = __("This Coupon can't be applied");
 
         if ( $applied ) {
             set_transient( 'ct_popup_close_status', 'dont-show', 72 * HOUR_IN_SECONDS);
+            wp_send_json_success( [ 'message' => __( 'Successfully applied coupon.' ) ] );
         } else {
             set_transient( 'ct_popup_close_status', 'dont-show', 72 * HOUR_IN_SECONDS);
         }
     }
 
+    /**
+     * Displays popup on the fronend.
+     * 
+     * @since 1.0.0
+     */
     public function display() {
         $html = '<div class="ct-overlay">';
             $html .= '<div class="ct-popup">';

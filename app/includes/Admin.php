@@ -13,35 +13,23 @@ defined('ABSPATH') || exit;
 class Admin {
 
 	/*
-	 * Plugin constructor
+	 * Class constructor
 	 *
 	 * @since 1.0.0
 	 */
     public function __construct() {
-        add_action( 'admin_menu', [ $this, 'admin_menu' ] );
+        add_action( 'admin_menu', [ $this, 'adminMenu' ] );
         add_action( 'admin_init', [ $this, 'redirect' ] );
         add_action( 'admin_enqueue_scripts', [ $this, 'scripts' ] );
-		add_action( 'in_admin_header', [ $this, 'remove_notice' ], 1000 );
-
         add_action( 'wp_ajax_ct_save_settings', [ $this, 'save' ] );
 	}
-
-	/**
-     * Remove all notice in setup wizard page
-     */
-    public function remove_notice() {
-        if ( isset($_GET[ 'page' ]) && $_GET[ 'page' ] == 'gst-form' ) {
-            remove_all_actions( 'admin_notices' );
-            remove_all_actions( 'all_admin_notices' );
-        }
-    }
 
 	/**
 	 * Registering admin menus.
 	 *
 	 * @since 1.0.0
 	 */
-    public function admin_menu() {
+    public function adminMenu() {
         add_menu_page(
             __( 'Cart Targeting', 'cart-targeting' ),
             __( 'Cart Targeting', 'cart-targeting' ),
@@ -59,8 +47,8 @@ class Admin {
 	 * @since 1.0.0
 	 */
 	public function scripts() {
-		$screen = get_current_screen();
 
+		$screen = get_current_screen();
 		if ( 'toplevel_page_ct-settings' !== $screen->id ) {
 			return;
 		}
@@ -104,6 +92,12 @@ class Admin {
         ] );
 	}
 
+    /**
+     * Displays plugin settings page.
+     * 
+     * @since  1.0.0
+     * @return void
+     */
 	public function display() {
         $products   = ct()->helpers->getProductsList();
         $settings   = ct()->helpers->getSettings();
@@ -112,6 +106,11 @@ class Admin {
 		include CT_PLUGIN_DIR . 'app/views/settings.php';
 	}
 
+    /**
+     * Handles saving settings.
+     * 
+     * @since 1.0.0
+     */
     public function save() {
         if ( empty( $_REQUEST['nonce'] ) || ! wp_verify_nonce( $_REQUEST['nonce'], 'ct_save_settings_action' ) ) {
 			wp_send_json_error( [ 'message' => __( 'Invalid request.', 'cart-targeting' ) ] );
