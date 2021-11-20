@@ -40,8 +40,11 @@ final class CT {
      */
     public function __construct() {
         $this->notices      = new \CT\Notices;
-        $this->admin        = new \CT\Admin;
-        $this->helpers      = new \CT\Helpers;
-        $this->popup        = new \CT\Popup;
+
+        if ( class_exists( 'WooCommerce' ) ) {
+            $this->admin        = new \CT\Admin;
+            $this->helpers      = new \CT\Helpers;
+            $this->popup        = new \CT\Popup;
+        }
     }
 }

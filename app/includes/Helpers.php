@@ -83,4 +83,35 @@ class Helpers {
         $ids = $this->getSettings( 'products' );
         return array_map( 'intval', explode(',', $ids ));
     }
+
+    /**
+     * Returns popup close status.
+     * 
+     * @since  1.0.0
+     * @return boolean Popup status.
+     */
+    public function getPopupStatus() {
+        if ( is_user_logged_in() ) {
+            $popupStatus = get_user_meta( get_current_user_id(), 'ct_popup_close_status', true );
+        } else {
+            $popupStatus = WC()->session->get( 'ct_popup_close_status' );
+        }
+        $popupStatus = 'show' === $popupStatus || '' == $popupStatus ? 'show' : 'dont-show';
+
+        return $popupStatus;
+    }
+
+    /**
+     * Set popup close status.
+     * 
+     * @since  1.0.0
+     * @return void
+     */
+    public function setPopupStatus() {
+        if ( is_user_logged_in() ) {
+            update_user_meta( get_current_user_id(), 'ct_popup_close_status', 'dont-show' );
+        } else {
+            WC()->session->set( 'ct_popup_close_status', 'dont-show' );
+        }
+    }
 }

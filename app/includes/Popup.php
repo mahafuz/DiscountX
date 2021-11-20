@@ -21,7 +21,9 @@ class Popup {
         add_action( 'woocommerce_before_cart', [ $this, 'displayPopup' ] );
         add_action( 'wp_enqueue_scripts', [ $this, 'scripts' ] );
         add_action( 'wp_ajax_ct_close_popup', [ $this, 'setPopupClose' ] );
+        add_action( 'wp_ajax_nopriv_ct_close_popup', [ $this, 'setPopupClose' ] );
         add_action( 'wp_ajax_ct_apply_cupon_code', [ $this, 'applyCupon' ] );
+        add_action( 'wp_ajax_nopriv_ct_apply_cupon_code', [ $this, 'applyCupon' ] );
 	}
 
     /**
@@ -39,8 +41,7 @@ class Popup {
         $condition       = ct()->helpers->getSettings( 'condition' );
         $numbers         = ct()->helpers->getSettings( 'number' );
         $savedProductIds = ct()->helpers->getSavedProductIds();
-        $popupStatus     = get_user_meta( get_current_user_id(), 'ct_popup_close_status', true );
-        $popupStatus     = 'show' === $popupStatus || '' == $popupStatus ? 'show' : 'dont-show';
+        $popupStatus = ct()->helpers->getPopupStatus();
         $showPopup       = false;
 
         if ( 'show' === $appearance && 'show' === $popupStatus ) {
@@ -101,7 +102,11 @@ class Popup {
      * @return void
      */
     public function setPopupClose() {
-        update_user_meta( get_current_user_id(), 'ct_popup_close_status', 'dont-show' );
+        if ( is_user_logged_in() ) {
+            update_user_meta( get_current_user_id(), 'ct_popup_close_status', 'dont-show' );
+        } else {
+            WC()->session->set( 'ct_popup_close_status', 'dont-show' );
+        }
     }
 
     /**
@@ -153,10 +158,10 @@ class Popup {
         $applied = WC()->cart->apply_coupon( $coupon );
 
         if ( $applied ) {
-            update_user_meta( get_current_user_id(), 'ct_popup_close_status', 'dont-show' );
+            ct()->helpers->setPopupStatus();
             wp_send_json_success( [ 'message' => __( 'Successfully applied coupon.' ) ] );
         } else {
-            update_user_meta( get_current_user_id(), 'ct_popup_close_status', 'dont-show' );
+            ct()->helpers->setPopupStatus();
         }
     }
 
