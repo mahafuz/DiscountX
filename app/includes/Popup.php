@@ -119,8 +119,7 @@ class Popup {
     }
 
     public function applyCupon() {
-        $coupon = 'AYKRBP8M';
-
+        $coupon = ct()->helpers->getSettings( 'coupon_code' );
         $applied = WC()->cart->apply_coupon( $coupon );
         $success = sprintf( __('Coupon "%s" Applied successfully.'), $coupon );
         $error   = __("This Coupon can't be applied");

@@ -48,6 +48,7 @@
 
             var formData = new FormData();
             formData.append('action', 'ct_save_settings');
+            formData.append('coupon_code', $( '#coupon_code' ).val() );
             formData.append('appearance', $( '#appearance' ).val() );
             formData.append('cart_type', $( '#cart_type' ).val() );
             formData.append('condition', $( '#condition' ).val() );

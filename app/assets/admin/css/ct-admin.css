@@ -128,18 +128,21 @@ ul.ct-flex > li:last-child {
 }
 
 .ct-settings-control .select2-container,
-.ct-settings-control input[type="number"] {
+.ct-settings-control input[type="number"],
+.ct-settings-control input[type="text"] {
     width: 200px !important;
 }
 
 span.select2-selection.select2-selection--single,
-.ct-settings-control input[type="number"] {
+.ct-settings-control input[type="number"],
+.ct-settings-control input[type="text"] {
     padding: 3px 40px 3px 7px;
     height: 35px;
     border: 1px solid #d0d1d7;
 }
 
-.ct-settings-control input[type="number"] {
+.ct-settings-control input[type="number"],
+.ct-settings-control input[type="text"] {
     padding-right: 0;
 }
 

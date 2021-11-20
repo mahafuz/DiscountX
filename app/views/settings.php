@@ -19,6 +19,15 @@ if ( ! defined( 'ABSPATH' ) ) {
             <div class="ct-options-settings-section">
                 <div class="ct-flex">
 
+                    <div class="ct-settings-panel coupon-code-setting">
+                        <div class="ct-settings-label">
+                            <h4><?php _e( 'Coupon Code', 'cart-targeting' ); ?></h4>
+                        </div>
+                        <div class="ct-settings-control">
+                            <input type="text" name="coupon_code" id="coupon_code" value="<?php echo $settings->coupon_code; ?>" />
+                        </div>
+                    </div>
+
                     <div class="ct-settings-panel appearance-setting">
                         <div class="ct-settings-label">
                             <h4><?php _e( 'Appearance', 'cart-targeting' ); ?></h4>

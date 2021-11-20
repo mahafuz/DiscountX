@@ -43,8 +43,8 @@ class Admin {
 	 */
     public function admin_menu() {
         add_menu_page(
-            __( 'Cart Targeting', 'gs-pinterest' ),
-            __( 'Cart Targeting', 'gs-pinterest' ),
+            __( 'Cart Targeting', 'cart-targeting' ),
+            __( 'Cart Targeting', 'cart-targeting' ),
             'manage_options',
             'ct-settings',
             [ $this, 'display' ],
@@ -125,9 +125,10 @@ class Admin {
         unset( $_REQUEST['action'] );
 
         $saved = update_option( 'ct_settings', wp_json_encode( $_REQUEST ) );
-        set_transient( 'ct_popup_close_status', 'show', 72 * HOUR_IN_SECONDS);
 
         if ( $saved ) {
+            set_transient( 'ct_popup_close_status', 'show', 72 * HOUR_IN_SECONDS);
+
             wp_send_json_success([
                 'message' => __( 'Settings successfully saved.', 'cart-targeting' )
             ]);
