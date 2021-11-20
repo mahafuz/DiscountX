@@ -45,6 +45,7 @@ final class CT {
             $this->admin        = new \CT\Admin;
             $this->helpers      = new \CT\Helpers;
             $this->popup        = new \CT\Popup;
+            $this->cron         = new \CT\Cron;
         }
     }
 }

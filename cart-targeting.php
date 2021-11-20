@@ -29,6 +29,7 @@ require_once CT_PLUGIN_DIR . 'app/includes/Admin.php';
 require_once CT_PLUGIN_DIR . 'app/includes/Notices.php';
 require_once CT_PLUGIN_DIR . 'app/includes/Helpers.php';
 require_once CT_PLUGIN_DIR . 'app/includes/Popup.php';
+require_once CT_PLUGIN_DIR . 'app/includes/Cron.php';
 require_once CT_PLUGIN_DIR . 'app/CT.php';
 
 /**
