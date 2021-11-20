@@ -16,17 +16,41 @@
 	justify-content: center;
 }
 
-.ct-overlay.is-on {
-	opacity: 1;
-	visibility: visible;
+@keyframes popup {
+    0%{
+        transform: scale(1);
+    }
+    50%{
+        transform: scale(1.4);
+    }
+    60%{
+        transform: scale(1.1);
+    }
+    70%{
+        transform: scale(1.2);
+    }
+    80%{
+        transform: scale(1);
+    }
+    90%{
+        transform: scale(1.1);
+    }
+    100%{
+        transform: scale(1);
+    }
+}
+
+.ct-overlay .ct-popup {
+    animation: popup 0.7s;
 }
 
 .ct-popup {
-	background: #fff;
-	height: 480px;
-	width: 770px;
-	position: relative;
-	border-radius: 5px;
+    background: #fff;
+    height: 480px;
+    max-width: 770px;
+    position: relative;
+    border-radius: 5px;
+    width: 100%;
 }
 
 div#ct-close {
@@ -60,7 +84,11 @@ div#ct-close {
     text-transform: capitalize;
     color: #434971;
     font-size: 62px;
-    margin-bottom: 15px;
+    margin: 0 0 15px;
+}
+
+.content h2:before {
+    display: none;
 }
 
 .content p {
@@ -72,7 +100,42 @@ div#ct-close {
 .content button {
     color: #fff;
     background: #434971;
-    padding: 8px 35px;
+    padding: 14px 25px;
     border-radius: 3px;
     font-size: 18px;
+    line-height: 1;
+}
+
+@media only screen and (max-width: 960px) {
+    .ct-popup {
+        max-width: 500px;
+        height: 300px;
+    }
+    .content h2 {
+        font-size: 32px;
+    }
+    .content p {
+        font-size: 16px;
+    }
+    .content button {
+        padding: 12px 15px;
+        font-size: 14px;
+    }
+}
+
+@media only screen and (max-width: 414px) {
+    .ct-popup {
+        max-width: 250px;
+        height: 300px;
+    }
+    .content h2 {
+        font-size: 22px;
+    }
+    .content p {
+        font-size: 14px;
+    }
+    .content button {
+        padding: 8px 12px;
+        font-size: 12px;
+    }
 }

@@ -35,9 +35,8 @@ class Popup {
         $numbers         = ct()->helpers->getSettings( 'number' );
         $savedProductIds = ct()->helpers->getSavedProductIds();
         $popupStatus     = get_transient( 'ct_popup_close_status' );
-        $popupStatus     = ! $popupStatus ? 'show' : 'dont-show';
-        
-        $showPopup = false;
+        $popupStatus     = 'show' === $popupStatus || 'false' == $popupStatus ? 'show' : 'dont-show';
+        $showPopup       = false;
 
         if ( 'show' === $appearance && 'show' === $popupStatus ) {
 
@@ -142,7 +141,7 @@ class Popup {
                 $html .= '<div class="content">';
                     $html .= '<h2>Get 15% coupon now</h2>';
                     $html .= '<p>Enjoy our amazing products for a 15% discount code</p>';
-                    $html .= '<button id="ct-apply-cupon">Apply code</button>';
+                    $html .= sprintf( '<button id="ct-apply-cupon">%s</button>', __( 'Apply Coupon', 'cart-targeting' ) );
                 $html .= '</div>';
             $html .= '</div>';
 

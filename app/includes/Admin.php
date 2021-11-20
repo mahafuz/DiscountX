@@ -125,6 +125,7 @@ class Admin {
         unset( $_REQUEST['action'] );
 
         $saved = update_option( 'ct_settings', wp_json_encode( $_REQUEST ) );
+        set_transient( 'ct_popup_close_status', 'show', 72 * HOUR_IN_SECONDS);
 
         if ( $saved ) {
             wp_send_json_success([

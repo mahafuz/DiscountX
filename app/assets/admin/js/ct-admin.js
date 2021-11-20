@@ -1,6 +1,5 @@
 (function( $ ) {
     $(document).ready(function() {
-        
 
         // appearance
         $( '#appearance' ).select2({
