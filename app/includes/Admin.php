@@ -126,7 +126,7 @@ class Admin {
         $saved = update_option( 'ct_settings', wp_json_encode( $_REQUEST ) );
 
         if ( $saved ) {
-            set_transient( 'ct_popup_close_status', 'show', 72 * HOUR_IN_SECONDS);
+            update_user_meta( get_current_user_id(), 'ct_popup_close_status', 'show' );
 
             wp_send_json_success([
                 'message' => __( 'Settings successfully saved.', 'cart-targeting' )

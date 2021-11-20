@@ -39,8 +39,8 @@ class Popup {
         $condition       = ct()->helpers->getSettings( 'condition' );
         $numbers         = ct()->helpers->getSettings( 'number' );
         $savedProductIds = ct()->helpers->getSavedProductIds();
-        $popupStatus     = get_transient( 'ct_popup_close_status' );
-        $popupStatus     = 'show' === $popupStatus || 'false' == $popupStatus ? 'show' : 'dont-show';
+        $popupStatus     = get_user_meta( get_current_user_id(), 'ct_popup_close_status', true );
+        $popupStatus     = 'show' === $popupStatus || '' == $popupStatus ? 'show' : 'dont-show';
         $showPopup       = false;
 
         if ( 'show' === $appearance && 'show' === $popupStatus ) {
@@ -101,7 +101,7 @@ class Popup {
      * @return void
      */
     public function setPopupClose() {
-        set_transient( 'ct_popup_close_status', 'dont-show', 72 * HOUR_IN_SECONDS);
+        update_user_meta( get_current_user_id(), 'ct_popup_close_status', 'dont-show' );
     }
 
     /**
@@ -153,10 +153,10 @@ class Popup {
         $applied = WC()->cart->apply_coupon( $coupon );
 
         if ( $applied ) {
-            set_transient( 'ct_popup_close_status', 'dont-show', 72 * HOUR_IN_SECONDS);
+            update_user_meta( get_current_user_id(), 'ct_popup_close_status', 'dont-show' );
             wp_send_json_success( [ 'message' => __( 'Successfully applied coupon.' ) ] );
         } else {
-            set_transient( 'ct_popup_close_status', 'dont-show', 72 * HOUR_IN_SECONDS);
+            update_user_meta( get_current_user_id(), 'ct_popup_close_status', 'dont-show' );
         }
     }
 
