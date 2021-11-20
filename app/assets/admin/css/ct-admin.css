@@ -17,18 +17,52 @@
 }
 
 .ct-container {
-    max-width: 860px;
-    margin: 50px auto 0;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 /* Settings Box */
+.ct-options-box {
+    color: #141b38;
+    background-color: #fff;
+    border: 1px solid #e8e8eb;
+    box-shadow: 0 2px 5px rgba(0,0,0,.05);
+    margin: 30px 0;
+}
+
+@media only screen and (min-width: 1042px) {
+    .ct-container {
+        max-width: 80rem;
+    }
+}
+
+@media only screen and (min-width: 782px) {
+    .ct-container {
+        padding: 0 30px;
+    }
+}
+
+@media only screen and (max-width: 782px) {
+    .ct-container {
+        clear: both;
+        margin-right: 12px;
+        margin-left: 0;
+    }
+}
+
 .ct-options-box-header {
-    background: #ffffff;
-    border-bottom: 1px solid #e6e6e6;
-    font-size: 14px;
-    padding: 12px 12px;
+    display: flex;
+    align-items: center;
+    height: 70px;
+    padding: 0 30px;
+    font-weight: 600;
+    font-size: 18px;
+    border-bottom: 1px solid #e8e8eb;
     margin: 0;
-    line-height: 1.4;
+}
+
+.ct-options-box-header > i {
+    margin-right: 10px;
 }
 
 .ct-options-settings-section {
@@ -65,8 +99,22 @@ ul.ct-flex > li:last-child {
     display: flex;
 }
 
-ul.ct-flex .button.button-primary {
-    padding: 2px 25px;
+.ct-save-changes {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.ct-container .button.button-primary {
+    border: none;
+    background-color: #005ae0;
+    color: #fff;
+    height: 40px;
+    font-size: 14px;
+    padding: 0 18px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .loading-spinner.loading {
@@ -77,4 +125,108 @@ ul.ct-flex .button.button-primary {
     position: relative;
     top: 3px;
     margin-right: 5px;
+}
+
+.ct-settings-control .select2-container,
+.ct-settings-control input[type="number"] {
+    width: 200px !important;
+}
+
+span.select2-selection.select2-selection--single,
+.ct-settings-control input[type="number"] {
+    padding: 3px 40px 3px 7px;
+    height: 35px;
+    border: 1px solid #d0d1d7;
+}
+
+.ct-settings-control input[type="number"] {
+    padding-right: 0;
+}
+
+.select2-container--default .select2-selection--single .select2-selection__arrow {
+    height: 35px;
+}
+
+.select2-container--default .select2-selection--multiple .select2-selection__choice {
+    height: 25px;
+    margin: 0 1px;
+    color: #434960;
+    font-weight: 600;
+    font-size: 14px;
+    padding: 3px 25px 3px 10px;
+    background-color: #f3f4f5;
+    border-radius: 3px;
+    cursor: pointer;
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+}
+
+.select2-container--default .select2-selection--multiple .select2-selection__choice__display {
+    padding-left: 20px;
+}
+
+.select2-container--default .select2-selection--multiple .select2-selection__choice__remove {
+    padding: 3px 8px;
+}
+
+.select2-container--default .select2-selection--multiple {
+    border: 1px solid #d0d1d7;
+    padding-bottom: 10px;
+    padding-right: 10px;
+    padding-left: 10px;
+    padding-top: 10px;
+}
+
+.select2-container--default.select2-container--focus .select2-selection--multiple {
+    border: solid #d0d1d7 1px;
+}
+
+.ct-container .button.button-primary.loading {
+    background: #004f9d;
+    color: #004f9d;
+}
+
+.loading .ct-loading-spinner {
+    width: 35px;
+    height: 35px;
+    position: absolute;
+}
+.loading .ct-loading-spinner .double-bounce1,
+.loading .ct-loading-spinner .double-bounce2 {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    background-color: #fff;
+    opacity: 0.6;
+    position: absolute;
+    top: 0;
+    left: 0;
+    -webkit-animation: sk-bounce 1.3s ease-in-out infinite;
+    animation: sk-bounce 1.3s ease-in-out infinite;
+}
+
+.loading .ct-loading-spinner .double-bounce2 {
+    -webkit-animation-delay: -0.65s;
+    animation-delay: -0.65s;
+}
+@-webkit-keyframes sk-bounce {
+    0%,
+    to {
+        -webkit-transform: scale(0);
+    }
+    50% {
+        -webkit-transform: scale(1);
+    }
+}
+@keyframes sk-bounce {
+    0%,
+    to {
+        transform: scale(0);
+        -webkit-transform: scale(0);
+    }
+    50% {
+        transform: scale(1);
+        -webkit-transform: scale(1);
+    }
 }

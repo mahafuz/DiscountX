@@ -4,23 +4,27 @@
 
         // appearance
         $( '#appearance' ).select2({
-            minimumResultsForSearch: Infinity
+            minimumResultsForSearch: Infinity,
+            width: 'resolve'
         });
 
         // cart-type
-        $( '#cart-type' ).select2({
-            minimumResultsForSearch: Infinity
+        $( '#cart_type' ).select2({
+            minimumResultsForSearch: Infinity,
+            width: 'resolve'
         });
 
         // condition
         $( '#condition' ).select2({
-            minimumResultsForSearch: Infinity
+            minimumResultsForSearch: Infinity,
+            width: 'resolve'
         });
 
         // products
         var $products = $( '#products' );
         $products.select2({
-            multiple: true
+            multiple: true,
+            width: 'resolve'
         });
 
         $( '#cart_type' ).on( 'change', function(e) {
@@ -39,7 +43,9 @@
         $( '#save-ct-settings' ).on( 'click', function(e) {
             e.preventDefault();
 
-            $('.loading-spinner').addClass('loading');
+            var $button = $(this);
+
+            $button.addClass('loading');
 
             var formData = new FormData();
             formData.append('action', 'ct_save_settings');
@@ -57,8 +63,9 @@
                 contentType : false,
 			    processData : false,
                 success : function( response ) {
-                    $('.loading-spinner').removeClass('loading');
-                    console.log( response );
+                    setTimeout( function() {
+                        $button.removeClass('loading');
+                    }, 500 );
                 },
                 error: function( error ) {
                     console.error( error );

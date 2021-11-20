@@ -14,7 +14,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 <div class="ct-container ct-options-wrapper wrap">
     <form action="options.php" id="ct-settings-form">
 
-        <div class="ct-options-box postbox">
+        <div class="ct-options-box">
             <h2 class="ct-options-box-header"><i class="dashicons-before dashicons-cart"></i> <?php _e( 'Cart Targeting Settings', 'cart-targeting' ); ?></h2>
             <div class="ct-options-settings-section">
                 <div class="ct-flex">
@@ -89,19 +89,14 @@ if ( ! defined( 'ABSPATH' ) ) {
             </div>
         </div>
 
-        <div class="ct-options-box postbox">
-            <div class="ct-options-settings-section">
-                <ul class="ct-flex">
-                    <!-- Default Form Style Option Start-->
-                    <li><strong><?php _e( 'Save Settings', 'cart-targeting' ); ?></strong></li>
-                    <li>
-                        <button type="submit" id="save-ct-settings" class="button button-primary">
-                            <div class="loading-spinner"></div>
-                            <?php _e( 'Save', 'cart-targeting' ); ?>
-                        </button>
-                    </li><!-- -->
-                </ul>
-            </div>
+        <div class="ct-save-changes">
+            <button type="submit" id="save-ct-settings" class="button button-primary">
+                <div class="ct-loading-spinner">
+                    <div class="double-bounce1"></div>
+                    <div class="double-bounce2"></div>
+                </div>
+                <?php _e( 'Save Changes', 'cart-targeting' ); ?>
+            </button>
         </div>
 
         <input type="hidden" name="nonce" id="nonce" value="<?php echo wp_create_nonce( 'ct_save_settings_action' ); ?>">
