@@ -18,7 +18,8 @@ class Popup {
 	 * @since 1.0.0
 	 */
     public function __construct() {
-        add_action( 'woocommerce_before_cart', [ $this, 'displayPopup' ] );
+        // add_action( 'woocommerce_before_cart', [ $this, 'displayPopup' ] );
+        add_action( 'woocommerce_cart_updated', [ $this, 'displayPopup'] );
         add_action( 'wp_enqueue_scripts', [ $this, 'scripts' ] );
         add_action( 'wp_ajax_ct_close_popup', [ $this, 'setPopupClose' ] );
         add_action( 'wp_ajax_nopriv_ct_close_popup', [ $this, 'setPopupClose' ] );
@@ -42,55 +43,38 @@ class Popup {
         $numbers         = ct()->helpers->getSettings( 'number' );
         $savedProductIds = ct()->helpers->getSavedProductIds();
         $popupStatus     = ct()->helpers->getPopupStatus();
+
+        $coupon          = ct()->helpers->getSettings( 'coupon_code' );
+        $isApplied       = ct()->helpers->isCouponApplied( $coupon );
+
         $showPopup       = false;
 
-        if ( 'show' === $appearance && 'show' === $popupStatus ) {
+        if ( 'products' === $cartType ) {
+            $showPopup = ct()->helpers->showPopupByProductIds( $cartProductIds, $savedProductIds );
+        }
 
-            if ( 'products' === $cartType ) {
-                $match = array_intersect( $cartProductIds, $savedProductIds );
-                if ( count( $match ) > 0 ) {
-                    $showPopup = true;
-                }
-            }
+        if ( 'items' === $cartType ) {
+            $showPopup = ct()->helpers->showPopupByProductCounts( $condition, $cartCount, $numbers );
+        }
 
-            if ( 'items' === $cartType ) {
-                if ( 'under' === $condition ) {
-                    if ( $cartCount < absint( $numbers ) ) {
-                        $showPopup = true;
-                    }
-                }
-                if ( 'equal' === $condition ) {
-                    if ( $cartCount == absint( $numbers ) ) {
-                        $showPopup = true;
-                    }
-                }
-                if ( 'over_or_equal' === $condition ) {
-                    if ( $cartCount >= absint( $numbers ) ) {
-                        $showPopup = true;
-                    }
-                }
-            }
+        if ( 'money' === $cartType ) {
+            $showPopup = ct()->helpers->showPopupByCartAmount( $condition, $cartTotal, $numbers );
+        }
 
-            if ( 'money' === $cartType ) {
-                if ( 'under' === $condition ) {
-                    if ( $cartTotal < absint( $numbers ) ) {
-                        $showPopup = true;
-                    }
-                }
-                if ( 'equal' === $condition ) {
-                    if ( $cartTotal == absint( $numbers ) ) {
-                        $showPopup = true;
-                    }
-                }
-                if ( 'over_or_equal' === $condition ) {
-                    if ( $cartTotal >= absint( $numbers ) ) {
-                        $showPopup = true;
-                    }
-                }
-            }
-
+        // if ( 'show' === $appearance && 'show' === $popupStatus ) {
+        if ( 'show' === $appearance && ! $isApplied ) {
             if ( $showPopup ) {
                 add_action( 'wp_footer', [ $this, 'display' ] );
+            } else {
+                $this->unApplyCoupon( $coupon );
+            }
+        }
+
+        if ( 'dont-show' === $appearance && ! $isApplied ) {
+            if ( ! $showPopup ) {
+                add_action( 'wp_footer', [ $this, 'display' ] );
+            } else {
+                $this->unApplyCoupon( $coupon );
             }
         }
     }
@@ -116,29 +100,27 @@ class Popup {
      * @return void
      */
     public function scripts() {
-        if ( is_cart() ) {
-            wp_enqueue_style(
-                'ct-popup',
-                CT_PLUGIN_URI . '/app/assets/frontend/css/ct-popup.css',
-                '',
-                '1.0.0',
-                'all'
-            );
+        wp_enqueue_style(
+            'ct-popup',
+            CT_PLUGIN_URI . '/app/assets/frontend/css/ct-popup.css',
+            '',
+            '1.0.0',
+            'all'
+        );
 
-            wp_enqueue_script(
-                'ct-popup',
-                CT_PLUGIN_URI . '/app/assets/frontend/js/ct-popup.js',
-                '',
-                '1.0.0',
-                false
-            );
+        wp_enqueue_script(
+            'ct-popup',
+            CT_PLUGIN_URI . '/app/assets/frontend/js/ct-popup.js',
+            '',
+            '1.0.0',
+            false
+        );
 
-            wp_localize_script(
-                'ct-popup',
-                'CT_POPUP',
-                [ 'ajaxUrl' => admin_url( 'admin-ajax.php' ) ]
-            );
-        }
+        wp_localize_script(
+            'ct-popup',
+            'CT_POPUP',
+            [ 'ajaxUrl' => admin_url( 'admin-ajax.php' ) ]
+        );
     }
 
     /**
@@ -162,6 +144,12 @@ class Popup {
             wp_send_json_success( [ 'message' => __( 'Successfully applied coupon.' ) ] );
         } else {
             ct()->helpers->setPopupStatus();
+        }
+    }
+
+    public function unApplyCoupon( $coupon ) {
+        if ( ct()->helpers->isCouponApplied( $coupon ) ) {
+            WC()->cart->remove_coupon( $coupon );
         }
     }
 

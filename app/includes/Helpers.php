@@ -118,4 +118,73 @@ class Helpers {
             WC()->session->set( 'ct_popup_close_status', 'dont-show' );
         }
     }
+
+    public function showPopupByProductIds( $cartProductIds, $savedProductIds ) {
+        $show  = false;
+        $match = array_intersect( $cartProductIds, $savedProductIds );
+
+        if ( count( $match ) > 0 ) {
+            $show = true;
+        }
+
+        return $show;
+    }
+
+    public function showPopupByProductCounts( $condition, $cartCount, $count ) {
+        $show = false;
+
+        if ( 'under' === $condition ) {
+            if ( $cartCount < absint( $count ) ) {
+                $show = true;
+            }
+        }
+
+        if ( 'equal' === $condition ) {
+            if ( $cartCount == absint( $count ) ) {
+                $show = true;
+            }
+        }
+
+        if ( 'over_or_equal' === $condition ) {
+            if ( $cartCount >= absint( $count ) ) {
+                $show = true;
+            }
+        }
+
+        return $show;
+    }
+
+    public function showPopupByCartAmount( $condition, $cartTotal, $count ) {
+        $show = false;
+
+        if ( 'under' === $condition ) {
+            if ( $cartTotal < absint( $count ) ) {
+                $show = true;
+            }
+        }
+
+        if ( 'equal' === $condition ) {
+            if ( $cartTotal == absint( $count ) ) {
+                $show = true;
+            }
+        }
+
+        if ( 'over_or_equal' === $condition ) {
+            if ( $cartTotal >= absint( $count ) ) {
+                $show = true;
+            }
+        }
+
+        return $show;
+    }
+
+    public function isCouponApplied( $coupon ) {
+        $appliedCoupons = WC()->cart->get_applied_coupons();
+
+        if ( empty( $appliedCoupons ) || empty( $coupon ) ) {
+            return false;
+        }
+
+        return in_array( strtolower( $coupon ), $appliedCoupons, true );
+    }
 }
