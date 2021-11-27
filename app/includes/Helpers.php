@@ -58,18 +58,22 @@ class Helpers {
      * @return                  Retrived setting value.
      */
     public function getSettings( $key = '', $default = '' ) {
-        $settings = json_decode( get_option( 'ct_settings', [] ) );
+        $settings = get_option( 'ct_settings', [] );
 
-        if ( $key ) {
-            if ( ! empty( $settings->{$key} ) ) {
-                return $settings->{$key};
-            } else {
-                if ( $default ) {
-                    return $default;
+        if ( ! empty( $settings ) ) {
+            $settings = json_decode( $settings );
+
+            if ( $key ) {
+                if ( ! empty( $settings->{$key} ) ) {
+                    return $settings->{$key};
                 }
+            } else {
+                return $settings;
             }
         } else {
-            return $settings;
+            if ( $default ) {
+                return $default;
+            }
         }
     }
 

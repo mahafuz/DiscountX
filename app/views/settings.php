@@ -9,6 +9,11 @@
 // if direct access than exit the file.
 defined('ABSPATH') || exit;
 
+$appearance = isset( $settings->appearance ) ? esc_attr( $settings->appearance ) : '';
+$cartType   = isset( $settings->cart_type ) ? esc_attr( $settings->cart_type ) : '';
+$couponCode = isset( $settings->coupon_code ) ? esc_attr( $settings->coupon_code ) : '';
+$condition  = isset( $settings->condition ) ? esc_attr( $settings->condition ) : '';
+$number     = isset( $settings->number ) ? absint( $settings->number ) : '';
 ?>
 <div class="ct-container ct-options-wrapper wrap">
     <form action="options.php" id="ct-settings-form">
@@ -28,7 +33,7 @@ defined('ABSPATH') || exit;
                                 type="text"
                                 name="coupon_code"
                                 id="coupon_code"
-                                value="<?php echo $settings->coupon_code; ?>"
+                                value="<?php echo $couponCode; ?>"
                             />
                         </div>
                     </div><!-- /.ct-settings-panel.coupon-code-setting -->
@@ -39,10 +44,10 @@ defined('ABSPATH') || exit;
                         </div>
                         <div class="ct-settings-control">
                             <select name="appearance" id="appearance">
-                                <option value="show" <?php selected( $settings->appearance, 'show' ); ?>>
+                                <option value="show" <?php selected( $appearance, 'show' ); ?>>
                                     <?php _e( 'Show', 'cart-targeting' ); ?>
                                 </option>
-                                <option value="dont-show" <?php selected( $settings->appearance, 'dont-show' ); ?>>
+                                <option value="dont-show" <?php selected( $appearance, 'dont-show' ); ?>>
                                     <?php _e( "Don't show", 'cart-targeting' ); ?>
                                 </option>
                             </select>
@@ -55,39 +60,39 @@ defined('ABSPATH') || exit;
                         </div>
                         <div class="ct-settings-control">
                             <select name="cart_type" id="cart_type">
-                                <option value="money" <?php selected( $settings->cart_type, 'money' ); ?>>
+                                <option value="money" <?php selected( $cartType, 'money' ); ?>>
                                     <?php _e( 'Cart money value', 'cart-targeting' ); ?>
                                 </option>
-                                <option value="items" <?php selected( $settings->cart_type, 'items' ); ?>>
+                                <option value="items" <?php selected( $cartType, 'items' ); ?>>
                                     <?php _e( 'Number of cart items', 'cart-targeting' ); ?>
                                 </option>
-                                <option value="products" <?php selected( $settings->cart_type, 'products' ); ?>>
+                                <option value="products" <?php selected( $cartType, 'products' ); ?>>
                                     <?php _e( 'Products in the cart', 'cart-targeting' ); ?>
                                 </option>
                             </select>
                         </div>
                     </div><!-- /.ct-settings-panel.cart-type-setting -->
 
-                    <div class="ct-settings-panel condition-setting<?php echo ( 'products' === $settings->cart_type ) ? ' hidden' : '' ?>">
+                    <div class="ct-settings-panel condition-setting<?php echo ( 'products' === $cartType ) ? ' hidden' : '' ?>">
                         <div class="ct-settings-label">
                             <h4><?php _e( 'Condition', 'cart-targeting' ); ?></h4>
                         </div>
                         <div class="ct-settings-control">
                             <select name="condition" id="condition">
-                                <option value="over_or_equal" <?php selected( $settings->condition, 'over_or_equal' ); ?>>
+                                <option value="over_or_equal" <?php selected( $condition, 'over_or_equal' ); ?>>
                                     <?php _e( 'Over or equal', 'cart-targeting' ); ?>
                                 </option>
-                                <option value="equal" <?php selected( $settings->condition, 'equal' ); ?>>
+                                <option value="equal" <?php selected( $condition, 'equal' ); ?>>
                                     <?php _e( 'Equal', 'cart-targeting' ); ?>
                                 </option>
-                                <option value="under" <?php selected( $settings->condition, 'under' ); ?>>
+                                <option value="under" <?php selected( $condition, 'under' ); ?>>
                                     <?php _e( 'Under', 'cart-targeting' ); ?>
                                 </option>
                             </select>
                         </div>
                     </div><!-- /.ct-settings-panel.condition-setting -->
 
-                    <div class="ct-settings-panel products-setting<?php echo ( 'products' === $settings->cart_type ) ? '' : ' hidden' ?>">
+                    <div class="ct-settings-panel products-setting<?php echo ( 'products' === $cartType ) ? '' : ' hidden' ?>">
                         <div class="ct-settings-label">
                             <h4><?php _e( 'Products', 'cart-targeting' ); ?></h4>
                         </div>
@@ -107,7 +112,7 @@ defined('ABSPATH') || exit;
                         </div>
                     </div><!-- /.ct-settings-panel.products-setting -->
 
-                    <div class="ct-settings-panel number-setting<?php echo ( 'products' === $settings->cart_type ) ? ' hidden' : '' ?>">
+                    <div class="ct-settings-panel number-setting<?php echo ( 'products' === $cartType ) ? ' hidden' : '' ?>">
                         <div class="ct-settings-label">
                             <h4><?php _e( 'Number', 'cart-targeting' ); ?></h4>
                         </div>
@@ -116,7 +121,7 @@ defined('ABSPATH') || exit;
                                 type="number"
                                 name="number"
                                 id="number"
-                                value="<?php echo $settings->number; ?>"
+                                value="<?php echo $number; ?>"
                             />
                         </div>
                     </div><!-- /.ct-settings-panel.number-setting -->

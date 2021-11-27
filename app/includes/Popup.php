@@ -41,7 +41,7 @@ class Popup {
         $condition       = ct()->helpers->getSettings( 'condition' );
         $numbers         = ct()->helpers->getSettings( 'number' );
         $savedProductIds = ct()->helpers->getSavedProductIds();
-        $popupStatus = ct()->helpers->getPopupStatus();
+        $popupStatus     = ct()->helpers->getPopupStatus();
         $showPopup       = false;
 
         if ( 'show' === $appearance && 'show' === $popupStatus ) {

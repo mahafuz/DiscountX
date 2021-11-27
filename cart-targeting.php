@@ -38,13 +38,7 @@ require_once CT_PLUGIN_DIR . 'app/CT.php';
  * @since 1.0.0
  */
 register_activation_hook( __FILE__, function () {
-	$defaultSettings = '{"coupon_code":"DEFAULT_COUPON_CODE","appearance":"show","cart_type":"items","condition":"over_or_equal","products":"10,29,30,32","number":"2","woocommerce-login-nonce":null,"_wpnonce":null,"woocommerce-reset-password-nonce":null}';
-	$savedSettings   = get_option( 'ct_settings', '' );
-
     add_option( 'ct_activation_redirect', true );
-	if ( empty( $savedSettings ) ) {
-		add_option( 'ct_settings', $defaultSettings );
-	}
 });
 
 if ( ! function_exists( 'ct' ) ) {
