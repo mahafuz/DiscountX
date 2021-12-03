@@ -62,18 +62,20 @@ class Popup {
         }
 
         // if ( 'show' === $appearance && 'show' === $popupStatus ) {
-        if ( 'show' === $appearance && ! $isApplied ) {
-            if ( $showPopup ) {
+        if ( 'show' === $appearance ) {
+            if ( $showPopup && ! $isApplied ) {
                 add_action( 'wp_footer', [ $this, 'display' ] );
             } else {
                 $this->unApplyCoupon( $coupon );
             }
         }
 
-        if ( 'dont-show' === $appearance && ! $isApplied ) {
-            if ( ! $showPopup ) {
+        if ( 'dont-show' === $appearance ) {
+            if ( ! $showPopup && ! $isApplied ) {
                 add_action( 'wp_footer', [ $this, 'display' ] );
-            } else {
+            }
+
+            if ( $showPopup && $isApplied ) {
                 $this->unApplyCoupon( $coupon );
             }
         }

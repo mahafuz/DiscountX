@@ -18,7 +18,7 @@ class Helpers {
      * @since  1.0.0
      * @return        Products list with id and title.
      */
-	public function getProductsList() {
+	public function getProducts() {
         global $wpdb;
 
         $result = $wpdb->get_results(
@@ -30,6 +30,24 @@ class Helpers {
 
         return $result;
 	}
+
+    /**
+     * Returns formatted products list as settings options.
+     * 
+     * @since  1.0.0
+     * @return        Products formatted products list.
+     */
+    public function getProductsList() {
+        $options = [];
+
+        if ( $this->getProducts() ) {
+            foreach( $this->getProducts() as $product ) {
+                $options[ $product->id ] = $product->text;
+            }
+        }
+
+        return $options;
+    }
 
     /**
      * Retrives cart product ids.
