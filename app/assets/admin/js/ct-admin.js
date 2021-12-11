@@ -38,6 +38,12 @@
         });
 
         // appearance
+        $( '#display-on' ).select2({
+            minimumResultsForSearch: Infinity,
+            width: 'resolve'
+        });
+
+        // appearance
         $( '#saved-coupon' ).select2({
             minimumResultsForSearch: Infinity,
             width: 'resolve'
@@ -117,9 +123,10 @@
                     }
                 }
 
-            formData.append('action', 'ct_save_settings');
-            formData.append('savedCoupon', $( '#saved-coupon' ).val() );
-            formData.append('appearance', $( '#appearance' ).val() );
+            formData.append( 'action', 'ct_save_settings' );
+            formData.append( 'savedCoupon', $( '#saved-coupon' ).val() );
+            formData.append( 'appearance', $( '#appearance' ).val() );
+            formData.append( 'displayOn', $( '#display-on' ).val() );
             formData.append( 'theme', $( '#popup-styles' ).val() );
 
             formData.append( 'popupTitle', $( '#popup-title' ).val() );

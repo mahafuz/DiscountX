@@ -12,6 +12,7 @@ defined('ABSPATH') || exit;
 $coupons = ct()->helpers->getCouponList();
 $savedCoupon = isset( $settings->savedCoupon ) ? esc_attr( $settings->savedCoupon ) : '';
 
+$displayOn = isset( $settings->displayOn ) ? esc_attr( $settings->displayOn ) : '';
 $appearance = isset( $settings->appearance ) ? esc_attr( $settings->appearance ) : '';
 $popupTitle = isset( $settings->popupTitle ) ? esc_attr( $settings->popupTitle ) : '';
 $popupContent = isset( $settings->popupContent ) ? esc_attr( $settings->popupContent ) : '';
@@ -169,6 +170,22 @@ $number     = isset( $settings->number ) ? absint( $settings->number ) : '';
             </h2>
             <div class="ct-options-settings-section">
                 <div class="ct-flex">
+
+                    <div class="ct-settings-panel popup-display-setting">
+                        <div class="ct-settings-label">
+                            <h4><?php _e( 'Display On', 'cart-targeting' ); ?></h4>
+                        </div>
+                        <div class="ct-settings-control">
+                            <select name="displayOn" id="display-on">
+                                <option value="cart_page" <?php selected( $displayOn, 'cart_page' ); ?>>
+                                    <?php _e( 'Cart Page', 'cart-targeting' ); ?>
+                                </option>
+                                <option value="every_page" <?php selected( $displayOn, 'every_page' ); ?>>
+                                    <?php _e( "Every Page", 'cart-targeting' ); ?>
+                                </option>
+                            </select>
+                        </div>
+                    </div><!-- /.ct-settings-panel.popup-styles-setting -->
 
                     <div class="ct-settings-panel popup-styles-setting">
                         <div class="ct-settings-label">

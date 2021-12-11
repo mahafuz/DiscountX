@@ -18,13 +18,14 @@ class Popup {
 	 * @since 1.0.0
 	 */
     public function __construct() {
+        // TODO: add option to display on cart page or every page.
         // add_action( 'woocommerce_before_cart', [ $this, 'displayPopup' ] );
         add_action( 'woocommerce_cart_updated', [ $this, 'displayPopup'] );
         add_action( 'wp_enqueue_scripts', [ $this, 'scripts' ] );
         add_action( 'wp_ajax_ct_close_popup', [ $this, 'setPopupClose' ] );
         add_action( 'wp_ajax_nopriv_ct_close_popup', [ $this, 'setPopupClose' ] );
-        add_action( 'wp_ajax_ct_apply_cupon_code', [ $this, 'applyCupon' ] );
-        add_action( 'wp_ajax_nopriv_ct_apply_cupon_code', [ $this, 'applyCupon' ] );
+        add_action( 'wp_ajax_ct_apply_cupon_code', [ $this, 'applyCoupon' ] );
+        add_action( 'wp_ajax_nopriv_ct_apply_cupon_code', [ $this, 'applyCoupon' ] );
 	}
 
     /**
@@ -131,8 +132,8 @@ class Popup {
      * @since  1.0.0
      * @return void
      */
-    public function applyCupon() {
-        $coupon = ct()->helpers->getSettings( 'coupon_code' );
+    public function applyCoupon() {
+        $coupon = ct()->helpers->getSettings( 'savedCoupon' );
 
         if ( empty( $coupon ) ) {
             wp_send_json_error( [ 'message' => __( 'Coupon code is empty' ) ] );
