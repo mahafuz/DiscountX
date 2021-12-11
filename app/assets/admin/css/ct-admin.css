@@ -129,20 +129,28 @@ ul.ct-flex > li:last-child {
 
 .ct-settings-control .select2-container,
 .ct-settings-control input[type="number"],
-.ct-settings-control input[type="text"] {
-    width: 200px !important;
+.ct-settings-control input[type="text"],
+.ct-settings-control textarea {
+    width: 300px !important;
 }
 
 span.select2-selection.select2-selection--single,
 .ct-settings-control input[type="number"],
-.ct-settings-control input[type="text"] {
+.ct-settings-control input[type="text"],
+.ct-settings-control textarea {
     padding: 3px 40px 3px 7px;
     height: 35px;
     border: 1px solid #d0d1d7;
 }
 
+.ct-settings-control textarea {
+    height: auto;
+    resize: none;
+}
+
 .ct-settings-control input[type="number"],
-.ct-settings-control input[type="text"] {
+.ct-settings-control input[type="text"], 
+.ct-settings-control textarea {
     padding-right: 0;
 }
 
@@ -232,4 +240,59 @@ span.select2-selection.select2-selection--single,
         transform: scale(1);
         -webkit-transform: scale(1);
     }
+}
+
+/* Tab CSS */
+ul.ct-settings-nav {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    border-bottom: 2px solid #E8E8EB;
+}
+
+ul.ct-settings-nav > li {
+    display: inline-block;
+    margin: 0;
+}
+
+ul.ct-settings-nav > li > a {
+    color: #141B38;
+    max-width: 264px;
+    min-width: 72px;
+    height: 60px;
+    margin: 0;
+    border-radius: 0;
+    font-size: 15px;
+    font-weight: 500;
+    position: relative;
+    overflow: hidden;
+    outline: none;
+    background: transparent;
+    border: 0;
+    transition: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    font-family: inherit;
+    padding: 0px 18px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+    border-bottom: 2px solid transparent;
+    top: 2px;
+}
+
+ul.ct-settings-nav > li > a:before {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    opacity: 0;
+    transition: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    will-change: background-color,opacity;
+    content: " ";
+}
+
+ul.ct-settings-nav > li > a.ct-tab-active {
+    color: #005AE0;
+    border-color: #005AE0;
 }

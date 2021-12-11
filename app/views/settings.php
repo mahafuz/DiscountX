@@ -9,7 +9,28 @@
 // if direct access than exit the file.
 defined('ABSPATH') || exit;
 
+$coupons = ct()->helpers->getCouponList();
+$savedCoupon = isset( $settings->savedCoupon ) ? esc_attr( $settings->savedCoupon ) : '';
+
 $appearance = isset( $settings->appearance ) ? esc_attr( $settings->appearance ) : '';
+$popupTitle = isset( $settings->popupTitle ) ? esc_attr( $settings->popupTitle ) : '';
+$popupContent = isset( $settings->popupContent ) ? esc_attr( $settings->popupContent ) : '';
+$buttonText = isset( $settings->buttonText ) ? esc_attr( $settings->buttonText ) : '';
+
+$titleFontSize = isset( $settings->titleFontSize ) ? absint( $settings->titleFontSize ) : '';
+$buttonFontSize = isset( $settings->buttonFontSize ) ? absint( $settings->buttonFontSize ) : '';
+$titleColor = isset( $settings->titleColor ) ? esc_attr( $settings->titleColor ) : '';
+$contentColor = isset( $settings->contentColor ) ? esc_attr( $settings->contentColor ) : '';
+
+$buttonColor = isset( $settings->buttonColor ) ? esc_attr( $settings->buttonColor ) : '';
+$buttonHoverColor = isset( $settings->buttonHoverColor ) ? esc_attr( $settings->buttonHoverColor ) : '';
+
+$buttonBgColor = isset( $settings->buttonBgColor ) ? esc_attr( $settings->buttonBgColor ) : '';
+$buttonHoverBgColor = isset( $settings->buttonHoverBgColor ) ? esc_attr( $settings->buttonHoverBgColor ) : '';
+
+$popupBgColor = isset( $settings->popupBgColor ) ? esc_attr( $settings->popupBgColor ) : '';
+
+$theme      = isset( $settings->theme ) ? esc_attr( $settings->theme ) : '';
 $cartType   = isset( $settings->cart_type ) ? esc_attr( $settings->cart_type ) : '';
 $couponCode = isset( $settings->coupon_code ) ? esc_attr( $settings->coupon_code ) : '';
 $condition  = isset( $settings->condition ) ? esc_attr( $settings->condition ) : '';
@@ -18,9 +39,15 @@ $number     = isset( $settings->number ) ? absint( $settings->number ) : '';
 <div class="ct-container ct-options-wrapper wrap">
     <form action="options.php" id="ct-settings-form">
 
-        <div class="ct-options-box">
+        <ul class="ct-settings-nav">
+            <li><a href="#general" id="general-tab"><?php _e( 'General', 'cart-targeting' ); ?></a></li>
+            <li><a href="#popup" id="popup-tab"><?php _e( 'Popup', 'cart-targeting' ); ?></a></li>
+            <li><a href="#styles" id="styles-tab"><?php _e( 'Styles', 'cart-targeting' ); ?></a></li>
+        </ul>
+
+        <div class="ct-options-box" id="general">
             <h2 class="ct-options-box-header">
-                <i class="dashicons-before dashicons-cart"></i> <?php _e( 'Cart Targeting Settings', 'cart-targeting' ); ?>
+                <i class="dashicons-before dashicons-admin-generic"></i> <?php _e( 'General Settings', 'cart-targeting' ); ?>
             </h2>
             <div class="ct-options-settings-section">
                 <div class="ct-flex">
@@ -29,12 +56,18 @@ $number     = isset( $settings->number ) ? absint( $settings->number ) : '';
                             <h4><?php _e( 'Coupon Code', 'cart-targeting' ); ?></h4>
                         </div>
                         <div class="ct-settings-control">
-                            <input
-                                type="text"
-                                name="coupon_code"
-                                id="coupon_code"
-                                value="<?php echo $couponCode; ?>"
-                            />
+                            <?php if ( ! empty( $coupons ) ) : ?>
+                                <select name="savedCoupon" id="saved-coupon" class="saved-coupon">
+                                    <?php foreach( $coupons as $coupon ) {
+                                        printf(
+                                            '<option value="%d" %s>%s</option>',
+                                            $coupon->id,
+                                            selected( $savedCoupon, $coupon->id ),
+                                            $coupon->text
+                                        );
+                                    } ?>
+                                </select>
+                            <?php endif; ?>
                         </div>
                     </div><!-- /.ct-settings-panel.coupon-code-setting -->
 
@@ -128,7 +161,222 @@ $number     = isset( $settings->number ) ? absint( $settings->number ) : '';
 
                 </div>
             </div>
-        </div>
+        </div><!-- /.end of general settings -->
+
+        <div class="ct-options-box" id="popup">
+            <h2 class="ct-options-box-header">
+                <i class="dashicons-before dashicons-megaphone"></i> <?php _e( 'Popup Settings', 'cart-targeting' ); ?>
+            </h2>
+            <div class="ct-options-settings-section">
+                <div class="ct-flex">
+
+                    <div class="ct-settings-panel popup-styles-setting">
+                        <div class="ct-settings-label">
+                            <h4><?php _e( 'Theme', 'cart-targeting' ); ?></h4>
+                        </div>
+                        <div class="ct-settings-control">
+                            <select name="theme" id="popup-styles">
+                                <option value="style_1" <?php selected( $theme, 'style_1' ); ?>>
+                                    <?php _e( 'Style 1', 'cart-targeting' ); ?>
+                                </option>
+                                <option value="style_2" <?php selected( $theme, 'style_2' ); ?>>
+                                    <?php _e( "Style 2", 'cart-targeting' ); ?>
+                                </option>
+                                <option value="style_3" <?php selected( $theme, 'style_3' ); ?>>
+                                    <?php _e( "Style 3", 'cart-targeting' ); ?>
+                                </option>
+                            </select>
+                        </div>
+                    </div><!-- /.ct-settings-panel.popup-styles-setting -->
+
+                    <div class="ct-settings-panel popup-title-setting">
+                        <div class="ct-settings-label">
+                            <h4><?php _e( 'Title', 'cart-targeting' ); ?></h4>
+                        </div>
+                        <div class="ct-settings-control">
+                            <input
+                                type="text"
+                                name="popupTitle"
+                                id="popup-title"
+                                value="<?php echo $popupTitle; ?>"
+                            />
+                        </div>
+                    </div><!-- /.ct-settings-panel.popup-title-setting -->
+
+                    <div class="ct-settings-panel popup-content-setting">
+                        <div class="ct-settings-label">
+                            <h4><?php _e( 'Content', 'cart-targeting' ); ?></h4>
+                        </div>
+                        <div class="ct-settings-control">
+                            <textarea
+                                name="popupContent"
+                                id="popup-content"
+                                cols="30"
+                                rows="10"><?php echo $popupContent; ?></textarea>
+                        </div>
+                    </div><!-- /.ct-settings-panel.popup-title-setting -->
+
+                    <div class="ct-settings-panel popup-button-text-setting">
+                        <div class="ct-settings-label">
+                            <h4><?php _e( 'Button Text', 'cart-targeting' ); ?></h4>
+                        </div>
+                        <div class="ct-settings-control">
+                            <input
+                                type="text"
+                                name="buttonText"
+                                id="button-text"
+                                value="<?php echo $buttonText; ?>"
+                            />
+                        </div>
+                    </div><!-- /.ct-settings-panel.popup-title-setting -->
+
+                </div>
+            </div>
+        </div><!-- /. end of popup settings -->
+
+        <div class="ct-options-box" id="styles">
+            <h2 class="ct-options-box-header">
+                <i class="dashicons-before dashicons-art"></i> <?php _e( 'Style Settings', 'cart-targeting' ); ?>
+            </h2>
+            <div class="ct-options-settings-section">
+                <div class="ct-flex">
+
+                    <div class="ct-settings-panel title-fontsize-setting">
+                        <div class="ct-settings-label">
+                            <h4><?php _e( 'Title Font Size', 'cart-targeting' ); ?></h4>
+                        </div>
+                        <div class="ct-settings-control">
+                            <input
+                                type="number"
+                                name="titleFontSize"
+                                id="title-font-size"
+                                value="<?php echo $titleFontSize; ?>"
+                            />
+                        </div>
+                    </div><!-- /.ct-settings-panel.coupon-code-setting -->
+
+                    <div class="ct-settings-panel title-color-setting">
+                        <div class="ct-settings-label">
+                            <h4><?php _e( 'Title Color', 'cart-targeting' ); ?></h4>
+                        </div>
+                        <div class="ct-settings-control">
+                            <input
+                                class="ct-color-control"
+                                type="text"
+                                name="titleColor"
+                                id="title-color"
+                                value="<?php echo $titleColor; ?>"
+                            />
+                        </div>
+                    </div><!-- /.ct-settings-panel.coupon-code-setting -->
+
+                    <div class="ct-settings-panel content-color-setting">
+                        <div class="ct-settings-label">
+                            <h4><?php _e( 'Content Color', 'cart-targeting' ); ?></h4>
+                        </div>
+                        <div class="ct-settings-control">
+                            <input
+                                class="ct-color-control"
+                                type="text"
+                                name="contentColor"
+                                id="content-color"
+                                value="<?php echo $contentColor; ?>"
+                            />
+                        </div>
+                    </div><!-- /.ct-settings-panel.coupon-code-setting -->
+
+                    <div class="ct-settings-panel button-fontsize-setting">
+                        <div class="ct-settings-label">
+                            <h4><?php _e( 'Button Font Size', 'cart-targeting' ); ?></h4>
+                        </div>
+                        <div class="ct-settings-control">
+                            <input
+                                type="number"
+                                name="buttonFontSize"
+                                id="button-font-size"
+                                value="<?php echo $buttonFontSize; ?>"
+                            />
+                        </div>
+                    </div><!-- /.ct-settings-panel.coupon-code-setting -->
+
+                    <div class="ct-settings-panel button-color-setting">
+                        <div class="ct-settings-label">
+                            <h4><?php _e( 'Button Color', 'cart-targeting' ); ?></h4>
+                        </div>
+                        <div class="ct-settings-control">
+                            <input
+                                class="ct-color-control"
+                                type="text"
+                                name="buttonColor"
+                                id="button-color"
+                                value="<?php echo $buttonColor; ?>"
+                            />
+                        </div>
+                    </div><!-- /.ct-settings-panel.coupon-code-setting -->
+
+                    <div class="ct-settings-panel button-hover-setting">
+                        <div class="ct-settings-label">
+                            <h4><?php _e( 'Button Hover Color', 'cart-targeting' ); ?></h4>
+                        </div>
+                        <div class="ct-settings-control">
+                            <input
+                                class="ct-color-control"
+                                type="text"
+                                name="buttonHoverColor"
+                                id="button-hover-color"
+                                value="<?php echo $buttonHoverColor; ?>"
+                            />
+                        </div>
+                    </div><!-- /.ct-settings-panel.coupon-code-setting -->
+
+                    <div class="ct-settings-panel button-bg-color-setting">
+                        <div class="ct-settings-label">
+                            <h4><?php _e( 'Button Background Color', 'cart-targeting' ); ?></h4>
+                        </div>
+                        <div class="ct-settings-control">
+                            <input
+                                class="ct-color-control"
+                                type="text"
+                                name="buttonBgColor"
+                                id="button-bg-color"
+                                value="<?php echo $buttonBgColor; ?>"
+                            />
+                        </div>
+                    </div><!-- /.ct-settings-panel.coupon-code-setting -->
+
+                    <div class="ct-settings-panel button-hover-bg-color-setting">
+                        <div class="ct-settings-label">
+                            <h4><?php _e( 'Button Hover Background Color', 'cart-targeting' ); ?></h4>
+                        </div>
+                        <div class="ct-settings-control">
+                            <input
+                                class="ct-color-control"
+                                type="text"
+                                name="buttonHoverBgColor"
+                                id="button-hover-bg-color"
+                                value="<?php echo $buttonHoverBgColor; ?>"
+                            />
+                        </div>
+                    </div><!-- /.ct-settings-panel.coupon-code-setting -->
+
+                    <div class="ct-settings-panel popup-background-setting">
+                        <div class="ct-settings-label">
+                            <h4><?php _e( 'Popup Background Color', 'cart-targeting' ); ?></h4>
+                        </div>
+                        <div class="ct-settings-control">
+                            <input
+                                class="ct-color-control"
+                                type="text"
+                                name="popupBgColor"
+                                id="popup-bg-color"
+                                value="<?php echo $popupBgColor; ?>"
+                            />
+                        </div>
+                    </div><!-- /.ct-settings-panel.coupon-code-setting -->
+
+                </div>
+            </div>
+        </div><!-- /.end of style settings -->
 
         <div class="ct-save-changes">
             <button type="submit" id="save-ct-settings" class="button button-primary">

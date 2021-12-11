@@ -18,7 +18,7 @@ class Helpers {
      * @since  1.0.0
      * @return        Products list with id and title.
      */
-	public function getProducts() {
+	public function getProductsList() {
         global $wpdb;
 
         $result = $wpdb->get_results(
@@ -32,21 +32,17 @@ class Helpers {
 	}
 
     /**
-     * Returns formatted products list as settings options.
+     * Retrives coupon list from db.
      * 
      * @since  1.0.0
-     * @return        Products formatted products list.
+     * @return        Coupons list with id and title.
      */
-    public function getProductsList() {
-        $options = [];
+    function getCouponList() {
+        global $wpdb;
 
-        if ( $this->getProducts() ) {
-            foreach( $this->getProducts() as $product ) {
-                $options[ $product->id ] = $product->text;
-            }
-        }
-
-        return $options;
+        return $wpdb->get_results(
+            "SELECT id, post_title AS text FROM $wpdb->posts WHERE post_type = 'shop_coupon' AND post_status = 'publish' ORDER BY post_name ASC"
+        );
     }
 
     /**
