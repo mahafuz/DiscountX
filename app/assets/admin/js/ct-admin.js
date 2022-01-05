@@ -1,6 +1,23 @@
 (function( $ ) {
     $(document).ready(function() {
 
+        var popupImageContainer = $( '.popup-image-container' ),
+            popupImage          = $( '#popup-image-src' ),
+            uploadButton        = $( '#ct-upload-popup-image' ),
+            imgInput            = $('#popup-image');
+
+        if ( '' == popupImage.attr( 'src' ) ) {
+            popupImageContainer.css('display', 'none');
+        } else {
+            uploadButton.css( 'display', 'none' );
+            $( '.popup-image-close' ).on('click', function() {
+                popupImageContainer.css('display', 'none');
+                popupImage.attr( 'src', '' );
+                imgInput.val( '' );
+                uploadButton.css( 'display', 'block' );
+            })
+        }
+
         $( '.ct-color-control' ).wpColorPicker();
         $( '.ct-options-box' ).hide();
 
@@ -128,8 +145,10 @@
             formData.append( 'appearance', $( '#appearance' ).val() );
             formData.append( 'displayOn', $( '#display-on' ).val() );
             formData.append( 'theme', $( '#popup-styles' ).val() );
+            formData.append( 'popupImage', $( '#popup-image' ).val() );
 
             formData.append( 'popupTitle', $( '#popup-title' ).val() );
+            formData.append( 'popupPreTitle', $( '#popup-pre-title' ).val() );
             formData.append( 'titleFontSize', $( '#title-font-size' ).val() );
             formData.append( 'titleColor', $( '#title-color' ).val() );
             formData.append( 'contentColor', $( '#content-color' ).val() );
@@ -161,6 +180,26 @@
                 },
                 error: function( error ) {
                     console.error( error );
+                }
+            });
+        });
+
+        $('#ct-upload-popup-image').click(function(e) {
+            e.preventDefault();
+            var image = wp.media({ 
+                title: 'Upload Image',
+                multiple: false
+            }).open()
+            .on('select', function(e){
+                var uploaded_image = image.state().get('selection').first(),
+                    image_url      = uploaded_image.toJSON().url,
+                    popupImage     = $( '#popup-image-src' );
+
+                if ( image_url ) {
+                    popupImage.attr( 'src', image_url );
+                    popupImageContainer.css( 'display', 'block' );
+                    imgInput.val(image_url);
+                    uploadButton.css( 'display', 'none' );
                 }
             });
         });

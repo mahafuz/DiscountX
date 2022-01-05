@@ -9,27 +9,30 @@
 // if direct access than exit the file.
 defined('ABSPATH') || exit;
 
-$coupons = ct()->helpers->getCouponList();
+// echo '<pre>', print_r( $settings, 1 ), '</pre>';
+
+$coupons     = ct()->helpers->getCouponList();
 $savedCoupon = isset( $settings->savedCoupon ) ? esc_attr( $settings->savedCoupon ) : '';
 
-$displayOn = isset( $settings->displayOn ) ? esc_attr( $settings->displayOn ) : '';
-$appearance = isset( $settings->appearance ) ? esc_attr( $settings->appearance ) : '';
-$popupTitle = isset( $settings->popupTitle ) ? esc_attr( $settings->popupTitle ) : '';
-$popupContent = isset( $settings->popupContent ) ? esc_attr( $settings->popupContent ) : '';
-$buttonText = isset( $settings->buttonText ) ? esc_attr( $settings->buttonText ) : '';
+$displayOn     = isset( $settings->displayOn ) ? esc_attr( $settings->displayOn ) : '';
+$appearance    = isset( $settings->appearance ) ? esc_attr( $settings->appearance ) : '';
+$popupTitle    = isset( $settings->popupTitle ) ? esc_attr( $settings->popupTitle ) : '';
+$popupPreTitle = isset( $settings->popupPreTitle ) ? esc_attr( $settings->popupPreTitle ) : '';
+$popupContent  = isset( $settings->popupContent ) ? esc_attr( $settings->popupContent ) : '';
+$buttonText    = isset( $settings->buttonText ) ? esc_attr( $settings->buttonText ) : '';
+$popupImage    = isset( $settings->popupImage ) ? esc_attr( $settings->popupImage ) : '';
 
-$titleFontSize = isset( $settings->titleFontSize ) ? absint( $settings->titleFontSize ) : '';
+$titleFontSize  = isset( $settings->titleFontSize ) ? absint( $settings->titleFontSize ) : '';
 $buttonFontSize = isset( $settings->buttonFontSize ) ? absint( $settings->buttonFontSize ) : '';
-$titleColor = isset( $settings->titleColor ) ? esc_attr( $settings->titleColor ) : '';
-$contentColor = isset( $settings->contentColor ) ? esc_attr( $settings->contentColor ) : '';
+$titleColor     = isset( $settings->titleColor ) ? esc_attr( $settings->titleColor ) : '';
+$contentColor   = isset( $settings->contentColor ) ? esc_attr( $settings->contentColor ) : '';
 
-$buttonColor = isset( $settings->buttonColor ) ? esc_attr( $settings->buttonColor ) : '';
+$buttonColor      = isset( $settings->buttonColor ) ? esc_attr( $settings->buttonColor ) : '';
 $buttonHoverColor = isset( $settings->buttonHoverColor ) ? esc_attr( $settings->buttonHoverColor ) : '';
 
-$buttonBgColor = isset( $settings->buttonBgColor ) ? esc_attr( $settings->buttonBgColor ) : '';
+$buttonBgColor      = isset( $settings->buttonBgColor ) ? esc_attr( $settings->buttonBgColor ) : '';
 $buttonHoverBgColor = isset( $settings->buttonHoverBgColor ) ? esc_attr( $settings->buttonHoverBgColor ) : '';
-
-$popupBgColor = isset( $settings->popupBgColor ) ? esc_attr( $settings->popupBgColor ) : '';
+$popupBgColor       = isset( $settings->popupBgColor ) ? esc_attr( $settings->popupBgColor ) : '';
 
 $theme      = isset( $settings->theme ) ? esc_attr( $settings->theme ) : '';
 $cartType   = isset( $settings->cart_type ) ? esc_attr( $settings->cart_type ) : '';
@@ -205,6 +208,40 @@ $number     = isset( $settings->number ) ? absint( $settings->number ) : '';
                             </select>
                         </div>
                     </div><!-- /.ct-settings-panel.popup-styles-setting -->
+
+                    <div class="ct-settings-panel popup-image-setting">
+                        <div class="ct-settings-label">
+                            <h4><?php _e( 'Image', 'cart-targeting' ); ?></h4>
+                        </div>
+                        <div class="ct-settings-control">
+                            <input
+                                class="hidden"
+                                type="text"
+                                name="popupImage"
+                                id="popup-image"
+                                value="<?php echo $popupImage; ?>"
+                            />
+                            <div class="popup-image-container">
+                                <i class="dashicons-before popup-image-close dashicons-no-alt"></i>
+                                <img src="<?php echo $popupImage; ?>" id="popup-image-src" />
+                            </div>
+                            <button id="ct-upload-popup-image"><i class="dashicons-before dashicons-cloud-upload"></i></button>
+                        </div>
+                    </div><!-- /.ct-settings-panel.popup-title-setting -->
+
+                    <div class="ct-settings-panel popup-pre-title-setting">
+                        <div class="ct-settings-label">
+                            <h4><?php _e( 'Pre Title', 'cart-targeting' ); ?></h4>
+                        </div>
+                        <div class="ct-settings-control">
+                            <input
+                                type="text"
+                                name="popupPreTitle"
+                                id="popup-pre-title"
+                                value="<?php echo $popupPreTitle; ?>"
+                            />
+                        </div>
+                    </div><!-- /.ct-settings-panel.popup-title-setting -->
 
                     <div class="ct-settings-panel popup-title-setting">
                         <div class="ct-settings-label">

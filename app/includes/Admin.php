@@ -53,6 +53,7 @@ class Admin {
 			return;
 		}
 
+        wp_enqueue_media();
         wp_enqueue_style( 'wp-color-picker' );
         wp_enqueue_script( 'wp-color-picker' );
 

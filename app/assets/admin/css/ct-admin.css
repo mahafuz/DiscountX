@@ -7,6 +7,7 @@
  */
 
 /* Base CSS */
+
 .ct-flex {
     display: flex;
     align-items: center;
@@ -295,4 +296,42 @@ ul.ct-settings-nav > li > a:before {
 ul.ct-settings-nav > li > a.ct-tab-active {
     color: #005AE0;
     border-color: #005AE0;
+}
+
+.popup-image-container {
+    width: 280px;
+    display: block;
+    margin-bottom: 12px;
+    border: 5px solid #efefef;
+    position: relative;
+    margin: 10px;
+}
+
+.popup-image-container img {
+    max-width: 100%;
+}
+
+.popup-image-close {
+    position: absolute;
+    left: -10px;
+    cursor: pointer;
+    background: #fff;
+    color: RED;
+    border-radius: 50%;
+    top: -10px;
+    box-shadow: 0 2px 5px rgb(0 0 0 / 5%);
+}
+
+button#ct-upload-popup-image {
+    color: #000;
+    border: 0px solid;
+    box-shadow: none;
+    background: none;
+    cursor: pointer;
+}
+
+button#ct-upload-popup-image > i:before {
+    font-size: 35px;
+    height: 35px;
+    width: 35px;
 }
