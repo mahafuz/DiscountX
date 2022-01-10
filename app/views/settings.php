@@ -9,21 +9,19 @@
 // if direct access than exit the file.
 defined('ABSPATH') || exit;
 
-// echo '<pre>', print_r( $settings, 1 ), '</pre>';
-
 $coupons     = ct()->helpers->getCouponList();
 $savedCoupon = isset( $settings->savedCoupon ) ? esc_attr( $settings->savedCoupon ) : '';
 
 $displayOn     = isset( $settings->displayOn ) ? esc_attr( $settings->displayOn ) : '';
 $appearance    = isset( $settings->appearance ) ? esc_attr( $settings->appearance ) : '';
-$popupTitle    = isset( $settings->popupTitle ) ? esc_attr( $settings->popupTitle ) : '';
+$popupTitle    = isset( $settings->popupTitle ) ? esc_attr( $settings->popupTitle ) : __( 'Hear’s 15% Off!', 'cart-targeting' );
 $popupPreTitle = isset( $settings->popupPreTitle ) ? esc_attr( $settings->popupPreTitle ) : '';
-$popupContent  = isset( $settings->popupContent ) ? esc_attr( $settings->popupContent ) : '';
-$buttonText    = isset( $settings->buttonText ) ? esc_attr( $settings->buttonText ) : '';
+$popupContent  = isset( $settings->popupContent ) ? esc_attr( $settings->popupContent ) : __( 'Subscribe to our email get 15% of on first sell dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolo', 'cart-targeting' );
+$buttonText    = isset( $settings->buttonText ) ? esc_attr( $settings->buttonText ) : __( 'Apply Now', 'cart-targeting' );
 $popupImage    = isset( $settings->popupImage ) ? esc_attr( $settings->popupImage ) : '';
 
-$titleFontSize  = isset( $settings->titleFontSize ) ? absint( $settings->titleFontSize ) : '';
-$buttonFontSize = isset( $settings->buttonFontSize ) ? absint( $settings->buttonFontSize ) : '';
+$titleFontSize  = isset( $settings->titleFontSize ) ? absint( $settings->titleFontSize ) : '60';
+$buttonFontSize = isset( $settings->buttonFontSize ) ? absint( $settings->buttonFontSize ) : '15';
 $titleColor     = isset( $settings->titleColor ) ? esc_attr( $settings->titleColor ) : '';
 $contentColor   = isset( $settings->contentColor ) ? esc_attr( $settings->contentColor ) : '';
 
@@ -44,20 +42,21 @@ $number     = isset( $settings->number ) ? absint( $settings->number ) : '';
     <form action="options.php" id="ct-settings-form">
 
         <ul class="ct-settings-nav">
-            <li><a href="#general" id="general-tab"><?php _e( 'General', 'cart-targeting' ); ?></a></li>
+            <li><a href="#general" id="general-tab"><?php _e( 'Condition', 'cart-targeting' ); ?></a></li>
             <li><a href="#popup" id="popup-tab"><?php _e( 'Popup', 'cart-targeting' ); ?></a></li>
             <li><a href="#styles" id="styles-tab"><?php _e( 'Styles', 'cart-targeting' ); ?></a></li>
         </ul>
 
         <div class="ct-options-box" id="general">
             <h2 class="ct-options-box-header">
-                <i class="dashicons-before dashicons-admin-generic"></i> <?php _e( 'General Settings', 'cart-targeting' ); ?>
+                <i class="dashicons-before dashicons-admin-generic"></i> <?php _e( 'Display Condition Settings', 'cart-targeting' ); ?>
             </h2>
             <div class="ct-options-settings-section">
                 <div class="ct-flex">
                     <div class="ct-settings-panel coupon-code-setting">
                         <div class="ct-settings-label">
                             <h4><?php _e( 'Coupon Code', 'cart-targeting' ); ?></h4>
+							<p class="desc"><?php _e( 'Select coupon code to apply when user will click on the popup apply button.', 'cart-targeting' ); ?></p>
                         </div>
                         <div class="ct-settings-control">
                             <?php if ( ! empty( $coupons ) ) : ?>
@@ -94,6 +93,7 @@ $number     = isset( $settings->number ) ? absint( $settings->number ) : '';
                     <div class="ct-settings-panel cart-type-setting">
                         <div class="ct-settings-label">
                             <h4><?php _e( 'Cart type', 'cart-targeting' ); ?></h4>
+							<p class="desc"><?php _e( 'Select Cart Type condition.', 'cart-targeting' ); ?></p>
                         </div>
                         <div class="ct-settings-control">
                             <select name="cart_type" id="cart_type">
@@ -113,6 +113,7 @@ $number     = isset( $settings->number ) ? absint( $settings->number ) : '';
                     <div class="ct-settings-panel condition-setting<?php echo ( 'products' === $cartType ) ? ' hidden' : '' ?>">
                         <div class="ct-settings-label">
                             <h4><?php _e( 'Condition', 'cart-targeting' ); ?></h4>
+							<p class="desc"><?php _e( 'Select the condition.', 'cart-targeting' ); ?></p>
                         </div>
                         <div class="ct-settings-control">
                             <select name="condition" id="condition">
@@ -132,6 +133,7 @@ $number     = isset( $settings->number ) ? absint( $settings->number ) : '';
                     <div class="ct-settings-panel products-setting<?php echo ( 'products' === $cartType ) ? '' : ' hidden' ?>">
                         <div class="ct-settings-label">
                             <h4><?php _e( 'Products', 'cart-targeting' ); ?></h4>
+							<p class="desc"><?php _e( 'Choose products.', 'cart-targeting' ); ?></p>
                         </div>
                         <div class="ct-settings-control">
                             <?php if ( ! empty( $products ) ) : ?>
@@ -152,6 +154,7 @@ $number     = isset( $settings->number ) ? absint( $settings->number ) : '';
                     <div class="ct-settings-panel number-setting<?php echo ( 'products' === $cartType ) ? ' hidden' : '' ?>">
                         <div class="ct-settings-label">
                             <h4><?php _e( 'Number', 'cart-targeting' ); ?></h4>
+							<p class="desc"><?php _e( 'The number to set the condition.', 'cart-targeting' ); ?></p>
                         </div>
                         <div class="ct-settings-control">
                             <input
@@ -196,15 +199,18 @@ $number     = isset( $settings->number ) ? absint( $settings->number ) : '';
                         </div>
                         <div class="ct-settings-control">
                             <select name="theme" id="popup-styles">
-                                <option value="style_1" <?php selected( $theme, 'style_1' ); ?>>
-                                    <?php _e( 'Style 1', 'cart-targeting' ); ?>
+                                <option value="theme-1" <?php selected( $theme, 'style_1' ); ?>>
+                                    <?php _e( 'Theme 1', 'cart-targeting' ); ?>
                                 </option>
-                                <option value="style_2" <?php selected( $theme, 'style_2' ); ?>>
-                                    <?php _e( "Style 2", 'cart-targeting' ); ?>
+                                <option value="theme-2" <?php selected( $theme, 'style_2' ); ?> disabled>
+                                    <?php _e( "Theme 2 (PRO)", 'cart-targeting' ); ?>
                                 </option>
-                                <option value="style_3" <?php selected( $theme, 'style_3' ); ?>>
-                                    <?php _e( "Style 3", 'cart-targeting' ); ?>
+                                <option value="theme-3" <?php selected( $theme, 'style_3' ); ?> disabled>
+                                    <?php _e( "Theme 3 (PRO)", 'cart-targeting' ); ?>
                                 </option>
+								<option value="theme-4" <?php selected( $theme, 'style_3' ); ?> disabled>
+									<?php _e( "Theme 3 (PRO)", 'cart-targeting' ); ?>
+								</option>
                             </select>
                         </div>
                     </div><!-- /.ct-settings-panel.popup-styles-setting -->

@@ -18,8 +18,6 @@ class Popup {
 	 * @since 1.0.0
 	 */
     public function __construct() {
-        // TODO: add option to display on cart page or every page.
-        // add_action( 'woocommerce_before_cart', [ $this, 'displayPopup' ] );
         add_action( 'woocommerce_cart_updated', [ $this, 'displayPopup'] );
         add_action( 'wp_enqueue_scripts', [ $this, 'scripts' ] );
         add_action( 'wp_ajax_ct_close_popup', [ $this, 'setPopupClose' ] );
@@ -28,9 +26,19 @@ class Popup {
         add_action( 'wp_ajax_nopriv_ct_apply_cupon_code', [ $this, 'applyCoupon' ] );
 	}
 
+	public function displayPopupOnDemand() {
+		$theme = ct()->helpers->getSettings( 'displayOn' );
+
+		if ( 'cart_page' === $theme ) {
+			add_action( 'woocommerce_before_cart', [ $this, 'display' ] );
+		} else {
+			add_action( 'wp_footer', [ $this, 'display' ] );
+		}
+	}
+
     /**
      * Handles display popup condition.
-     * 
+     *
      * @since 1.0.0
      */
     public function displayPopup() {
@@ -62,18 +70,18 @@ class Popup {
             $showPopup = ct()->helpers->showPopupByCartAmount( $condition, $cartTotal, $numbers );
         }
 
-        // if ( 'show' === $appearance && 'show' === $popupStatus ) {
-        if ( 'show' === $appearance ) {
+         if ( 'show' === $appearance && 'show' === $popupStatus ) {
+//        if ( 'show' === $appearance ) {
             if ( $showPopup && ! $isApplied ) {
-                add_action( 'wp_footer', [ $this, 'display' ] );
+                $this->displayPopupOnDemand();
             } else {
                 $this->unApplyCoupon( $coupon );
             }
         }
 
-        if ( 'dont-show' === $appearance ) {
+        if ( 'dont-show' === $appearance && 'show' === $popupStatus ) {
             if ( ! $showPopup && ! $isApplied ) {
-                add_action( 'wp_footer', [ $this, 'display' ] );
+	            $this->displayPopupOnDemand();
             }
 
             if ( $showPopup && $isApplied ) {
@@ -84,7 +92,7 @@ class Popup {
 
     /**
      * Set popup close status.
-     * 
+     *
      * @since  1.0.0
      * @return void
      */
@@ -98,18 +106,22 @@ class Popup {
 
     /**
      * Loading popup assets on the frontend.
-     * 
+     *
      * @since  1.0.0
      * @return void
      */
     public function scripts() {
-        wp_enqueue_style(
+	    wp_enqueue_style(
             'ct-popup',
             CT_PLUGIN_URI . '/app/assets/frontend/css/ct-popup.css',
             '',
             '1.0.0',
             'all'
         );
+
+		$generatedStyles = ct()->styles->generatePopupStyles();
+	    wp_add_inline_style( 'ct-popup', $generatedStyles );
+
 
         wp_enqueue_script(
             'ct-popup',
@@ -128,7 +140,7 @@ class Popup {
 
     /**
      * Handles applying coupon on the cart.
-     * 
+     *
      * @since  1.0.0
      * @return void
      */
@@ -158,25 +170,12 @@ class Popup {
 
     /**
      * Displays popup on the fronend.
-     * 
+     *
      * @since 1.0.0
      */
     public function display() {
-        $html = '<div class="ct-overlay">';
-            $html .= '<div class="ct-popup">';
-            
-            $html .= '<div id="ct-close"></div>';
-            $html .= '<div class="ct-popup-inner">';
-                $html .= '<div class="content">';
-                    $html .= '<h2>Get 15% coupon now</h2>';
-                    $html .= '<p>Enjoy our amazing products for a 15% discount code</p>';
-                    $html .= sprintf( '<button id="ct-apply-cupon">%s</button>', __( 'Apply Coupon', 'cart-targeting' ) );
-                $html .= '</div>';
-            $html .= '</div>';
+		$theme = ct()->helpers->getSettings( 'theme' );
 
-            $html .= '</div>';
-        $html .= '</div>';
-
-        echo $html;
+		include ct()->helpers->view( sprintf( 'themes/%s', $theme ) );
     }
 }

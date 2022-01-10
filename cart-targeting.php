@@ -29,6 +29,7 @@ require_once CT_PLUGIN_DIR . 'app/includes/Admin.php';
 require_once CT_PLUGIN_DIR . 'app/includes/Notices.php';
 require_once CT_PLUGIN_DIR . 'app/includes/Coupon.php';
 require_once CT_PLUGIN_DIR . 'app/includes/Helpers.php';
+require_once CT_PLUGIN_DIR . 'app/includes/StyleGenerator.php';
 require_once CT_PLUGIN_DIR . 'app/includes/Popup.php';
 require_once CT_PLUGIN_DIR . 'app/includes/Cron.php';
 require_once CT_PLUGIN_DIR . 'app/CT.php';
@@ -49,7 +50,7 @@ register_activation_hook( __FILE__, function () {
 if ( ! function_exists( 'ct' ) ) {
 	/**
 	 * This function is responsible for running the main plugin.
-	 * 
+	 *
 	 * @since  1.0.0
 	 * @return object CT The plugin instance.
 	 */

@@ -35,7 +35,7 @@ final class CT {
 
     /**
      * Class constructor.
-     * 
+     *
      * @since 1.0.0
      */
     public function __construct() {
@@ -44,6 +44,7 @@ final class CT {
         if ( class_exists( 'WooCommerce' ) ) {
             $this->admin        = new \CT\Admin;
             $this->helpers      = new \CT\Helpers;
+            $this->styles       = new \CT\StyleGenerator;
             $this->popup        = new \CT\Popup;
             $this->cron         = new \CT\Cron;
         }

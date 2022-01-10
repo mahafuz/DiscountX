@@ -14,7 +14,7 @@ class Helpers {
 
     /**
      * Retrives product list from db.
-     * 
+     *
      * @since  1.0.0
      * @return        Products list with id and title.
      */
@@ -33,7 +33,7 @@ class Helpers {
 
     /**
      * Retrives coupon list from db.
-     * 
+     *
      * @since  1.0.0
      * @return        Coupons list with id and title.
      */
@@ -47,7 +47,7 @@ class Helpers {
 
     /**
      * Retrives cart product ids.
-     * 
+     *
      * @since  1.0.0
      * @return       Product ids.
      */
@@ -64,9 +64,9 @@ class Helpers {
 
     /**
      * Retrive settings from the options.
-     * 
+     *
      * @since 1.0.0
-     * 
+     *
      * @param  string $key     The settings key.
      * @param  mixed  $default The default value to return.
      * @return                  Retrived setting value.
@@ -93,7 +93,7 @@ class Helpers {
 
     /**
      * Retrives saved product ids.
-     * 
+     *
      * @since  1.0.0
      * @return array Saved product ids.
      */
@@ -104,7 +104,7 @@ class Helpers {
 
     /**
      * Returns popup close status.
-     * 
+     *
      * @since  1.0.0
      * @return boolean Popup status.
      */
@@ -121,7 +121,7 @@ class Helpers {
 
     /**
      * Set popup close status.
-     * 
+     *
      * @since  1.0.0
      * @return void
      */
@@ -201,4 +201,12 @@ class Helpers {
 
         return in_array( strtolower( $coupon ), $appliedCoupons, true );
     }
+
+	public function view( $file = '' ) {
+		if ( empty( $file ) ) {
+			throw new \Error( 'View file not found!' );
+		}
+
+		return sprintf( '%s/app/views/%s.php', trailingslashit( CT_PLUGIN_DIR ), $file );
+	}
 }
