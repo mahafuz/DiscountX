@@ -63,9 +63,9 @@ $number     = isset( $settings->number ) ? absint( $settings->number ) : '';
                                 <select name="savedCoupon" id="saved-coupon" class="saved-coupon">
                                     <?php foreach( $coupons as $coupon ) {
                                         printf(
-                                            '<option value="%d" %s>%s</option>',
-                                            $coupon->id,
-                                            selected( $savedCoupon, $coupon->id ),
+                                            '<option value="%s" %s>%s</option>',
+											$coupon->text,
+                                            selected( $savedCoupon, $coupon->text ),
                                             $coupon->text
                                         );
                                     } ?>

@@ -43,7 +43,7 @@
 
             $('.ct-settings-nav > li > a').removeClass('ct-tab-active');
             $(this).addClass('ct-tab-active').blur();
-            
+
             var clicked_group = $( this ).attr( 'href' );
 
             if ( typeof(localStorage) != 'undefined' ) {
@@ -186,7 +186,7 @@
 
         $('#ct-upload-popup-image').click(function(e) {
             e.preventDefault();
-            var image = wp.media({ 
+            var image = wp.media({
                 title: 'Upload Image',
                 multiple: false
             }).open()

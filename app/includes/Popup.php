@@ -53,7 +53,7 @@ class Popup {
         $savedProductIds = ct()->helpers->getSavedProductIds();
         $popupStatus     = ct()->helpers->getPopupStatus();
 
-        $coupon          = ct()->helpers->getSettings( 'coupon_code' );
+        $coupon          = ct()->helpers->getSettings( 'savedCoupon' );
         $isApplied       = ct()->helpers->isCouponApplied( $coupon );
 
         $showPopup       = false;
@@ -70,24 +70,18 @@ class Popup {
             $showPopup = ct()->helpers->showPopupByCartAmount( $condition, $cartTotal, $numbers );
         }
 
-         if ( 'show' === $appearance && 'show' === $popupStatus ) {
-//        if ( 'show' === $appearance ) {
-            if ( $showPopup && ! $isApplied ) {
-                $this->displayPopupOnDemand();
-            } else {
-                $this->unApplyCoupon( $coupon );
-            }
-        }
+	    if ( $showPopup && ! $isApplied && 'show' === $appearance && 'show' === $popupStatus ) {
+		    $this->displayPopupOnDemand();
+	    } else {
+		    $this->unApplyCoupon( $coupon );
+	    }
 
-        if ( 'dont-show' === $appearance && 'show' === $popupStatus ) {
-            if ( ! $showPopup && ! $isApplied ) {
-	            $this->displayPopupOnDemand();
-            }
 
-            if ( $showPopup && $isApplied ) {
-                $this->unApplyCoupon( $coupon );
-            }
-        }
+	    if ( ! $showPopup && ! $isApplied && 'dont-show' === $appearance && 'show' === $popupStatus ) {
+		    $this->displayPopupOnDemand();
+	    } else {
+		    $this->unApplyCoupon( $coupon );
+	    }
     }
 
     /**
