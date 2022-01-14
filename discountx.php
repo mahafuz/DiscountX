@@ -4,7 +4,7 @@
  * Plugin URI:      http://wpdiscountx.com/
  * Description:     Best Woocommerce coupon apply popup plugin.
  * Author:          Mahafuz<m.mahfuz.me@gmail.com>
- * Author URI:      http://wpdiscountx.com/
+ * Author URI:      http://wpdiscountx.com/about
  * Text Domain:     discountx
  * Domain Path:     /languages
  * Version:         0.1.0
