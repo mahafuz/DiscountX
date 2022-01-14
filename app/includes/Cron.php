@@ -29,7 +29,7 @@ class Cron {
      */
     public function clearCtUserMeta() {
         if ( ! wp_next_scheduled( 'clear_ct_user_meta') ) {
-            wp_schedule_event( time(), 'daily', 'clear_ct_user_meta' );
+            wp_schedule_event( time(), 'hourly', 'clear_ct_user_meta' );
         }
     }
 

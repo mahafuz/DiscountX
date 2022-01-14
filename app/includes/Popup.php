@@ -45,17 +45,14 @@ class Popup {
         $cartTotal      = WC()->cart->cart_contents_total;
         $cartProductIds = ct()->helpers->getCartProductIds();
         $cartCount      = WC()->cart->cart_contents_count;
-
         $appearance      = ct()->helpers->getSettings( 'appearance' );
         $cartType        = ct()->helpers->getSettings( 'cart_type' );
         $condition       = ct()->helpers->getSettings( 'condition' );
         $numbers         = ct()->helpers->getSettings( 'number' );
         $savedProductIds = ct()->helpers->getSavedProductIds();
         $popupStatus     = ct()->helpers->getPopupStatus();
-
         $coupon          = ct()->helpers->getSettings( 'savedCoupon' );
         $isApplied       = ct()->helpers->isCouponApplied( $coupon );
-
         $showPopup       = false;
 
         if ( 'products' === $cartType ) {
@@ -70,18 +67,17 @@ class Popup {
             $showPopup = ct()->helpers->showPopupByCartAmount( $condition, $cartTotal, $numbers );
         }
 
-	    if ( $showPopup && ! $isApplied && 'show' === $appearance && 'show' === $popupStatus ) {
-		    $this->displayPopupOnDemand();
-	    } else {
-		    $this->unApplyCoupon( $coupon );
-	    }
+        if ( $showPopup && ! $isApplied && 'show' === $appearance && 'show' === $popupStatus ) {
+            $this->displayPopupOnDemand();
+        }
 
+        if ( ! $showPopup && ! $isApplied && 'dont-show' === $appearance && 'show' === $popupStatus ) {
+            $this->displayPopupOnDemand();
+        }
 
-	    if ( ! $showPopup && ! $isApplied && 'dont-show' === $appearance && 'show' === $popupStatus ) {
-		    $this->displayPopupOnDemand();
-	    } else {
-		    $this->unApplyCoupon( $coupon );
-	    }
+        if ( ! $showPopup && $isApplied ) {
+            $this->unApplyCoupon( $coupon );
+        }
     }
 
     /**
@@ -105,7 +101,7 @@ class Popup {
      * @return void
      */
     public function scripts() {
-	    wp_enqueue_style(
+        wp_enqueue_style(
             'ct-popup',
             CT_PLUGIN_URI . '/app/assets/frontend/css/ct-popup.css',
             '',
@@ -114,7 +110,7 @@ class Popup {
         );
 
 		$generatedStyles = ct()->styles->generatePopupStyles();
-	    wp_add_inline_style( 'ct-popup', $generatedStyles );
+        wp_add_inline_style( 'ct-popup', $generatedStyles );
 
 
         wp_enqueue_script(
