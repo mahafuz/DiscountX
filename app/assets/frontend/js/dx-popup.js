@@ -1,13 +1,13 @@
 (function($){
     $(document).ready(function() {
-        $( '#ct-close' ).on( 'click', function() {
-            $('.ct-overlay').fadeOut();
+        $( '#dx-close' ).on( 'click', function() {
+            $('.dx-overlay').fadeOut();
 
             $.ajax({
                 type        : 'POST',
-                url         : CT_POPUP.ajaxUrl,
+                url         : DX_POPUP.ajaxUrl,
                 data        : {
-                    action: 'ct_close_popup'
+                    action: 'dx_close_popup'
                 },
                 success : function( response ) {
                     console.log( response );
@@ -18,14 +18,14 @@
             });
         });
 
-        $( '#ct-apply-cupon' ).on( 'click', function(e) {
+        $( '#dx-apply-cupon' ).on( 'click', function(e) {
             e.preventDefault();
 
             $.ajax({
                 type        : 'POST',
-                url         : CT_POPUP.ajaxUrl,
+                url         : DX_POPUP.ajaxUrl,
                 data        : {
-                    action: 'ct_apply_cupon_code'
+                    action: 'dx_apply_cupon_code'
                 },
                 success : function( response ) {
                 },
@@ -33,7 +33,7 @@
                 }
             });
 
-            $('.ct-overlay').fadeOut();
+            $('.dx-overlay').fadeOut();
 
             setTimeout( function() {
                 location.reload();

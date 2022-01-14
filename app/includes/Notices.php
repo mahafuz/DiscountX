@@ -1,6 +1,6 @@
 <?php
 
-namespace CT;
+namespace DX;
 
 // if direct access than exit the file.
 defined('ABSPATH') || exit;
@@ -65,12 +65,12 @@ class Notices {
 
         if ( $this->isPluginInstalled( $plugin ) && ! $this->isPluginActive( $plugin ) ) {
             $activation_url = wp_nonce_url( 'plugins.php?action=activate&amp;plugin=' . $plugin . '&amp;plugin_status=all&amp;paged=1&amp;s', 'activate-plugin_' . $plugin );
-            $message = __( '<strong>Cart Targeting Plugin</strong> requires <strong>Woocommerce</strong> plugin to be active. Please active.', 'cart-targeting' );
-            $button_text = __( 'Activate Woocommerce', 'cart-targeting' );
+            $message = __( '<strong>Cart Targeting Plugin</strong> requires <strong>Woocommerce</strong> plugin to be active. Please active.', 'discountx' );
+            $button_text = __( 'Activate Woocommerce', 'discountx' );
         } elseif ( ! $this->isPluginInstalled( $plugin ) ) {
             $activation_url = wp_nonce_url( self_admin_url( 'update.php?action=install-plugin&plugin=woocommerce' ), 'install-plugin_woocommerce' );
-            $message = sprintf(__('<strong>Cart Targeting</strong> requires <strong>Woocommerce</strong> plugin to be installed and activated. Please install Woocommerce to continue.', 'cart-targeting'), '<strong>', '</strong>');
-            $button_text = __('Install Woocommerce', 'cart-targeting');
+            $message = sprintf(__('<strong>Cart Targeting</strong> requires <strong>Woocommerce</strong> plugin to be installed and activated. Please install Woocommerce to continue.', 'discountx'), '<strong>', '</strong>');
+            $button_text = __('Install Woocommerce', 'discountx');
         }
 
 		if( ! empty( $activation_url ) ){

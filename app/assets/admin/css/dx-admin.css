@@ -1,14 +1,14 @@
 /**
- * Cart Targeting Admin CSS.
+ * DiscountX Admin CSS.
  *
  * @author Mahafuz
- * @package CT
+ * @package DX
  * @version 1.0.0
  */
 
 /* Base CSS */
 
-.ct-flex {
+.dx-flex {
     display: flex;
     align-items: center;
     flex-wrap: wrap;
@@ -17,13 +17,13 @@
     box-sizing: border-box;
 }
 
-.ct-container {
+.dx-container {
     margin-left: auto;
     margin-right: auto;
 }
 
 /* Settings Box */
-.ct-options-box {
+.dx-options-box {
     color: #141b38;
     background-color: #fff;
     border: 1px solid #e8e8eb;
@@ -32,26 +32,26 @@
 }
 
 @media only screen and (min-width: 1042px) {
-    .ct-container {
+    .dx-container {
         max-width: 80rem;
     }
 }
 
 @media only screen and (min-width: 782px) {
-    .ct-container {
+    .dx-container {
         padding: 0 30px;
     }
 }
 
 @media only screen and (max-width: 782px) {
-    .ct-container {
+    .dx-container {
         clear: both;
         margin-right: 12px;
         margin-left: 0;
     }
 }
 
-.ct-options-box-header {
+.dx-options-box-header {
     display: flex;
     align-items: center;
     height: 70px;
@@ -62,15 +62,15 @@
     margin: 0;
 }
 
-.ct-options-box-header > i {
+.dx-options-box-header > i {
     margin-right: 10px;
 }
 
-.ct-options-settings-section {
+.dx-options-settings-section {
     border-bottom: 1px solid #eee;
 }
 
-.ct-settings-panel {
+.dx-settings-panel {
     flex-basis: 100%;
     display: flex;
     justify-content: space-between;
@@ -79,33 +79,33 @@
     align-items: center;
 }
 
-.ct-settings-panel:first-child {
+.dx-settings-panel:first-child {
     border: 0px solid;
 }
 
-.ct-settings-panel.hidden {
+.dx-settings-panel.hidden {
     display: none;
 }
-ul.ct-flex > li {
+ul.dx-flex > li {
     margin: 0;
 }
 
-ul.ct-flex > li:first-child {
+ul.dx-flex > li:first-child {
     width: 74%;
 }
 
-ul.ct-flex > li:last-child {
+ul.dx-flex > li:last-child {
     width: 25%;
     justify-content: flex-end;
     display: flex;
 }
 
-.ct-save-changes {
+.dx-save-changes {
     display: flex;
     justify-content: flex-end;
 }
 
-.ct-container .button.button-primary {
+.dx-container .button.button-primary {
     border: none;
     background-color: #005ae0;
     color: #fff;
@@ -128,30 +128,30 @@ ul.ct-flex > li:last-child {
     margin-right: 5px;
 }
 
-.ct-settings-control .select2-container,
-.ct-settings-control input[type="number"],
-.ct-settings-control input[type="text"],
-.ct-settings-control textarea {
+.dx-settings-control .select2-container,
+.dx-settings-control input[type="number"],
+.dx-settings-control input[type="text"],
+.dx-settings-control textarea {
     width: 300px !important;
 }
 
 span.select2-selection.select2-selection--single,
-.ct-settings-control input[type="number"],
-.ct-settings-control input[type="text"],
-.ct-settings-control textarea {
+.dx-settings-control input[type="number"],
+.dx-settings-control input[type="text"],
+.dx-settings-control textarea {
     padding: 3px 40px 3px 7px;
     height: 35px;
     border: 1px solid #d0d1d7;
 }
 
-.ct-settings-control textarea {
+.dx-settings-control textarea {
     height: auto;
     resize: none;
 }
 
-.ct-settings-control input[type="number"],
-.ct-settings-control input[type="text"], 
-.ct-settings-control textarea {
+.dx-settings-control input[type="number"],
+.dx-settings-control input[type="text"], 
+.dx-settings-control textarea {
     padding-right: 0;
 }
 
@@ -194,18 +194,18 @@ span.select2-selection.select2-selection--single,
     border: solid #d0d1d7 1px;
 }
 
-.ct-container .button.button-primary.loading {
+.dx-container .button.button-primary.loading {
     background: #004f9d;
     color: #004f9d;
 }
 
-.loading .ct-loading-spinner {
+.loading .dx-loading-spinner {
     width: 35px;
     height: 35px;
     position: absolute;
 }
-.loading .ct-loading-spinner .double-bounce1,
-.loading .ct-loading-spinner .double-bounce2 {
+.loading .dx-loading-spinner .double-bounce1,
+.loading .dx-loading-spinner .double-bounce2 {
     width: 100%;
     height: 100%;
     border-radius: 50%;
@@ -218,7 +218,7 @@ span.select2-selection.select2-selection--single,
     animation: sk-bounce 1.3s ease-in-out infinite;
 }
 
-.loading .ct-loading-spinner .double-bounce2 {
+.loading .dx-loading-spinner .double-bounce2 {
     -webkit-animation-delay: -0.65s;
     animation-delay: -0.65s;
 }
@@ -244,19 +244,19 @@ span.select2-selection.select2-selection--single,
 }
 
 /* Tab CSS */
-ul.ct-settings-nav {
+ul.dx-settings-nav {
     margin: 0;
     padding: 0;
     list-style: none;
     border-bottom: 2px solid #E8E8EB;
 }
 
-ul.ct-settings-nav > li {
+ul.dx-settings-nav > li {
     display: inline-block;
     margin: 0;
 }
 
-ul.ct-settings-nav > li > a {
+ul.dx-settings-nav > li > a {
     color: #141B38;
     max-width: 264px;
     min-width: 72px;
@@ -281,7 +281,7 @@ ul.ct-settings-nav > li > a {
     top: 2px;
 }
 
-ul.ct-settings-nav > li > a:before {
+ul.dx-settings-nav > li > a:before {
     position: absolute;
     top: 0;
     right: 0;
@@ -293,7 +293,7 @@ ul.ct-settings-nav > li > a:before {
     content: " ";
 }
 
-ul.ct-settings-nav > li > a.ct-tab-active {
+ul.dx-settings-nav > li > a.dx-tab-active {
     color: #005AE0;
     border-color: #005AE0;
 }
@@ -322,7 +322,7 @@ ul.ct-settings-nav > li > a.ct-tab-active {
     box-shadow: 0 2px 5px rgb(0 0 0 / 5%);
 }
 
-button#ct-upload-popup-image {
+button#dx-upload-popup-image {
     color: #000;
     border: 0px solid;
     box-shadow: none;
@@ -330,7 +330,7 @@ button#ct-upload-popup-image {
     cursor: pointer;
 }
 
-button#ct-upload-popup-image > i:before {
+button#dx-upload-popup-image > i:before {
     font-size: 35px;
     height: 35px;
     width: 35px;

@@ -1,6 +1,6 @@
 <?php
 
-namespace CT;
+namespace DX;
 
 // if direct access than exit the file.
 defined('ABSPATH') || exit;
@@ -21,7 +21,7 @@ class Admin {
         add_action( 'admin_menu', [ $this, 'adminMenu' ] );
         add_action( 'admin_init', [ $this, 'redirect' ] );
         add_action( 'admin_enqueue_scripts', [ $this, 'scripts' ] );
-        add_action( 'wp_ajax_ct_save_settings', [ $this, 'save' ] );
+        add_action( 'wp_ajax_dx_save_settings', [ $this, 'save' ] );
 	}
 
 	/**
@@ -31,13 +31,13 @@ class Admin {
 	 */
     public function adminMenu() {
         add_menu_page(
-            __( 'Cart Targeting', 'cart-targeting' ),
-            __( 'Cart Targeting', 'cart-targeting' ),
+            __( 'DiscountX', 'discountx' ),
+            __( 'DiscountX', 'discountx' ),
             'manage_options',
-            'ct-settings',
+            'dx-settings',
             [ $this, 'display' ],
             'dashicons-cart',
-            CT_MENU_POSITION
+            DX_MENU_POSITION
         );
     }
 
@@ -49,7 +49,7 @@ class Admin {
 	public function scripts() {
 
 		$screen = get_current_screen();
-		if ( 'toplevel_page_ct-settings' !== $screen->id ) {
+		if ( 'toplevel_page_dx-settings' !== $screen->id ) {
 			return;
 		}
 
@@ -60,15 +60,15 @@ class Admin {
         // Stylesheets
         wp_enqueue_style(
             'select2',
-            CT_PLUGIN_URI . '/app/assets/admin/libs/select2/select2.min.css',
+            DX_PLUGIN_URI . '/app/assets/admin/libs/select2/select2.min.css',
             '',
             '4.1.0',
             'all'
         );
 
         wp_enqueue_style(
-            'ct-admin',
-            CT_PLUGIN_URI . '/app/assets/admin/css/ct-admin.css',
+            'dx-admin',
+            DX_PLUGIN_URI . '/app/assets/admin/css/dx-admin.css',
             '',
             '1.0.0',
             'all'
@@ -77,21 +77,21 @@ class Admin {
         // Scripts
         wp_enqueue_script(
             'select2',
-            CT_PLUGIN_URI . '/app/assets/admin/libs/select2/select2.min.js',
+            DX_PLUGIN_URI . '/app/assets/admin/libs/select2/select2.min.js',
             [ 'jquery' ],
             '4.1.0',
             true
         );
 
         wp_enqueue_script(
-            'ct-admin',
-            CT_PLUGIN_URI . '/app/assets/admin/js/ct-admin.js',
+            'dx-admin',
+            DX_PLUGIN_URI . '/app/assets/admin/js/dx-admin.js',
             [ 'jquery' ],
             '4.1.0',
             true
         );
 
-        wp_localize_script( 'ct-admin', 'CT_ADMIN', [
+        wp_localize_script( 'dx-admin', 'DX_ADMIN', [
             'ajaxUrl' => admin_url( 'admin-ajax.php' )
         ] );
 	}
@@ -103,11 +103,11 @@ class Admin {
      * @return void
      */
 	public function display() {
-        $products   = ct()->helpers->getProductsList();
-        $settings   = ct()->helpers->getSettings();
-        $productIds = ct()->helpers->getSavedProductIds();
+        $products   = DX()->helpers->getProductsList();
+        $settings   = DX()->helpers->getSettings();
+        $productIds = DX()->helpers->getSavedProductIds();
 
-		include CT_PLUGIN_DIR . 'app/views/settings.php';
+		include DX_PLUGIN_DIR . 'app/views/settings.php';
 	}
 
     /**
@@ -116,24 +116,24 @@ class Admin {
      * @since 1.0.0
      */
     public function save() {
-        if ( empty( $_REQUEST['nonce'] ) || ! wp_verify_nonce( $_REQUEST['nonce'], 'ct_save_settings_action' ) ) {
-			wp_send_json_error( [ 'message' => __( 'Invalid request.', 'cart-targeting' ) ] );
+        if ( empty( $_REQUEST['nonce'] ) || ! wp_verify_nonce( $_REQUEST['nonce'], 'dx_save_settings_action' ) ) {
+			wp_send_json_error( [ 'message' => __( 'Invalid request.', 'discountx' ) ] );
 		}
 
         if ( ! is_array( $_REQUEST ) ) {
-            wp_send_json_error( [ 'message' => __( 'Invalid data.', 'cart-targeting' ) ] );
+            wp_send_json_error( [ 'message' => __( 'Invalid data.', 'discountx' ) ] );
         }
 
         unset( $_REQUEST['nonce'] );
         unset( $_REQUEST['action'] );
 
-        $saved = update_option( 'ct_settings', wp_json_encode( $_REQUEST ) );
+        $saved = update_option( 'dx_settings', wp_json_encode( $_REQUEST ) );
 
         if ( $saved ) {
-            update_user_meta( get_current_user_id(), 'ct_popup_close_status', 'show' );
+            update_user_meta( get_current_user_id(), 'dx_popup_close_status', 'show' );
 
             wp_send_json_success([
-                'message' => __( 'Settings successfully saved.', 'cart-targeting' )
+                'message' => __( 'Settings successfully saved.', 'discountx' )
             ]);
         }
         die();
@@ -145,11 +145,11 @@ class Admin {
      * @since v1.0.0
      */
     public function redirect() {
-        if ( get_option( 'ct_activation_redirect', false ) ) {
-            delete_option( 'ct_activation_redirect' );
+        if ( get_option( 'dx_activation_redirect', false ) ) {
+            delete_option( 'dx_activation_redirect' );
 
             if ( ! isset( $_GET[ 'activate-multi' ] ) ) {
-                wp_redirect("admin.php?page=ct-settings");
+                wp_redirect("admin.php?page=dx-settings");
             }
         }
     }

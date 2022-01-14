@@ -3,7 +3,7 @@
 
         var popupImageContainer = $( '.popup-image-container' ),
             popupImage          = $( '#popup-image-src' ),
-            uploadButton        = $( '#ct-upload-popup-image' ),
+            uploadButton        = $( '#dx-upload-popup-image' ),
             imgInput            = $('#popup-image');
 
         if ( '' == popupImage.attr( 'src' ) ) {
@@ -18,8 +18,8 @@
             })
         }
 
-        $( '.ct-color-control' ).wpColorPicker();
-        $( '.ct-options-box' ).hide();
+        $( '.dx-color-control' ).wpColorPicker();
+        $( '.dx-options-box' ).hide();
 
         var activetab = '';
         if ( typeof(localStorage) != 'undefined' ) {
@@ -29,20 +29,20 @@
         if ( activetab != '' && $(activetab).length ) {
             $(activetab).fadeIn();
         } else {
-            $('.ct-options-box:first').fadeIn();
+            $('.dx-options-box:first').fadeIn();
         }
 
         if ( activetab != '' && $(activetab + '-tab').length ) {
-            $(activetab + '-tab').addClass('ct-tab-active');
+            $(activetab + '-tab').addClass('dx-tab-active');
         } else {
-            $('.ct-settings-nav li:first > a').addClass('ct-tab-active');
+            $('.dx-settings-nav li:first > a').addClass('dx-tab-active');
         }
 
-        $('.ct-settings-nav > li > a').on( 'click', function(ev) {
+        $('.dx-settings-nav > li > a').on( 'click', function(ev) {
             ev.preventDefault();
 
-            $('.ct-settings-nav > li > a').removeClass('ct-tab-active');
-            $(this).addClass('ct-tab-active').blur();
+            $('.dx-settings-nav > li > a').removeClass('dx-tab-active');
+            $(this).addClass('dx-tab-active').blur();
 
             var clicked_group = $( this ).attr( 'href' );
 
@@ -50,7 +50,7 @@
                 localStorage.setItem( "activetab", $( this ).attr( 'href' ) );
             }
 
-            $('.ct-options-box').hide();
+            $('.dx-options-box').hide();
             $( clicked_group ).fadeIn();
         });
 
@@ -108,7 +108,7 @@
             }
         });
 
-        $( '#save-ct-settings' ).on( 'click', function(e) {
+        $( '#save-dx-settings' ).on( 'click', function(e) {
             e.preventDefault();
 
             var $button = $(this);
@@ -123,10 +123,10 @@
                 if ( 'products' === $cartType ) {
                     var $selectedProducts = $( '#select2-products-container').children( 'li' ).length;
 
-                    $( '.ct-settings-panel.products-setting' ).find( '.select2-selection' ).css( 'border-color', '#d0d1d7' );
+                    $( '.dx-settings-panel.products-setting' ).find( '.select2-selection' ).css( 'border-color', '#d0d1d7' );
 
                     if ( $selectedProducts < 1 ) {
-                        $( '.ct-settings-panel.products-setting' ).find( '.select2-selection' ).css( 'border-color', 'red' );
+                        $( '.dx-settings-panel.products-setting' ).find( '.select2-selection' ).css( 'border-color', 'red' );
                         $button.removeClass('loading');
                         return;
                     }
@@ -140,7 +140,7 @@
                     }
                 }
 
-            formData.append( 'action', 'ct_save_settings' );
+            formData.append( 'action', 'dx_save_settings' );
             formData.append( 'savedCoupon', $( '#saved-coupon' ).val() );
             formData.append( 'appearance', $( '#appearance' ).val() );
             formData.append( 'displayOn', $( '#display-on' ).val() );
@@ -169,7 +169,7 @@
 
             $.ajax({
                 type        : 'POST',
-                url         : CT_ADMIN.ajaxUrl,
+                url         : DX_ADMIN.ajaxUrl,
                 data        : formData,
                 contentType : false,
 			    processData : false,
@@ -184,7 +184,7 @@
             });
         });
 
-        $('#ct-upload-popup-image').click(function(e) {
+        $('#dx-upload-popup-image').click(function(e) {
             e.preventDefault();
             var image = wp.media({
                 title: 'Upload Image',

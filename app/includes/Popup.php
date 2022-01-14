@@ -1,6 +1,6 @@
 <?php
 
-namespace CT;
+namespace DX;
 
 // if direct access than exit the file.
 defined('ABSPATH') || exit;
@@ -20,14 +20,14 @@ class Popup {
     public function __construct() {
         add_action( 'woocommerce_cart_updated', [ $this, 'displayPopup'] );
         add_action( 'wp_enqueue_scripts', [ $this, 'scripts' ] );
-        add_action( 'wp_ajax_ct_close_popup', [ $this, 'setPopupClose' ] );
-        add_action( 'wp_ajax_nopriv_ct_close_popup', [ $this, 'setPopupClose' ] );
-        add_action( 'wp_ajax_ct_apply_cupon_code', [ $this, 'applyCoupon' ] );
-        add_action( 'wp_ajax_nopriv_ct_apply_cupon_code', [ $this, 'applyCoupon' ] );
+        add_action( 'wp_ajax_dx_close_popup', [ $this, 'setPopupClose' ] );
+        add_action( 'wp_ajax_nopriv_dx_close_popup', [ $this, 'setPopupClose' ] );
+        add_action( 'wp_ajax_dx_apply_cupon_code', [ $this, 'applyCoupon' ] );
+        add_action( 'wp_ajax_nopriv_dx_apply_cupon_code', [ $this, 'applyCoupon' ] );
 	}
 
 	public function displayPopupOnDemand() {
-		$theme = ct()->helpers->getSettings( 'displayOn' );
+		$theme = DX()->helpers->getSettings( 'displayOn' );
 
 		if ( 'cart_page' === $theme ) {
 			add_action( 'woocommerce_before_cart', [ $this, 'display' ] );
@@ -43,28 +43,28 @@ class Popup {
      */
     public function displayPopup() {
         $cartTotal      = WC()->cart->cart_contents_total;
-        $cartProductIds = ct()->helpers->getCartProductIds();
+        $cartProductIds = DX()->helpers->getCartProductIds();
         $cartCount      = WC()->cart->cart_contents_count;
-        $appearance      = ct()->helpers->getSettings( 'appearance' );
-        $cartType        = ct()->helpers->getSettings( 'cart_type' );
-        $condition       = ct()->helpers->getSettings( 'condition' );
-        $numbers         = ct()->helpers->getSettings( 'number' );
-        $savedProductIds = ct()->helpers->getSavedProductIds();
-        $popupStatus     = ct()->helpers->getPopupStatus();
-        $coupon          = ct()->helpers->getSettings( 'savedCoupon' );
-        $isApplied       = ct()->helpers->isCouponApplied( $coupon );
+        $appearance      = DX()->helpers->getSettings( 'appearance' );
+        $cartType        = DX()->helpers->getSettings( 'cart_type' );
+        $condition       = DX()->helpers->getSettings( 'condition' );
+        $numbers         = DX()->helpers->getSettings( 'number' );
+        $savedProductIds = DX()->helpers->getSavedProductIds();
+        $popupStatus     = DX()->helpers->getPopupStatus();
+        $coupon          = DX()->helpers->getSettings( 'savedCoupon' );
+        $isApplied       = DX()->helpers->isCouponApplied( $coupon );
         $showPopup       = false;
 
         if ( 'products' === $cartType ) {
-            $showPopup = ct()->helpers->showPopupByProductIds( $cartProductIds, $savedProductIds );
+            $showPopup = DX()->helpers->showPopupByProductIds( $cartProductIds, $savedProductIds );
         }
 
         if ( 'items' === $cartType ) {
-            $showPopup = ct()->helpers->showPopupByProductCounts( $condition, $cartCount, $numbers );
+            $showPopup = DX()->helpers->showPopupByProductCounts( $condition, $cartCount, $numbers );
         }
 
         if ( 'money' === $cartType ) {
-            $showPopup = ct()->helpers->showPopupByCartAmount( $condition, $cartTotal, $numbers );
+            $showPopup = DX()->helpers->showPopupByCartAmount( $condition, $cartTotal, $numbers );
         }
 
         if ( $showPopup && ! $isApplied && 'show' === $appearance && 'show' === $popupStatus ) {
@@ -88,9 +88,9 @@ class Popup {
      */
     public function setPopupClose() {
         if ( is_user_logged_in() ) {
-            update_user_meta( get_current_user_id(), 'ct_popup_close_status', 'dont-show' );
+            update_user_meta( get_current_user_id(), 'dx_popup_close_status', 'dont-show' );
         } else {
-            WC()->session->set( 'ct_popup_close_status', 'dont-show' );
+            WC()->session->set( 'dx_popup_close_status', 'dont-show' );
         }
     }
 
@@ -102,28 +102,28 @@ class Popup {
      */
     public function scripts() {
         wp_enqueue_style(
-            'ct-popup',
-            CT_PLUGIN_URI . '/app/assets/frontend/css/ct-popup.css',
+            'dx-popup',
+            DX_PLUGIN_URI . '/app/assets/frontend/css/dx-popup.css',
             '',
             '1.0.0',
             'all'
         );
 
-		$generatedStyles = ct()->styles->generatePopupStyles();
-        wp_add_inline_style( 'ct-popup', $generatedStyles );
+		$generatedStyles = DX()->styles->generatePopupStyles();
+        wp_add_inline_style( 'dx-popup', $generatedStyles );
 
 
         wp_enqueue_script(
-            'ct-popup',
-            CT_PLUGIN_URI . '/app/assets/frontend/js/ct-popup.js',
+            'dx-popup',
+            DX_PLUGIN_URI . '/app/assets/frontend/js/dx-popup.js',
             '',
             '1.0.0',
             false
         );
 
         wp_localize_script(
-            'ct-popup',
-            'CT_POPUP',
+            'dx-popup',
+            'DX_POPUP',
             [ 'ajaxUrl' => admin_url( 'admin-ajax.php' ) ]
         );
     }
@@ -135,7 +135,7 @@ class Popup {
      * @return void
      */
     public function applyCoupon() {
-        $coupon = ct()->helpers->getSettings( 'savedCoupon' );
+        $coupon = DX()->helpers->getSettings( 'savedCoupon' );
 
         if ( empty( $coupon ) ) {
             wp_send_json_error( [ 'message' => __( 'Coupon code is empty' ) ] );
@@ -145,15 +145,15 @@ class Popup {
         $applied = WC()->cart->apply_coupon( $coupon );
 
         if ( $applied ) {
-            ct()->helpers->setPopupStatus();
+            DX()->helpers->setPopupStatus();
             wp_send_json_success( [ 'message' => __( 'Successfully applied coupon.' ) ] );
         } else {
-            ct()->helpers->setPopupStatus();
+            DX()->helpers->setPopupStatus();
         }
     }
 
     public function unApplyCoupon( $coupon ) {
-        if ( ct()->helpers->isCouponApplied( $coupon ) ) {
+        if ( DX()->helpers->isCouponApplied( $coupon ) ) {
             WC()->cart->remove_coupon( $coupon );
         }
     }
@@ -164,8 +164,8 @@ class Popup {
      * @since 1.0.0
      */
     public function display() {
-		$theme = ct()->helpers->getSettings( 'theme' );
+		$theme = DX()->helpers->getSettings( 'theme' );
 
-		include ct()->helpers->view( sprintf( 'themes/%s', $theme ) );
+		include DX()->helpers->view( sprintf( 'themes/%s', $theme ) );
     }
 }

@@ -1,6 +1,6 @@
 <?php
 
-namespace CT;
+namespace DX;
 
 // if direct access than exit the file.
 defined('ABSPATH') || exit;
@@ -72,7 +72,7 @@ class Helpers {
      * @return                  Retrived setting value.
      */
     public function getSettings( $key = '', $default = '' ) {
-        $settings = get_option( 'ct_settings', [] );
+        $settings = get_option( 'dx_settings', [] );
 
         if ( ! empty( $settings ) ) {
             $settings = json_decode( $settings );
@@ -110,9 +110,9 @@ class Helpers {
      */
     public function getPopupStatus() {
         if ( is_user_logged_in() ) {
-            $popupStatus = get_user_meta( get_current_user_id(), 'ct_popup_close_status', true );
+            $popupStatus = get_user_meta( get_current_user_id(), 'dx_popup_close_status', true );
         } else {
-            $popupStatus = WC()->session->get( 'ct_popup_close_status' );
+            $popupStatus = WC()->session->get( 'dx_popup_close_status' );
         }
         $popupStatus = 'show' === $popupStatus || '' == $popupStatus ? 'show' : 'dont-show';
 
@@ -127,9 +127,9 @@ class Helpers {
      */
     public function setPopupStatus() {
         if ( is_user_logged_in() ) {
-            update_user_meta( get_current_user_id(), 'ct_popup_close_status', 'dont-show' );
+            update_user_meta( get_current_user_id(), 'dx_popup_close_status', 'dont-show' );
         } else {
-            WC()->session->set( 'ct_popup_close_status', 'dont-show' );
+            WC()->session->set( 'dx_popup_close_status', 'dont-show' );
         }
     }
 
@@ -207,6 +207,6 @@ class Helpers {
 			throw new \Error( 'View file not found!' );
 		}
 
-		return sprintf( '%s/app/views/%s.php', trailingslashit( CT_PLUGIN_DIR ), $file );
+		return sprintf( '%s/app/views/%s.php', trailingslashit( DX_PLUGIN_DIR ), $file );
 	}
 }

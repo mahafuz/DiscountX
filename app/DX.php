@@ -1,18 +1,18 @@
 <?php
 
-namespace CT;
+namespace DX;
 
 // if direct access than exit the file.
 defined('ABSPATH') || exit;
 
-final class CT {
+final class DX {
 
     /**
      * Holds the instance of the plugin currently in use.
      *
      * @since 1.0.0
      *
-     * @var CT\CT
+     * @var DX\DX
      */
     private static $instance = null;
 
@@ -23,7 +23,7 @@ final class CT {
      * time. Also prevents needing to define globals all over the place.
      *
      * @since  1.0.0
-     * @return CT
+     * @return DX
      */
 	public static function getInstance() {
 		if ( ! self::$instance ) {
@@ -39,14 +39,14 @@ final class CT {
      * @since 1.0.0
      */
     public function __construct() {
-        $this->notices      = new \CT\Notices;
+        $this->notices      = new \DX\Notices;
 
         if ( class_exists( 'WooCommerce' ) ) {
-            $this->admin        = new \CT\Admin;
-            $this->helpers      = new \CT\Helpers;
-            $this->styles       = new \CT\StyleGenerator;
-            $this->popup        = new \CT\Popup;
-            $this->cron         = new \CT\Cron;
+            $this->admin        = new \DX\Admin;
+            $this->helpers      = new \DX\Helpers;
+            $this->styles       = new \DX\StyleGenerator;
+            $this->popup        = new \DX\Popup;
+            $this->cron         = new \DX\Cron;
         }
     }
 }
