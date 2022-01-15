@@ -1,6 +1,6 @@
 <?php
 
-namespace DX;
+namespace DISCOUNTX;
 
 // if direct access than exit the file.
 defined('ABSPATH') || exit;
@@ -21,7 +21,7 @@ class Admin {
         add_action( 'admin_menu', [ $this, 'adminMenu' ] );
         add_action( 'admin_init', [ $this, 'redirect' ] );
         add_action( 'admin_enqueue_scripts', [ $this, 'scripts' ] );
-        add_action( 'wp_ajax_dx_save_settings', [ $this, 'save' ] );
+        add_action( 'wp_ajax_discountx_save_settings', [ $this, 'save' ] );
 	}
 
 	/**
@@ -34,10 +34,10 @@ class Admin {
             __( 'DiscountX', 'discountx' ),
             __( 'DiscountX', 'discountx' ),
             'manage_options',
-            'dx-settings',
+            'discountx-settings',
             [ $this, 'display' ],
             'dashicons-cart',
-            DX_MENU_POSITION
+            DISCOUNTX_MENU_POSITION
         );
     }
 
@@ -49,7 +49,7 @@ class Admin {
 	public function scripts() {
 
 		$screen = get_current_screen();
-		if ( 'toplevel_page_dx-settings' !== $screen->id ) {
+		if ( 'toplevel_page_discountx-settings' !== $screen->id ) {
 			return;
 		}
 
@@ -60,15 +60,15 @@ class Admin {
         // Stylesheets
         wp_enqueue_style(
             'select2',
-            DX_PLUGIN_URI . '/app/assets/admin/libs/select2/select2.min.css',
+            DISCOUNTX_PLUGIN_URI . '/app/assets/admin/libs/select2/select2.min.css',
             '',
             '4.1.0',
             'all'
         );
 
         wp_enqueue_style(
-            'dx-admin',
-            DX_PLUGIN_URI . '/app/assets/admin/css/dx-admin.css',
+            'discountx-admin',
+            DISCOUNTX_PLUGIN_URI . '/app/assets/admin/css/discountx-admin.css',
             '',
             '1.0.0',
             'all'
@@ -77,21 +77,21 @@ class Admin {
         // Scripts
         wp_enqueue_script(
             'select2',
-            DX_PLUGIN_URI . '/app/assets/admin/libs/select2/select2.min.js',
+            DISCOUNTX_PLUGIN_URI . '/app/assets/admin/libs/select2/select2.min.js',
             [ 'jquery' ],
             '4.1.0',
             true
         );
 
         wp_enqueue_script(
-            'dx-admin',
-            DX_PLUGIN_URI . '/app/assets/admin/js/dx-admin.js',
+            'discountx-admin',
+            DISCOUNTX_PLUGIN_URI . '/app/assets/admin/js/discountx-admin.js',
             [ 'jquery' ],
             '4.1.0',
             true
         );
 
-        wp_localize_script( 'dx-admin', 'DX_ADMIN', [
+        wp_localize_script( 'discountx-admin', 'DISCOUNTX_ADMIN', [
             'ajaxUrl' => admin_url( 'admin-ajax.php' )
         ] );
 	}
@@ -103,11 +103,11 @@ class Admin {
      * @return void
      */
 	public function display() {
-        $products   = DX()->helpers->getProductsList();
-        $settings   = DX()->helpers->getSettings();
-        $productIds = DX()->helpers->getSavedProductIds();
+        $products   = discountx()->helpers->getProductsList();
+        $settings   = discountx()->helpers->getSettings();
+        $productIds = discountx()->helpers->getSavedProductIds();
 
-		include DX_PLUGIN_DIR . 'app/views/settings.php';
+		include DISCOUNTX_PLUGIN_DIR . 'app/views/settings.php';
 	}
 
     /**
@@ -116,7 +116,7 @@ class Admin {
      * @since 1.0.0
      */
     public function save() {
-        if ( empty( $_REQUEST['nonce'] ) || ! wp_verify_nonce( $_REQUEST['nonce'], 'dx_save_settings_action' ) ) {
+        if ( empty( $_REQUEST['nonce'] ) || ! wp_verify_nonce( $_REQUEST['nonce'], 'discountx_save_settings_action' ) ) {
 			wp_send_json_error( [ 'message' => __( 'Invalid request.', 'discountx' ) ] );
 		}
 
@@ -126,11 +126,15 @@ class Admin {
 
         unset( $_REQUEST['nonce'] );
         unset( $_REQUEST['action'] );
+        unset( $_REQUEST['woocommerce-login-nonce'] );
+        unset( $_REQUEST['_wpnonce'] );
+        unset( $_REQUEST['woocommerce-reset-password-nonce'] );
 
-        $saved = update_option( 'dx_settings', wp_json_encode( $_REQUEST ) );
+        $request = array_map( 'sanitize_text_field', $_REQUEST );
+        $saved   = update_option( 'discountx_settings', $request );
 
         if ( $saved ) {
-            update_user_meta( get_current_user_id(), 'dx_popup_close_status', 'show' );
+            update_user_meta( get_current_user_id(), 'discountx_popup_close_status', 'show' );
 
             wp_send_json_success([
                 'message' => __( 'Settings successfully saved.', 'discountx' )
@@ -145,11 +149,11 @@ class Admin {
      * @since v1.0.0
      */
     public function redirect() {
-        if ( get_option( 'dx_activation_redirect', false ) ) {
-            delete_option( 'dx_activation_redirect' );
+        if ( get_option( 'discountx_activation_redirect', false ) ) {
+            delete_option( 'discountx_activation_redirect' );
 
             if ( ! isset( $_GET[ 'activate-multi' ] ) ) {
-                wp_redirect("admin.php?page=dx-settings");
+                wp_redirect("admin.php?page=discountx-settings");
             }
         }
     }

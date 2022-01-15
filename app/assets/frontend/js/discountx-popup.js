@@ -1,13 +1,21 @@
 (function($){
+    /**
+     * DiscountX popup js script.
+     * 
+     * @since  1.0.0
+     * @author Mahafuz<m.mahfuz.me@gmail.com>
+     */
     $(document).ready(function() {
-        $( '#dx-close' ).on( 'click', function() {
-            $('.dx-overlay').fadeOut();
+
+        // handle popup close.
+        $( '#discountx-close' ).on( 'click', function() {
+            $('.discountx-overlay').fadeOut();
 
             $.ajax({
                 type        : 'POST',
-                url         : DX_POPUP.ajaxUrl,
+                url         : DISCOUNTX_POPUP.ajaxUrl,
                 data        : {
-                    action: 'dx_close_popup'
+                    action: 'discountx_close_popup'
                 },
                 success : function( response ) {
                     console.log( response );
@@ -18,14 +26,15 @@
             });
         });
 
-        $( '#dx-apply-cupon' ).on( 'click', function(e) {
+        // handle apply coupon
+        $( '#discountx-apply-cupon' ).on( 'click', function(e) {
             e.preventDefault();
 
             $.ajax({
                 type        : 'POST',
-                url         : DX_POPUP.ajaxUrl,
+                url         : DISCOUNTX_POPUP.ajaxUrl,
                 data        : {
-                    action: 'dx_apply_cupon_code'
+                    action: 'discountx_apply_cupon_code'
                 },
                 success : function( response ) {
                 },
@@ -33,7 +42,7 @@
                 }
             });
 
-            $('.dx-overlay').fadeOut();
+            $('.discountx-overlay').fadeOut();
 
             setTimeout( function() {
                 location.reload();

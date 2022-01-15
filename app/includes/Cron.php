@@ -1,6 +1,6 @@
 <?php
 
-namespace DX;
+namespace DISCOUNTX;
 
 // if direct access than exit the file.
 defined('ABSPATH') || exit;
@@ -19,7 +19,7 @@ class Cron {
      */
     public function __construct() {
         add_action( 'wp', [ $this, 'clearCtUserMeta' ] );
-        add_action( 'clear_dx_user_meta', [ $this, 'runCronJob' ] );
+        add_action( 'clear_discountx_user_meta', [ $this, 'runCronJob' ] );
     }
 
     /**
@@ -28,8 +28,8 @@ class Cron {
      * @since 1.0.0
      */
     public function clearCtUserMeta() {
-        if ( ! wp_next_scheduled( 'clear_dx_user_meta') ) {
-            wp_schedule_event( time(), 'hourly', 'clear_dx_user_meta' );
+        if ( ! wp_next_scheduled( 'clear_discountx_user_meta') ) {
+            wp_schedule_event( time(), 'hourly', 'clear_discountx_user_meta' );
         }
     }
 
@@ -39,6 +39,6 @@ class Cron {
      * @since 1.0.0
      */
     public function runCronJob() {
-        update_user_meta( get_current_user_id(), 'dx_popup_close_status', 'show' );
+        update_user_meta( get_current_user_id(), 'discountx_popup_close_status', 'show' );
     }
 }

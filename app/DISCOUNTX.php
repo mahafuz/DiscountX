@@ -1,18 +1,18 @@
 <?php
 
-namespace DX;
+namespace DISCOUNTX;
 
 // if direct access than exit the file.
 defined('ABSPATH') || exit;
 
-final class DX {
+final class DISCOUNTX {
 
     /**
      * Holds the instance of the plugin currently in use.
      *
      * @since 1.0.0
      *
-     * @var DX\DX
+     * @var DISCOUNTX\DISCOUNTX
      */
     private static $instance = null;
 
@@ -23,7 +23,7 @@ final class DX {
      * time. Also prevents needing to define globals all over the place.
      *
      * @since  1.0.0
-     * @return DX
+     * @return DISCOUNTX
      */
 	public static function getInstance() {
 		if ( ! self::$instance ) {
@@ -39,14 +39,14 @@ final class DX {
      * @since 1.0.0
      */
     public function __construct() {
-        $this->notices      = new \DX\Notices;
+        $this->notices      = new \DISCOUNTX\Notices;
 
         if ( class_exists( 'WooCommerce' ) ) {
-            $this->admin        = new \DX\Admin;
-            $this->helpers      = new \DX\Helpers;
-            $this->styles       = new \DX\StyleGenerator;
-            $this->popup        = new \DX\Popup;
-            $this->cron         = new \DX\Cron;
+            $this->admin        = new \DISCOUNTX\Admin;
+            $this->helpers      = new \DISCOUNTX\Helpers;
+            $this->styles       = new \DISCOUNTX\StyleGenerator;
+            $this->popup        = new \DISCOUNTX\Popup;
+            $this->cron         = new \DISCOUNTX\Cron;
         }
     }
 }

@@ -1,9 +1,15 @@
 (function( $ ) {
+    /**
+     * DiscountX admin js script.
+     * 
+     * @since  1.0.0
+     * @author Mahafuz<m.mahfuz.me@gmail.com>
+     */
     $(document).ready(function() {
 
         var popupImageContainer = $( '.popup-image-container' ),
             popupImage          = $( '#popup-image-src' ),
-            uploadButton        = $( '#dx-upload-popup-image' ),
+            uploadButton        = $( '#discountx-upload-popup-image' ),
             imgInput            = $('#popup-image');
 
         if ( '' == popupImage.attr( 'src' ) ) {
@@ -18,8 +24,8 @@
             })
         }
 
-        $( '.dx-color-control' ).wpColorPicker();
-        $( '.dx-options-box' ).hide();
+        $( '.discountx-color-control' ).wpColorPicker();
+        $( '.discountx-options-box' ).hide();
 
         var activetab = '';
         if ( typeof(localStorage) != 'undefined' ) {
@@ -29,20 +35,20 @@
         if ( activetab != '' && $(activetab).length ) {
             $(activetab).fadeIn();
         } else {
-            $('.dx-options-box:first').fadeIn();
+            $('.discountx-options-box:first').fadeIn();
         }
 
         if ( activetab != '' && $(activetab + '-tab').length ) {
-            $(activetab + '-tab').addClass('dx-tab-active');
+            $(activetab + '-tab').addClass('discountx-tab-active');
         } else {
-            $('.dx-settings-nav li:first > a').addClass('dx-tab-active');
+            $('.discountx-settings-nav li:first > a').addClass('discountx-tab-active');
         }
 
-        $('.dx-settings-nav > li > a').on( 'click', function(ev) {
+        $('.discountx-settings-nav > li > a').on( 'click', function(ev) {
             ev.preventDefault();
 
-            $('.dx-settings-nav > li > a').removeClass('dx-tab-active');
-            $(this).addClass('dx-tab-active').blur();
+            $('.discountx-settings-nav > li > a').removeClass('discountx-tab-active');
+            $(this).addClass('discountx-tab-active').blur();
 
             var clicked_group = $( this ).attr( 'href' );
 
@@ -50,7 +56,7 @@
                 localStorage.setItem( "activetab", $( this ).attr( 'href' ) );
             }
 
-            $('.dx-options-box').hide();
+            $('.discountx-options-box').hide();
             $( clicked_group ).fadeIn();
         });
 
@@ -108,7 +114,8 @@
             }
         });
 
-        $( '#save-dx-settings' ).on( 'click', function(e) {
+        // handle save plugin settings.
+        $( '#save-discountx-settings' ).on( 'click', function(e) {
             e.preventDefault();
 
             var $button = $(this);
@@ -123,10 +130,10 @@
                 if ( 'products' === $cartType ) {
                     var $selectedProducts = $( '#select2-products-container').children( 'li' ).length;
 
-                    $( '.dx-settings-panel.products-setting' ).find( '.select2-selection' ).css( 'border-color', '#d0d1d7' );
+                    $( '.discountx-settings-panel.products-setting' ).find( '.select2-selection' ).css( 'border-color', '#d0d1d7' );
 
                     if ( $selectedProducts < 1 ) {
-                        $( '.dx-settings-panel.products-setting' ).find( '.select2-selection' ).css( 'border-color', 'red' );
+                        $( '.discountx-settings-panel.products-setting' ).find( '.select2-selection' ).css( 'border-color', 'red' );
                         $button.removeClass('loading');
                         return;
                     }
@@ -140,7 +147,7 @@
                     }
                 }
 
-            formData.append( 'action', 'dx_save_settings' );
+            formData.append( 'action', 'discountx_save_settings' );
             formData.append( 'savedCoupon', $( '#saved-coupon' ).val() );
             formData.append( 'appearance', $( '#appearance' ).val() );
             formData.append( 'displayOn', $( '#display-on' ).val() );
@@ -169,10 +176,10 @@
 
             $.ajax({
                 type        : 'POST',
-                url         : DX_ADMIN.ajaxUrl,
+                url         : DISCOUNTX_ADMIN.ajaxUrl,
                 data        : formData,
                 contentType : false,
-			    processData : false,
+                processData : false,
                 success : function( response ) {
                     setTimeout( function() {
                         $button.removeClass('loading');
@@ -184,7 +191,8 @@
             });
         });
 
-        $('#dx-upload-popup-image').click(function(e) {
+        // handle upload popup image.
+        $('#discountx-upload-popup-image').click(function(e) {
             e.preventDefault();
             var image = wp.media({
                 title: 'Upload Image',

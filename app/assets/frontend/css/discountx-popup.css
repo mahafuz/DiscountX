@@ -1,4 +1,4 @@
-.dx-overlay {
+.discountx-overlay {
 	background: #0a0808b5;
 	position: fixed;
 	top: 0;
@@ -14,7 +14,7 @@
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	z-index: 1;
+	z-index: 11;
 }
 
 @keyframes popup {
@@ -26,12 +26,12 @@
     }
 }
 
-.dx-overlay .dx-popup {
+.discountx-overlay .discountx-popup {
     animation: popup 1s ease-in;
 	animation: 2s;
 }
 
-.dx-popup {
+.discountx-popup {
 	max-width: 1009px;
 	height: 567px;
 	background: #FFFFFF;
@@ -43,7 +43,7 @@
 	position: relative;
 }
 
-div#dx-close {
+div#discountx-close {
     position: absolute;
     right: 0;
     top: 0;
@@ -57,7 +57,7 @@ div#dx-close {
     cursor: pointer;
 }
 
-.dx-popup-inner {
+.discountx-popup-inner {
 	display: flex;
 	align-items: center;
 	justify-content: center;
@@ -66,7 +66,7 @@ div#dx-close {
 	padding-right: 36px;
 }
 
-.dx-popup-pre-title {
+.discountx-popup-pre-title {
 	font-style: normal;
 	font-weight: 500;
 	color: #0E1871;
@@ -74,7 +74,7 @@ div#dx-close {
 	margin-bottom: 5px;
 }
 
-.dx-popup-content .dx-popup-title {
+.discountx-popup-content .discountx-popup-title {
 	font-style: normal;
 	font-weight: 500;
 	font-size: 60px;
@@ -83,11 +83,11 @@ div#dx-close {
 	margin-top: 0;
 }
 
-.dx-popup-content h2:before {
+.discountx-popup-content h2:before {
     display: none;
 }
 
-.dx-popup-content .dx-popup-desc {
+.discountx-popup-content .discountx-popup-desc {
 	font-style: normal;
 	font-weight: normal;
 	font-size: 20px;
@@ -95,17 +95,18 @@ div#dx-close {
 	color: #454545;
 }
 
-.dx-popup-img {
+.discountx-popup-img {
 	display: flex;
 	align-items: flex-end;
 	height: 100%;
+	max-width: 475px;
 }
 
-.dx-popup-content {
+.discountx-popup-content {
 	width: calc( 100% - 475px );
 }
 
-.dx-popup-content .dx-popup-button {
+.discountx-popup-content .discountx-popup-button {
 	width: 160px;
 	height: 55px;
 	background: #FFFFFF;
@@ -117,42 +118,43 @@ div#dx-close {
 	line-height: 18px;
 	color: #0E1871;
 	border-radius: 0;
+	text-align: center;
 }
 
-.dx-popup-content .dx-popup-button:hover {
+.discountx-popup-content .discountx-popup-button:hover {
 	color: #ffffff;
 	background: #8F54EE;
 }
 
 @media only screen and (max-width: 960px) {
-    .dx-popup {
+    .discountx-popup {
         max-width: 500px;
         height: 300px;
     }
-    .dx-popup-content .dx-popup-title {
+    .discountx-popup-content .discountx-popup-title {
         font-size: 32px;
     }
-	.dx-popup-content .dx-popup-desc {
+	.discountx-popup-content .discountx-popup-desc {
         font-size: 16px;
     }
-	.dx-popup-content button {
+	.discountx-popup-content button {
         padding: 12px 15px;
         font-size: 14px;
     }
 }
 
 @media only screen and (max-width: 414px) {
-    .dx-popup {
+    .discountx-popup {
         max-width: 250px;
         height: 300px;
     }
-	.dx-popup-content .dx-popup-title {
+	.discountx-popup-content .discountx-popup-title {
         font-size: 22px;
     }
-	.dx-popup-content .dx-popup-desc {
+	.discountx-popup-content .discountx-popup-desc {
         font-size: 14px;
     }
-	.dx-popup-content .dx-popup-button {
+	.discountx-popup-content .discountx-popup-button {
         padding: 8px 12px;
         font-size: 12px;
     }

@@ -1,6 +1,6 @@
 <?php
 
-namespace DX;
+namespace DISCOUNTX;
 
 // if direct access than exit the file.
 defined('ABSPATH') || exit;
@@ -72,14 +72,14 @@ class Helpers {
      * @return                  Retrived setting value.
      */
     public function getSettings( $key = '', $default = '' ) {
-        $settings = get_option( 'dx_settings', [] );
+        $settings = get_option( 'discountx_settings', [] );
 
         if ( ! empty( $settings ) ) {
-            $settings = json_decode( $settings );
+            $settings = (array) $settings;
 
             if ( $key ) {
-                if ( ! empty( $settings->{$key} ) ) {
-                    return $settings->{$key};
+                if ( ! empty( $settings[$key] ) ) {
+                    return $settings[$key];
                 }
             } else {
                 return $settings;
@@ -99,7 +99,7 @@ class Helpers {
      */
     public function getSavedProductIds() {
         $ids = $this->getSettings( 'products' );
-        return array_map( 'intval', explode(',', $ids ));
+        return array_map( 'intval', explode( ',', $ids ) );
     }
 
     /**
@@ -110,9 +110,9 @@ class Helpers {
      */
     public function getPopupStatus() {
         if ( is_user_logged_in() ) {
-            $popupStatus = get_user_meta( get_current_user_id(), 'dx_popup_close_status', true );
+            $popupStatus = get_user_meta( get_current_user_id(), 'discountx_popup_close_status', true );
         } else {
-            $popupStatus = WC()->session->get( 'dx_popup_close_status' );
+            $popupStatus = WC()->session->get( 'discountx_popup_close_status' );
         }
         $popupStatus = 'show' === $popupStatus || '' == $popupStatus ? 'show' : 'dont-show';
 
@@ -127,12 +127,18 @@ class Helpers {
      */
     public function setPopupStatus() {
         if ( is_user_logged_in() ) {
-            update_user_meta( get_current_user_id(), 'dx_popup_close_status', 'dont-show' );
+            update_user_meta( get_current_user_id(), 'discountx_popup_close_status', 'dont-show' );
         } else {
-            WC()->session->set( 'dx_popup_close_status', 'dont-show' );
+            WC()->session->set( 'discountx_popup_close_status', 'dont-show' );
         }
     }
 
+    /**
+     * Displays popup by product ids.
+     *
+     * @since  1.0.0
+     * @return bool
+     */
     public function showPopupByProductIds( $cartProductIds, $savedProductIds ) {
         $show  = false;
         $match = array_intersect( $cartProductIds, $savedProductIds );
@@ -144,6 +150,12 @@ class Helpers {
         return $show;
     }
 
+    /**
+     * Displays popup by products counts
+     *
+     * @since  1.0.0
+     * @return bool
+     */
     public function showPopupByProductCounts( $condition, $cartCount, $count ) {
         $show = false;
 
@@ -168,6 +180,12 @@ class Helpers {
         return $show;
     }
 
+    /**
+     * Displays popup by cart amount
+     *
+     * @since  1.0.0
+     * @return bool
+     */
     public function showPopupByCartAmount( $condition, $cartTotal, $count ) {
         $show = false;
 
@@ -192,6 +210,12 @@ class Helpers {
         return $show;
     }
 
+    /**
+     * Checks if the coupon is applied on the cart.
+     *
+     * @since  1.0.0
+     * @return bool
+     */
     public function isCouponApplied( $coupon ) {
         $appliedCoupons = WC()->cart->get_applied_coupons();
 
@@ -202,11 +226,17 @@ class Helpers {
         return in_array( strtolower( $coupon ), $appliedCoupons, true );
     }
 
+    /**
+     * Generates the view render path.
+     *
+     * @since  1.0.0
+     * @return string
+     */
 	public function view( $file = '' ) {
 		if ( empty( $file ) ) {
 			throw new \Error( 'View file not found!' );
 		}
 
-		return sprintf( '%s/app/views/%s.php', trailingslashit( DX_PLUGIN_DIR ), $file );
+		return sprintf( '%s/app/views/%s.php', trailingslashit( DISCOUNTX_PLUGIN_DIR ), $file );
 	}
 }

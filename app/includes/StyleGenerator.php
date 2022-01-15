@@ -1,75 +1,85 @@
 <?php
 
-namespace DX;
+namespace DISCOUNTX;
 
 // if direct access than exit the file.
 defined('ABSPATH') || exit;
 
+/**
+ * Responsible for generating the popup styles based on the settings.
+ * 
+ * @since 1.0.0
+ */
 class StyleGenerator {
 
+	/**
+	 * Generate dynamic style.
+	 * 
+	 * @since 1.0.0
+	 */
 	public function generatePopupStyles() {
 		$css = '';
-		$titleFontSize      = DX()->helpers->getSettings( 'titleFontSize', 60 );
-		$titleColor         = DX()->helpers->getSettings( 'titleColor' );
-		$buttonFontSize     = DX()->helpers->getSettings( 'buttonFontSize', 15 );
-		$contentColor       = DX()->helpers->getSettings( 'contentColor' );
-		$buttonColor        = DX()->helpers->getSettings( 'buttonColor' );
-		$buttonHoverColor   = DX()->helpers->getSettings( 'buttonHoverColor' );
-		$buttonBgColor      = DX()->helpers->getSettings( 'buttonBgColor' );
-		$buttonHoverBgColor = DX()->helpers->getSettings( 'buttonHoverBgColor' );
-		$popupBgColor       = DX()->helpers->getSettings( 'popupBgColor' );
+		$titleFontSize      = discountx()->helpers->getSettings( 'titleFontSize', 60 );
+		$titleColor         = discountx()->helpers->getSettings( 'titleColor' );
+		$buttonFontSize     = discountx()->helpers->getSettings( 'buttonFontSize', 15 );
+		$contentColor       = discountx()->helpers->getSettings( 'contentColor' );
+		$buttonColor        = discountx()->helpers->getSettings( 'buttonColor' );
+		$buttonHoverColor   = discountx()->helpers->getSettings( 'buttonHoverColor' );
+		$buttonBgColor      = discountx()->helpers->getSettings( 'buttonBgColor' );
+		$buttonHoverBgColor = discountx()->helpers->getSettings( 'buttonHoverBgColor' );
+		$popupBgColor       = discountx()->helpers->getSettings( 'popupBgColor' );
 
 		if ( $titleFontSize ) {
 			$css .= "
-				.dx-popup-content .dx-popup-title { font-size: {$titleFontSize}px; }
+				.discountx-popup-content .discountx-popup-title { font-size: {$titleFontSize}px; }
 			";
 		}
 
 		if ( $titleColor ) {
 			$css .= "
-				.dx-popup-content .dx-popup-title { color: $titleColor; }
+				.discountx-popup-content .discountx-popup-title { color: $titleColor; }
 			";
 		}
 
 		if ( $contentColor ) {
 			$css .= "
-				.dx-popup-content .dx-popup-desc { color: $contentColor; }
+				.discountx-popup-content .discountx-popup-desc { color: $contentColor; }
 			";
 		}
 
 		if ( $buttonFontSize ) {
 			$css .= "
-				.dx-popup-content .dx-popup-button { font-size: {$buttonFontSize}px; }
+				.discountx-popup-content .discountx-popup-button { font-size: {$buttonFontSize}px; }
 			";
 		}
 
 		if ( $buttonColor ) {
 			$css .= "
-				.dx-popup-content .dx-popup-button { color: $buttonColor; }
+				.discountx-popup-content .discountx-popup-button { color: $buttonColor; }
 			";
 		}
 
 		if ( $buttonBgColor ) {
 			$css .= "
-				.dx-popup-content .dx-popup-button { background-color: $buttonBgColor; }
+				.discountx-popup-content .discountx-popup-button { background-color: $buttonBgColor; }
 			";
 		}
 
 		if ( $buttonHoverColor ) {
 			$css .= "
-				.dx-popup-content .dx-popup-button:hover { color: $buttonHoverColor; }
+				.discountx-popup-content .discountx-popup-button:hover { color: $buttonHoverColor; }
 			";
 		}
 
 		if ( $buttonHoverBgColor ) {
 			$css .= "
-				.dx-popup-content .dx-popup-button:hover { background-color: $buttonHoverBgColor; }
+				.discountx-popup-content .discountx-popup-button:hover { background-color: $buttonHoverBgColor; }
 			";
 		}
 
 		if ( $popupBgColor ) {
 			$css .= "
-				.dx-popup { background-color: $buttonHoverBgColor; }
+				.discountx-popup { background-color: $buttonHoverBgColor; }
 			";
 		}
 
