@@ -7,3 +7,7 @@ node_modules/
 *.sql
 *.tar.gz
 *.zip
+
+/frontend/public/build/bundle.js.map
+/frontend/package-lock.json
+

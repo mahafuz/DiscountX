@@ -1,0 +1,18 @@
+.discountx-popups-wrap {
+    max-width: 95%;
+    margin: 15px auto 0;
+    background: #fff;
+    box-sizing: border-box;
+    padding: 30px;
+    min-height: 70vh;
+    border-radius: 3px
+}
+
+.discountx-popups-box {
+    max-width: 95%;
+    margin: 15px auto 0;
+    background: #fff;
+    box-sizing: border-box;
+    padding: 30px;
+    border-radius: 3px
+}

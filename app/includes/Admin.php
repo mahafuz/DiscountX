@@ -53,47 +53,71 @@ class Admin {
 			return;
 		}
 
-        wp_enqueue_media();
-        wp_enqueue_style( 'wp-color-picker' );
-        wp_enqueue_script( 'wp-color-picker' );
+        wp_enqueue_script(
+            'discountx-admin-app',
+            DISCOUNTX_PLUGIN_URI . '/frontend/public/build/bundle.js',
+            null,
+            '4.1.0',
+            true
+        );
 
-        // Stylesheets
         wp_enqueue_style(
-            'select2',
-            DISCOUNTX_PLUGIN_URI . '/app/assets/admin/libs/select2/select2.min.css',
+            'discountx-app-global',
+            DISCOUNTX_PLUGIN_URI . '/frontend/public/global.css',
             '',
             '4.1.0',
             'all'
         );
 
         wp_enqueue_style(
-            'discountx-admin',
-            DISCOUNTX_PLUGIN_URI . '/app/assets/admin/css/discountx-admin.css',
+            'discountx-admin-app',
+            DISCOUNTX_PLUGIN_URI . '/frontend/public/build/bundle.css',
             '',
-            '1.0.0',
+            '4.1.0',
             'all'
         );
 
-        // Scripts
-        wp_enqueue_script(
-            'select2',
-            DISCOUNTX_PLUGIN_URI . '/app/assets/admin/libs/select2/select2.min.js',
-            [ 'jquery' ],
-            '4.1.0',
-            true
-        );
+        // wp_enqueue_media();
+        // wp_enqueue_style( 'wp-color-picker' );
+        // wp_enqueue_script( 'wp-color-picker' );
 
-        wp_enqueue_script(
-            'discountx-admin',
-            DISCOUNTX_PLUGIN_URI . '/app/assets/admin/js/discountx-admin.js',
-            [ 'jquery' ],
-            '4.1.0',
-            true
-        );
+        // // Stylesheets
+        // wp_enqueue_style(
+        //     'select2',
+        //     DISCOUNTX_PLUGIN_URI . '/app/assets/admin/libs/select2/select2.min.css',
+        //     '',
+        //     '4.1.0',
+        //     'all'
+        // );
 
-        wp_localize_script( 'discountx-admin', 'DISCOUNTX_ADMIN', [
-            'ajaxUrl' => admin_url( 'admin-ajax.php' )
-        ] );
+        // wp_enqueue_style(
+        //     'discountx-admin',
+        //     DISCOUNTX_PLUGIN_URI . '/app/assets/admin/css/discountx-admin.css',
+        //     '',
+        //     '1.0.0',
+        //     'all'
+        // );
+
+        // // Scripts
+        // wp_enqueue_script(
+        //     'select2',
+        //     DISCOUNTX_PLUGIN_URI . '/app/assets/admin/libs/select2/select2.min.js',
+        //     [ 'jquery' ],
+        //     '4.1.0',
+        //     true
+        // );
+
+        // wp_enqueue_script(
+        //     'discountx-admin',
+        //     DISCOUNTX_PLUGIN_URI . '/app/assets/admin/js/discountx-admin.js',
+        //     [ 'jquery' ],
+        //     '4.1.0',
+        //     true
+        // );
+
+        // wp_localize_script( 'discountx-admin', 'DISCOUNTX_ADMIN', [
+        //     'ajaxUrl' => admin_url( 'admin-ajax.php' )
+        // ] );
 	}
 
     /**
