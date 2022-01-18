@@ -87,7 +87,7 @@ class Admin {
             'discountx-admin',
             DISCOUNTX_PLUGIN_URI . '/app/assets/admin/js/discountx-admin.js',
             [ 'jquery' ],
-            '4.1.0',
+            '1.0.0',
             true
         );
 
@@ -146,7 +146,7 @@ class Admin {
     /**
      * Redirect to options page
      *
-     * @since v1.0.0
+     * @since 1.0.0
      */
     public function redirect() {
         if ( get_option( 'discountx_activation_redirect', false ) ) {

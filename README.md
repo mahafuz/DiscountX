@@ -83,7 +83,7 @@ No, DiscountX works seamlessly with any WordPress themes. You just need to insta
 
 == Changelog ==
 
-= 1.0.0 - 18-12-2020 =
+= 1.0.0 - 18-01-2022 =
 
 * Initial release
 
