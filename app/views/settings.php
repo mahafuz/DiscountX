@@ -112,7 +112,7 @@ $number             = isset( $settings['number'] ) ? absint( $settings['number']
                         </div>
                         <div class="discountx-settings-control">
                             <select name="condition" id="condition">
-                                <option value="over_oresc_html_equal" <?php selected( $condition, 'over_oresc_html_equal' ); ?>>
+                                <option value="over_or_equal" <?php selected( $condition, 'over_or_equal' ); ?>>
                                     <?php esc_html_e( 'Over or equal', 'discountx' ); ?>
                                 </option>
                                 <option value="equal" <?php selected( $condition, 'equal' ); ?>>
