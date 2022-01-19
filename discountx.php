@@ -7,7 +7,7 @@
  * Author URI:      http://wpdiscountx.com/about
  * Text Domain:     discountx
  * Domain Path:     /languages
- * Version:         1.0.0
+ * Version:         1.0.1
  *
  * @package         DiscountX
  */
