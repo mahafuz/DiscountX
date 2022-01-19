@@ -5,7 +5,7 @@ Tags: notification, woocommerce notification, notification popup, discount popup
 Requires at least: 5.0
 Tested up to: 5.8
 Requires PHP: 5.6
-Stable tag: 1.0.0
+Stable tag: 1.0.1
 License: GPL-3.0-or-later
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -83,7 +83,7 @@ No, DiscountX works seamlessly with any WordPress themes. You just need to insta
 
 == Changelog ==
 
-= 1.0.0 - 18-12-2020 =
+= 1.0.0 - 18-01-2022 =
 
 * Initial release
 

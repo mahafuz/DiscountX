@@ -170,7 +170,7 @@ class Admin {
     /**
      * Redirect to options page
      *
-     * @since v1.0.0
+     * @since 1.0.0
      */
     public function redirect() {
         if ( get_option( 'discountx_activation_redirect', false ) ) {

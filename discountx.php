@@ -7,7 +7,7 @@
  * Author URI:      http://wpdiscountx.com/about
  * Text Domain:     discountx
  * Domain Path:     /languages
- * Version:         0.1.0
+ * Version:         1.0.1
  *
  * @package         DiscountX
  */
@@ -18,7 +18,7 @@ defined('ABSPATH') || exit;
 /**
  * Defining constants
  */
-define( 'DISCOUNTX_VERSION', '1.9.1' );
+define( 'DISCOUNTX_VERSION', '1.0.0' );
 define( 'DISCOUNTX_MENU_POSITION', 32 );
 define( 'DISCOUNTX_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
 define( 'DISCOUNTX_PLUGIN_URI', plugins_url( '', __FILE__ ) );
