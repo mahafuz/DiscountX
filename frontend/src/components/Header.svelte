@@ -1,14 +1,10 @@
-<script>
-    // const src = 'images/discountx-logo.png';
-</script>
-
 <header class="discountx-admin-masthead">
     <div class="discountx-logo">
         <a href="#/">DiscountX</a>
     </div>
     <nav>
 		<a href="#/">Home</a>
-		<a href="#/create">Create</a>
+		<a href="#/rule">Create</a>
 	</nav>
 </header>
 
@@ -25,6 +21,4 @@
         justify-content: space-between;
         align-items: center;
     }
-
-    
 </style>

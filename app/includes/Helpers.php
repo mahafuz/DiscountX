@@ -239,4 +239,17 @@ class Helpers {
 
 		return sprintf( '%s/app/views/%s.php', trailingslashit( DISCOUNTX_PLUGIN_DIR ), $file );
 	}
+
+    /**
+	 * Checks if pro is activated
+	 *
+	 * @since 1.2.11
+	 */
+	public function isWoocommerceActivate() {
+		return is_plugin_active( 'woocommerce/woocommerce.php' );
+	}
+
+    public function validateSettings( $settings ) {
+        return (array) $settings;
+    }
 }

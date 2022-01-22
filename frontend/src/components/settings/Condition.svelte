@@ -1,81 +1,104 @@
+<script>
+    import {
+        translation,
+        getCoupons,
+        getAppearance,
+        getCartTypes,
+        getConditions,
+        getAllProducts
+    } from './../../Helper'
+
+    export let handleProducts
+    export let settings
+    export let products = []
+
+    const coupons     = getCoupons()
+    const appearnace  = getAppearance()
+    const cartTypes   = getCartTypes()
+    const conditions  = getConditions()
+    const allProducts = getAllProducts();
+
+</script>
 <div>
     <div class="discountx-settings-panel">
         <div class="discountx-settings-label">
-            <h4>Coupon Code</h4>
-            <p class="desc">Select coupon code to apply when user will click on the popup apply button.</p>
+            <h4>{ translation( 'condition-tab-label' ) }</h4>
+            <p class="desc">{ translation( 'condition-tab-desc' ) }</p>
         </div>
         <div class="discountx-settings-control">
-            <select name="" id="">
-                <option value="1">Coupon 1</option>
-                <option value="2">Coupon 2</option>
-                <option value="3">Coupon 3</option>
+            {#if coupons.length}
+            <select name="savedCoupon" id="savedCoupon">
+                {#each coupons as coupon }
+                <option selected={coupon.text === settings.savedCoupon} value="{coupon.text}">{ coupon.text }</option>
+                {/each}
+            </select>
+            {/if}
+        </div>
+    </div>
+
+    <div class="discountx-settings-panel">
+        <div class="discountx-settings-label">
+            <h4>{ translation( 'appearence-label' ) }</h4>
+        </div>
+        <div class="discountx-settings-control">
+            <select name="appearance" id="appearance">
+                { #each Object.entries( appearnace ) as [ key, value ] }
+                <option selected={key === settings.appearance} value="{key}">{value}</option>
+                {/each}
             </select>
         </div>
     </div>
 
     <div class="discountx-settings-panel">
         <div class="discountx-settings-label">
-            <h4>Appearence</h4>
+            <h4>{ translation( 'cart-type-label' ) }</h4>
+            <p class="desc">{ translation( 'cart-type-desc' ) }</p>
         </div>
         <div class="discountx-settings-control">
-            <select name="" id="">
-                <option value="1">Show</option>
-                <option value="2">Dont Show</option>
+            <select name="cart_type" id="cart_type">
+                {#each Object.entries(cartTypes) as [ key, value ]}
+                <option selected={key === settings.cart_type} value="{ key }">{ value }</option>
+                {/each}
             </select>
         </div>
     </div>
 
     <div class="discountx-settings-panel">
         <div class="discountx-settings-label">
-            <h4>Cart Type</h4>
-            <p class="desc">Select Cart Type condition.</p>
+            <h4>{ translation( 'condition-label' ) }</h4>
+            <p class="desc">{ translation( 'condition-desc' ) }.</p>
         </div>
         <div class="discountx-settings-control">
-            <select name="" id="">
-                <option value="1">Cart money value</option>
-                <option value="1">Number of cart items</option>
-                <option value="2">Products in the cart</option>
+            <select name="condition" id="condition">
+                {#each Object.entries(conditions) as [ key, value ]}
+                <option selected={key === settings.condition} value="{ key }">{ value }</option>
+                {/each}
             </select>
         </div>
     </div>
 
     <div class="discountx-settings-panel">
         <div class="discountx-settings-label">
-            <h4>Condition</h4>
-            <p class="desc">Select the condition.</p>
+            <h4>{ translation( 'products-label' ) }</h4>
+            <p class="desc">{ translation( 'products-desc' ) }</p>
         </div>
         <div class="discountx-settings-control">
-            <select name="" id="">
-                <option value="1">Over or equal</option>
-                <option value="1">Equal</option>
-                <option value="2">Under</option>
+            <select name="products" id="products" multiple bind:value={products} on:change={handleProducts(products)}>
+                {#each allProducts as product }
+                <option value="{product.id}">{product.text}</option>
+                {/each}
             </select>
         </div>
     </div>
 
     <div class="discountx-settings-panel">
         <div class="discountx-settings-label">
-            <h4>Products</h4>
-            <p class="desc">Choose products.</p>
+            <h4>{translation( 'number-label' ) }</h4>
+            <p class="desc">{ translation( 'number-desc' ) }</p>
         </div>
         <div class="discountx-settings-control">
-            <select name="" id="" multiple>
-                <option value="1">Product 1</option>
-                <option value="1">Product 2</option>
-                <option value="2">Product 3</option>
-            </select>
+            <input type="number" name="number" id="number" bind:value={settings.number} />
         </div>
     </div>
-
-    <div class="discountx-settings-panel">
-        <div class="discountx-settings-label">
-            <h4>Number</h4>
-            <p class="desc">The number to set the condition.</p>
-        </div>
-        <div class="discountx-settings-control">
-            <input type="number" />
-        </div>
-    </div>
-
 
 </div>
