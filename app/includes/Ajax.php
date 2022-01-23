@@ -39,14 +39,31 @@ class Ajax {
             wp_send_json_error( __( 'Unauthorised Request', 'discountx' ), 401 );
         }
 
+        $settings = ! empty( $_REQUEST['settings'] ) ? json_decode( wp_unslash( $_REQUEST['settings'] ), true ) : '';
+        if ( empty( $settings ) || ! is_array( $settings ) ) {
+            wp_send_json_error( [ 'message' => __( 'Please configure the settings properly', 'discountx' ) ], 206 );
+        }
 
-        echo '<pre>', print_r( $_REQUEST, 1 ), '</pre>';
+        $settings = discountx()->helpers->validateSettings( $settings );
+        $updated  = discountx()->rule->update( $settings );
 
-        // discountx()->rule->update( $_REQUEST );
+        if ( $updated ) {
+            wp_send_json_success([
+                'message'   => __( 'Rule updated', 'discountx' )
+            ]);
+        }
     }
 
     public function cloneRule() {
+        if ( ! isset( $_REQUEST[ 'nonce' ] ) || ! wp_verify_nonce( $_REQUEST['nonce'], '_discountx_clone_dxrule_dx_' ) || ! current_user_can( 'manage_options') ) {
+            wp_send_json_error( __( 'Unauthorised Request', 'discountx' ), 401 );
+        }
 
+        if ( empty( $_REQUEST['id'] ) ) {
+            wp_send_json_error( 'message', __( 'Invalid rule id to clone.', 'discountx' ) );
+        }
+
+        discountx()->rule->clone( absint( $_REQUEST[ 'id' ] ) );
     }
 
     public function deleteRule() {

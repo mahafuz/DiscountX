@@ -89,7 +89,28 @@
     }
 
     const updateRule = (e) => {
-        console.log( 'settings', settings );
+        const data = new FormData(e.target);
+        data.append( 'action', 'discountx_update_rule' )
+        data.append( 'nonce', getNonce( 'update_dxrule' ) )
+        data.append( 'products', popup?.products?.join() )
+        data.append( 'id', params?.id );
+
+        const settings   = {}
+        const duplicates = [ 'action', 'nonce' ]
+
+        for( let [ key, value ] of Array.from( data ) ) {
+            settings[key] = value
+
+            if ( ! duplicates.includes( key ) ) {
+                data.delete(key)
+            }
+        }
+        data.append( 'settings', JSON.stringify( settings ) )
+
+        fetch( getAjaxURL(), {
+            method: 'POST',
+            body: data
+        })
     }
 
     const onSubmit = (e) => {

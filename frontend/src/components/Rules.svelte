@@ -28,6 +28,22 @@
             }
         })
     }
+    const handleClone = ( id ) => {
+        const data = new FormData();
+        data.append( 'action', 'discountx_clone_rule' )
+        data.append( 'nonce', getNonce( 'clone_dxrule' ) )
+        data.append( 'id', id )
+
+        fetch( getAjaxURL(), {
+            method: 'POST',
+            body: data
+        })
+        .then( res => {
+            if ( res.ok ) {
+                syncData()
+            }
+        })
+    }
 </script>
 
 <div class="discountx-popups-wrap">
@@ -55,7 +71,7 @@
                     <td>{ rule.name }</td>
                     <td class="popup-actions">
                         <a href="#/rule/{rule.id}" class=""><span class="hidden-xs">Edit</span></a>
-                        <a href="#" class="popup-clone"><span class="hidden-xs">Clone</span></a>
+                        <a href="#" class="popup-clone" on:click|preventDefault={handleClone(rule.id)}><span class="hidden-xs">Clone</span></a>
                         <a href="#" class="popup-delete" on:click|preventDefault={handleDelete(rule.id)}><span class="hidden-xs">Delete</span></a>
                     </td>
                 </tr>

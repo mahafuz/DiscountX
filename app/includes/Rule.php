@@ -45,8 +45,18 @@ class Rule {
     public function update( $args = [] ) {
         global $wpdb;
 
-        if ( empty( $args['name'] ) ) {
-            wp_send_json_error( 'message', __( 'You must provide a name.', 'discountx' ) );
+        if ( empty( $args['id'] ) ) {
+            wp_send_json_error( 'message', __( 'Invalid rule id', 'discountx' ) );
+        }
+
+        $id = absint( $args['id'] );
+        unset( $args['id'] );
+
+        $name = ! empty( $args['name'] ) ? sanitize_text_field( $args['name'] ) : '' ;
+        unset( $args['name'] );
+
+        if ( empty( $name ) ) {
+            wp_send_json_error( [ 'message' => __( 'You must provide a name.', 'discountx' ) ] );
         }
 
         $defaults = [
@@ -54,14 +64,10 @@ class Rule {
             'settings'    => ''
         ];
 
-        $data = wp_parse_args( $args, $defaults );
-
-        if ( empty( $data['id'] ) ) {
-            wp_send_json_error( 'message', __( 'Invalid rule id', 'discountx' ) );
-        }
-
-        $id = $data['id'];
-        uset( $data['id'] );
+        $data = wp_parse_args([
+            'name'     => $name,
+            'settings' => wp_json_encode( $args )
+        ], $defaults );
 
         $updated = $wpdb->update(
             discountx()->db->getTableName(),
@@ -74,6 +80,14 @@ class Rule {
             [ '%d' ]
         );
 
+        if ( discountx()->db->error() ) {
+            wp_send_json_error( sprintf( __( 'Database Error: %s' ), $wpdb->last_error ) );
+        }
+
+        if ( ! $updated ) {
+            wp_send_json_error( [ 'message' => __( 'Nothing to update.', 'discountx' ) ] );
+        }
+
         return $updated;
     }
 
@@ -85,7 +99,8 @@ class Rule {
         
         $table = discountx()->db->getTableName();
         $rule  = $wpdb->get_row(
-            $wpdb->prepare( "SELECT * FROM {$table} WHERE id = %d", $id )
+            $wpdb->prepare( "SELECT * FROM {$table} WHERE id = %d", $id ),
+            ARRAY_A
         );
 
         return $rule;
@@ -139,15 +154,15 @@ class Rule {
 
     public function clone( $id ) {
         global $wpdb;
+
         $cloned = $this->get( $id );
 
-        if ( empty( $clone ) ) {
-            wp_send_json_error( 'message', __( 'No rule found to clone.', 'discountx' ), 404 );
+        if ( empty( $cloned ) ) {
+            wp_send_json_error( [ 'message' => __( 'No rule found to clone.', 'discountx' ) ], 404 );
         }
 
-        $settings = $cloned[ 'settings' ];
+        $settings = discountx()->helpers->validateSettings( $cloned[ 'settings' ] );
         $name     = $cloned[ 'name' ] .' '. __( '- Cloned', 'discountx' );
-        $settings = discountx()->helpers->validateSettings( $settings );
         $table    = discountx()->db->getTableName();
 
         $data = [
@@ -155,7 +170,7 @@ class Rule {
             'settings' => json_encode($settings)
         ];
 
-        $wpdb->insert(
+        $clonded = $wpdb->insert(
             $table,
             $data,
             [
@@ -169,12 +184,12 @@ class Rule {
         }
 
         // Get the cloned rule
-        $shotcode = $this->get( $wpdb->insert_id );
+        $rule = $this->get( $wpdb->insert_id );
 
         // send success response with inserted id
         wp_send_json_success( array(
             'message' => __( 'Rule cloned successfully', 'discounx' ),
-            'rule'    => $shotcode,
+            'rule'    => $rule,
         ));
     }
 }
