@@ -13,10 +13,5 @@
 
 <main>
 	<Header />
-
 	<Router {routes} />
 </main>
-
-<style>
-	
-</style>

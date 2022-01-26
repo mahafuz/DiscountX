@@ -12,6 +12,7 @@
     let result = ''
     let settings = ''
     let name = ''
+    let imageUrl = ''
 
     onMount( async () => {
         if ( params?.id ) {
@@ -21,6 +22,7 @@
             result   = json.data
             settings = JSON.parse( result.settings )
             name     = result.name
+            imageUrl = result.image_url
         }
     });
 
@@ -51,8 +53,7 @@
 
 		frame.on("select", function () {
 			const attachment = frame.state().get("selection").first().toJSON()
-            popup.image_id   = attachment.id
-            popup.image_url  = attachment.url
+            settings.image_url = attachment.url
 		});
 
 		frame.open()
@@ -74,6 +75,7 @@
                 data.delete(key)
             }
         }
+
         data.append( 'settings', JSON.stringify( settings ) )
 
         fetch( getAjaxURL(), {
@@ -90,22 +92,28 @@
 
     const updateRule = (e) => {
         const data = new FormData(e.target);
-        data.append( 'action', 'discountx_update_rule' )
-        data.append( 'nonce', getNonce( 'update_dxrule' ) )
-        data.append( 'products', popup?.products?.join() )
-        data.append( 'id', params?.id );
+            data.append( 'action', 'discountx_update_rule' )
+            data.append( 'nonce', getNonce( 'update_dxrule' ) )
+            data.append( 'products', popup?.products?.join() )
+            data.append( 'id', params?.id );
 
-        const settings   = {}
+        
+        const savedSettings = JSON.parse( result.settings );
+        const newSettings   = {}
         const duplicates = [ 'action', 'nonce' ]
 
         for( let [ key, value ] of Array.from( data ) ) {
-            settings[key] = value
+            newSettings[key] = value
 
             if ( ! duplicates.includes( key ) ) {
                 data.delete(key)
             }
         }
-        data.append( 'settings', JSON.stringify( settings ) )
+
+
+        const settingsToSave = { ...savedSettings, ...newSettings }
+
+        data.append( 'settings', JSON.stringify( settingsToSave ) )
 
         fetch( getAjaxURL(), {
             method: 'POST',
@@ -116,8 +124,6 @@
     const onSubmit = (e) => {
         params?.id ? updateRule(e) : createRule(e);
     }
-
-
 </script>
 
 <form on:submit|preventDefault={onSubmit}>
@@ -142,9 +148,9 @@
     <div class="discountx-popups-wrap">
         <div class="discountx-popups-wrap-body">
             <nav class="discountx-tab-navbar">
-                <button on:click={ () => currentTab = 'condition' }>{ translation( 'condition-tab-label' ) }</button>
-                <button on:click={ () => currentTab = 'settings' }>{ translation( 'settings-tab-label' ) }</button>
-                <button on:click={ () => currentTab = 'style' }>{ translation( 'style-tab-label' ) }</button>
+                <span on:click={ () => currentTab = 'condition' }>{ translation( 'condition-tab-label' ) }</span>
+                <span on:click={ () => currentTab = 'settings' }>{ translation( 'settings-tab-label' ) }</span>
+                <span on:click={ () => currentTab = 'style' }>{ translation( 'style-tab-label' ) }</span>
             </nav>
     
             {#if currentTab === 'condition'}

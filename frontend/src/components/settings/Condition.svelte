@@ -18,6 +18,10 @@
     const conditions  = getConditions()
     const allProducts = getAllProducts();
 
+    const handleCartType = (e) => {
+        console.log(e.target.value)
+    }
+
 </script>
 <div>
     <div class="discountx-settings-panel">
@@ -55,7 +59,7 @@
             <p class="desc">{ translation( 'cart-type-desc' ) }</p>
         </div>
         <div class="discountx-settings-control">
-            <select name="cart_type" id="cart_type">
+            <select name="cart_type" id="cart_type" on:change={ (e) => settings.cart_type = e.target.value }>
                 {#each Object.entries(cartTypes) as [ key, value ]}
                 <option selected={key === settings.cart_type} value="{ key }">{ value }</option>
                 {/each}
@@ -77,6 +81,7 @@
         </div>
     </div>
 
+    {#if settings.cart_type === 'products' }
     <div class="discountx-settings-panel">
         <div class="discountx-settings-label">
             <h4>{ translation( 'products-label' ) }</h4>
@@ -90,6 +95,7 @@
             </select>
         </div>
     </div>
+    {/if}
 
     <div class="discountx-settings-panel">
         <div class="discountx-settings-label">

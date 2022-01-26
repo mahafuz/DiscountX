@@ -19,6 +19,7 @@ class Notices {
      */
     public function __construct() {
         add_action( 'admin_notices', array( $this, 'notice' ) );
+        add_action( 'in_admin_header', array( $this, 'removeNotices' ) );
     }
 
     /**
@@ -77,5 +78,19 @@ class Notices {
 			$button = '<p><a href="' . $activation_url . '" class="button-primary">' . $button_text . '</a></p>';
 			printf( '<div class="error"><p>%1$s</p>%2$s</div>', __( $message ), $button );
 		}
+    }
+
+    /**
+     * Removed all admin notices from the shortcode builder page.
+     * 
+     * @since 1.0.1
+     */
+    public function removeNotices() {
+        if ( isset( $_GET['page'] ) && 'discountx-settings' === $_GET['page'] ) {
+            remove_all_actions( 'network_admin_notices' );
+            remove_all_actions( 'user_admin_notices' );
+            remove_all_actions( 'admin_notices' );
+            remove_all_actions( 'all_admin_notices' );
+        }
     }
 }

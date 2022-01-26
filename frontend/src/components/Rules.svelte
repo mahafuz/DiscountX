@@ -5,15 +5,15 @@
     let result = ''
 
     const syncData = async () => {
-        const res = await fetch( getAjaxURL() + '?action=discountx_get_rules')
+        const res  = await fetch( getAjaxURL() + '?action=discountx_get_rules')
         const json = await res.json()
-        result = json.data
+            result = json.data
     }
 
     onMount( syncData )
 
     const handleDelete = ( id ) => {
-        const data = new FormData();
+        const data = new FormData()
         data.append( 'action', 'discountx_delete_rules' )
         data.append( 'nonce', getNonce( 'delete_dxrule' ) )
         data.append( 'ids', id )
@@ -28,8 +28,9 @@
             }
         })
     }
+
     const handleClone = ( id ) => {
-        const data = new FormData();
+        const data = new FormData()
         data.append( 'action', 'discountx_clone_rule' )
         data.append( 'nonce', getNonce( 'clone_dxrule' ) )
         data.append( 'id', id )
@@ -71,8 +72,8 @@
                     <td>{ rule.name }</td>
                     <td class="popup-actions">
                         <a href="#/rule/{rule.id}" class=""><span class="hidden-xs">Edit</span></a>
-                        <a href="#" class="popup-clone" on:click|preventDefault={handleClone(rule.id)}><span class="hidden-xs">Clone</span></a>
-                        <a href="#" class="popup-delete" on:click|preventDefault={handleDelete(rule.id)}><span class="hidden-xs">Delete</span></a>
+                        <a href=":javascript;" class="popup-clone" on:click|preventDefault={handleClone(rule.id)}><span class="hidden-xs">Clone</span></a>
+                        <a href=":javascript;" class="popup-delete" on:click|preventDefault={handleDelete(rule.id)}><span class="hidden-xs">Delete</span></a>
                     </td>
                 </tr>
                 {/each}
