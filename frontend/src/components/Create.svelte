@@ -128,7 +128,7 @@
 
 <form on:submit|preventDefault={onSubmit}>
     <div class="discountx-popups-box">
-        <div class="discountx-popups-wrap-head">
+        <div class="discountx-rules-wrap-head">
             <h2>{ translation( 'create-title' ) }</h2>
             <p>{ translation( 'create-desc' ) }</p>
         </div>
@@ -146,7 +146,7 @@
     </div>
 
     <div class="discountx-popups-wrap">
-        <div class="discountx-popups-wrap-body">
+        <div class="discountx-rules-wrap-body">
             <nav class="discountx-tab-navbar">
                 <span on:click={ () => currentTab = 'condition' }>{ translation( 'condition-tab-label' ) }</span>
                 <span on:click={ () => currentTab = 'settings' }>{ translation( 'settings-tab-label' ) }</span>

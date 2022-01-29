@@ -12,6 +12,7 @@ class AppData {
             'nonce' => [
                 'create_dxrule' => wp_create_nonce( '_discountx_create_dxrule_dx_' ),
                 'clone_dxrule'  => wp_create_nonce( '_discountx_clone_dxrule_dx_' ),
+                'status_dxrule'  => wp_create_nonce( '_discountx_set_status_dxrule_dx_' ),
                 'update_dxrule' => wp_create_nonce( '_discountx_update_dxrule_dx_' ),
                 'delete_dxrule' => wp_create_nonce( '_discountx_delete_dxrules_dx_' ),
             ],

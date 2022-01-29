@@ -11,10 +11,9 @@ class Strings {
         return [
             'menu-item-home'            => __( 'Home', 'discountx' ),
             'menu-item-create'          => __( 'Create', 'discountx' ),
-            'popup-title'               => __( 'Popups', 'discountx' ),
-            'popup-desc'                => __( 'All popups', 'discountx' ),
-            'table-column-name'         => __( 'Name', 'discountx' ),
-            'table-column-action'       => __( 'Action', 'discountx' ),
+            'rules-title'               => __( 'All Rules', 'discountx' ),
+            'status-title'              => __( 'Status', 'discountx' ),
+            'actions-title'             => __( 'Actions', 'discountx' ),
             'table-action-edit'         => __( 'Edit', 'discountx' ),
             'table-action-clone'        => __( 'Clone', 'discountx' ),
             'table-action-delete'       => __( 'Delete', 'discountx' ),

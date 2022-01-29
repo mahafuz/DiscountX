@@ -37,4 +37,6 @@ register_activation_hook( __FILE__, function () {
 require_once DISCOUNTX_PLUGIN_DIR . 'app/DISCOUNTX.php';
 discountx();
 
-// TODO: Let's save and update the all others settings from the settings page. see>create.svelte
+
+// TODO: set default rule status true when clone and add new rule.
+// TODO: Delete all functionality

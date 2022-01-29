@@ -60,6 +60,7 @@ class Database {
             id BIGINT(20) unsigned NOT NULL AUTO_INCREMENT,
             name TEXT NOT NULL,
             settings LONGTEXT NOT NULL,
+            status TINYINT NOT NULL,
             created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
             updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
             PRIMARY KEY (id)

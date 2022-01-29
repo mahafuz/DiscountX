@@ -14,6 +14,7 @@ class Ajax {
         add_action( 'wp_ajax_discountx_get_rule', [ $this, 'getRule' ] );
         add_action( 'wp_ajax_discountx_get_rules', [ $this, 'getRules' ] );
         add_action( 'wp_ajax_discountx_delete_rules', [ $this, 'deleteRule' ] );
+        add_action( 'wp_ajax_discountx_set_rule_status', [ $this, 'setRuleStatus' ] );
     }
 
     public function createRule() {
@@ -88,5 +89,26 @@ class Ajax {
     public function getRules() {
         $rules = discountx()->rule->getAll();
         wp_send_json_success( $rules );
+    }
+
+    public function setRuleStatus() {
+        if ( ! isset( $_REQUEST[ 'nonce' ] ) || ! wp_verify_nonce( $_REQUEST['nonce'], '_discountx_set_status_dxrule_dx_' ) || ! current_user_can( 'manage_options') ) {
+            wp_send_json_error( __( 'Unauthorised Request', 'discountx' ), 401 );
+        }
+
+        if ( empty( $_REQUEST['id'] ) ) {
+            wp_send_json_error( 'message', __( 'Invalid rule id', 'discountx' ) );
+        }
+
+        $id      = absint( $_REQUEST['id'] );
+        $status  = wp_validate_boolean( $_REQUEST['status'] );
+        $updated = discountx()->rule->updateStatus( $id, $status );
+
+        if ( $updated ) {
+            wp_send_json_success([
+                'message'   => __( 'Rule status updated', 'discountx' )
+            ]);
+        }
+
     }
 }

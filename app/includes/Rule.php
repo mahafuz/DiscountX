@@ -192,4 +192,34 @@ class Rule {
             'rule'    => $rule,
         ));
     }
+
+    public function updateStatus( $id, $status ) {
+        global $wpdb;
+
+        $defaults = [
+            'status' => 0
+        ];
+
+        $data = wp_parse_args([
+            'status' => $status
+        ], $defaults );
+
+        $updated = $wpdb->update(
+            discountx()->db->getTableName(),
+            $data,
+            [ 'id' => $id ],
+            [ '%d' ],
+            [ '%d' ]
+        );
+
+        if ( discountx()->db->error() ) {
+            wp_send_json_error( sprintf( __( 'Database Error: %s' ), $wpdb->last_error ) );
+        }
+
+        if ( ! $updated ) {
+            wp_send_json_error( [ 'message' => __( 'Nothing to update.', 'discountx' ) ] );
+        }
+
+        return $updated;
+    }
 }

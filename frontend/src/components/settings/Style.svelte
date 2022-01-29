@@ -3,7 +3,6 @@
     import { translation } from '../../Helper'
     let buttonColorState = 'normal'
     export let settings
-    console.log( 'settings', settings.titleColor );
 </script>
 
 <div>
