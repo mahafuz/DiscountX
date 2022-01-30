@@ -76,10 +76,6 @@
     const detectSelection = ( e, id ) => {
         result = result.map( rule => rule.id === id ? ({ ...rule, selected: e.target.checked }) : rule )
     }
-
-    const handleChecked = (status) => {
-        console.log( !status );
-    }
 </script>
 
 <div class="discountx-rules-wrap">

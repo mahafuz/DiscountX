@@ -1956,11 +1956,11 @@ var app = (function () {
     			t = space();
     			span = element("span");
     			attr_dev(input, "type", "checkbox");
-    			attr_dev(input, "class", "svelte-qmsgc8");
+    			attr_dev(input, "class", "svelte-b68ckc");
     			add_location(input, file$8, 62, 4, 1250);
-    			attr_dev(span, "class", "slider svelte-qmsgc8");
+    			attr_dev(span, "class", "slider svelte-b68ckc");
     			add_location(span, file$8, 63, 4, 1293);
-    			attr_dev(label, "class", "switch svelte-qmsgc8");
+    			attr_dev(label, "class", "switch svelte-b68ckc");
     			add_location(label, file$8, 61, 0, 1213);
     		},
     		l: function claim(nodes) {
@@ -2084,21 +2084,21 @@ var app = (function () {
 
     function get_each_context$4(ctx, list, i) {
     	const child_ctx = ctx.slice();
-    	child_ctx[16] = list[i][0];
-    	child_ctx[17] = list[i][1];
-    	child_ctx[18] = list;
-    	child_ctx[19] = i;
+    	child_ctx[15] = list[i][0];
+    	child_ctx[16] = list[i][1];
+    	child_ctx[17] = list;
+    	child_ctx[18] = i;
     	return child_ctx;
     }
 
-    // (102:12) {#each Object.entries( result ) as [key, rule ] }
+    // (98:12) {#each Object.entries( result ) as [key, rule ] }
     function create_each_block$4(ctx) {
     	let div4;
     	let div0;
     	let input;
     	let t0;
     	let div1;
-    	let t1_value = /*rule*/ ctx[17].name + "";
+    	let t1_value = /*rule*/ ctx[16].name + "";
     	let t1;
     	let t2;
     	let div2;
@@ -2130,25 +2130,25 @@ var app = (function () {
     	let dispose;
 
     	function input_handler_1(...args) {
-    		return /*input_handler_1*/ ctx[9](/*rule*/ ctx[17], ...args);
+    		return /*input_handler_1*/ ctx[9](/*rule*/ ctx[16], ...args);
     	}
 
     	function input_change_handler_1() {
-    		/*input_change_handler_1*/ ctx[10].call(input, /*each_value*/ ctx[18], /*each_index*/ ctx[19]);
+    		/*input_change_handler_1*/ ctx[10].call(input, /*each_value*/ ctx[17], /*each_index*/ ctx[18]);
     	}
 
     	function switch_1_checked_binding(value) {
-    		/*switch_1_checked_binding*/ ctx[11](value, /*rule*/ ctx[17]);
+    		/*switch_1_checked_binding*/ ctx[11](value, /*rule*/ ctx[16]);
     	}
 
     	function change_handler(...args) {
-    		return /*change_handler*/ ctx[12](/*rule*/ ctx[17], ...args);
+    		return /*change_handler*/ ctx[12](/*rule*/ ctx[16], ...args);
     	}
 
     	let switch_1_props = {};
 
-    	if (/*rule*/ ctx[17].status !== void 0) {
-    		switch_1_props.checked = /*rule*/ ctx[17].status;
+    	if (/*rule*/ ctx[16].status !== void 0) {
+    		switch_1_props.checked = /*rule*/ ctx[16].status;
     	}
 
     	switch_1 = new Switch({ props: switch_1_props, $$inline: true });
@@ -2191,69 +2191,69 @@ var app = (function () {
     			t12 = space();
     			attr_dev(input, "type", "checkbox");
     			attr_dev(input, "name", "selectRule");
-    			add_location(input, file$7, 104, 20, 3189);
+    			add_location(input, file$7, 100, 20, 3110);
     			attr_dev(div0, "class", "check-column svelte-rneqfa");
-    			add_location(div0, file$7, 103, 16, 3142);
+    			add_location(div0, file$7, 99, 16, 3063);
     			attr_dev(div1, "class", "rule-name svelte-rneqfa");
-    			add_location(div1, file$7, 111, 16, 3460);
+    			add_location(div1, file$7, 107, 16, 3381);
     			attr_dev(div2, "class", "rule-status svelte-rneqfa");
-    			add_location(div2, file$7, 112, 16, 3519);
+    			add_location(div2, file$7, 108, 16, 3440);
     			attr_dev(path0, "d", "M3.82429 14.3947H0V10.5704L10.3066 0.263893C10.4756 0.0949226 10.7048 0 10.9438 0C11.1828 0 11.412 0.0949226 11.581 0.263893L14.1308 2.81372C14.2998 2.98274 14.3947 3.21195 14.3947 3.45095C14.3947 3.68995 14.2998 3.91916 14.1308 4.08818L3.82429 14.3947ZM0 16.1974H16.2237V18H0V16.1974Z");
     			attr_dev(path0, "fill", "#B2BFD8");
-    			add_location(path0, file$7, 124, 28, 4086);
+    			add_location(path0, file$7, 120, 28, 4007);
     			attr_dev(svg0, "width", "17");
     			attr_dev(svg0, "height", "17");
     			attr_dev(svg0, "viewBox", "0 0 17 18");
     			attr_dev(svg0, "fill", "none");
     			attr_dev(svg0, "xmlns", "http://www.w3.org/2000/svg");
     			attr_dev(svg0, "class", "svelte-rneqfa");
-    			add_location(svg0, file$7, 123, 24, 3962);
+    			add_location(svg0, file$7, 119, 24, 3883);
     			attr_dev(span0, "class", "hidden-xs");
-    			add_location(span0, file$7, 126, 24, 4454);
-    			attr_dev(a0, "href", a0_href_value = "#/rule/" + /*rule*/ ctx[17].id);
+    			add_location(span0, file$7, 122, 24, 4375);
+    			attr_dev(a0, "href", a0_href_value = "#/rule/" + /*rule*/ ctx[16].id);
     			attr_dev(a0, "clone", "rule-edit");
     			attr_dev(a0, "class", "svelte-rneqfa");
-    			add_location(a0, file$7, 119, 20, 3823);
+    			add_location(a0, file$7, 115, 20, 3744);
     			attr_dev(path1, "d", "M4 4V1C4 0.734784 4.10536 0.48043 4.29289 0.292893C4.48043 0.105357 4.73478 0 5 0H17C17.2652 0 17.5196 0.105357 17.7071 0.292893C17.8946 0.48043 18 0.734784 18 1V15C18 15.2652 17.8946 15.5196 17.7071 15.7071C17.5196 15.8946 17.2652 16 17 16H14V19C14 19.552 13.55 20 12.993 20H1.007C0.875127 20.0008 0.744397 19.9755 0.622322 19.9256C0.500247 19.8757 0.389233 19.8022 0.295659 19.7093C0.202084 19.6164 0.127793 19.5059 0.0770543 19.3841C0.0263156 19.2624 0.000129374 19.1319 0 19L0.00300002 5C0.00300002 4.448 0.453 4 1.01 4H4ZM6 4H14V14H16V2H6V4Z");
     			attr_dev(path1, "fill", "#B2BFD8");
-    			add_location(path1, file$7, 134, 24, 4894);
+    			add_location(path1, file$7, 130, 24, 4815);
     			attr_dev(svg1, "width", "16");
     			attr_dev(svg1, "height", "16");
     			attr_dev(svg1, "viewBox", "0 0 18 20");
     			attr_dev(svg1, "fill", "none");
     			attr_dev(svg1, "xmlns", "http://www.w3.org/2000/svg");
     			attr_dev(svg1, "class", "svelte-rneqfa");
-    			add_location(svg1, file$7, 133, 24, 4774);
+    			add_location(svg1, file$7, 129, 24, 4695);
     			attr_dev(span1, "class", "hidden-xs");
-    			add_location(span1, file$7, 136, 24, 5523);
+    			add_location(span1, file$7, 132, 24, 5444);
     			attr_dev(a1, "href", ":javascript;");
     			attr_dev(a1, "class", "rule-clone svelte-rneqfa");
-    			add_location(a1, file$7, 128, 20, 4567);
+    			add_location(a1, file$7, 124, 20, 4488);
     			attr_dev(path2, "d", "M12.7778 17H19.7778V19H10.7778L6.77979 19.002L0.292786 12.515C0.105315 12.3274 0 12.0731 0 11.808C0 11.5428 0.105315 11.2885 0.292786 11.101L10.8978 0.49397C10.9907 0.400994 11.1009 0.327235 11.2223 0.276911C11.3437 0.226586 11.4739 0.200684 11.6053 0.200684C11.7367 0.200684 11.8668 0.226586 11.9882 0.276911C12.1096 0.327235 12.2199 0.400994 12.3128 0.49397L20.0908 8.27197C20.2783 8.4595 20.3836 8.71381 20.3836 8.97897C20.3836 9.24413 20.2783 9.49844 20.0908 9.68597L12.7778 17ZM14.4348 12.515L17.9698 8.97897L11.6058 2.61497L8.07079 6.15097L14.4348 12.515Z");
     			attr_dev(path2, "fill", "#E25454");
-    			add_location(path2, file$7, 144, 24, 5966);
+    			add_location(path2, file$7, 140, 24, 5887);
     			attr_dev(svg2, "width", "18");
     			attr_dev(svg2, "height", "18");
     			attr_dev(svg2, "viewBox", "0 0 21 20");
     			attr_dev(svg2, "fill", "none");
     			attr_dev(svg2, "xmlns", "http://www.w3.org/2000/svg");
     			attr_dev(svg2, "class", "svelte-rneqfa");
-    			add_location(svg2, file$7, 143, 24, 5846);
+    			add_location(svg2, file$7, 139, 24, 5767);
     			attr_dev(span2, "class", "hidden-xs");
-    			add_location(span2, file$7, 146, 24, 6610);
+    			add_location(span2, file$7, 142, 24, 6531);
     			attr_dev(a2, "href", ":javascript;");
     			attr_dev(a2, "class", "rule-delete svelte-rneqfa");
-    			add_location(a2, file$7, 138, 20, 5637);
+    			add_location(a2, file$7, 134, 20, 5558);
     			attr_dev(div3, "class", "rule-actions rule-actions-wrap svelte-rneqfa");
-    			add_location(div3, file$7, 118, 16, 3758);
+    			add_location(div3, file$7, 114, 16, 3679);
     			attr_dev(div4, "class", "discountx-single-rule svelte-rneqfa");
-    			add_location(div4, file$7, 102, 12, 3090);
+    			add_location(div4, file$7, 98, 12, 3011);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, div4, anchor);
     			append_dev(div4, div0);
     			append_dev(div0, input);
-    			input.checked = /*rule*/ ctx[17].selected;
+    			input.checked = /*rule*/ ctx[16].selected;
     			append_dev(div4, t0);
     			append_dev(div4, div1);
     			append_dev(div1, t1);
@@ -2290,7 +2290,7 @@ var app = (function () {
     						a1,
     						"click",
     						prevent_default(function () {
-    							if (is_function(/*handleClone*/ ctx[3](/*rule*/ ctx[17].id))) /*handleClone*/ ctx[3](/*rule*/ ctx[17].id).apply(this, arguments);
+    							if (is_function(/*handleClone*/ ctx[3](/*rule*/ ctx[16].id))) /*handleClone*/ ctx[3](/*rule*/ ctx[16].id).apply(this, arguments);
     						}),
     						false,
     						true,
@@ -2300,7 +2300,7 @@ var app = (function () {
     						a2,
     						"click",
     						prevent_default(function () {
-    							if (is_function(/*handleDelete*/ ctx[2](/*rule*/ ctx[17].id))) /*handleDelete*/ ctx[2](/*rule*/ ctx[17].id).apply(this, arguments);
+    							if (is_function(/*handleDelete*/ ctx[2](/*rule*/ ctx[16].id))) /*handleDelete*/ ctx[2](/*rule*/ ctx[16].id).apply(this, arguments);
     						}),
     						false,
     						true,
@@ -2315,21 +2315,21 @@ var app = (function () {
     			ctx = new_ctx;
 
     			if (dirty & /*Object, result*/ 1) {
-    				input.checked = /*rule*/ ctx[17].selected;
+    				input.checked = /*rule*/ ctx[16].selected;
     			}
 
-    			if ((!current || dirty & /*result*/ 1) && t1_value !== (t1_value = /*rule*/ ctx[17].name + "")) set_data_dev(t1, t1_value);
+    			if ((!current || dirty & /*result*/ 1) && t1_value !== (t1_value = /*rule*/ ctx[16].name + "")) set_data_dev(t1, t1_value);
     			const switch_1_changes = {};
 
     			if (!updating_checked && dirty & /*Object, result*/ 1) {
     				updating_checked = true;
-    				switch_1_changes.checked = /*rule*/ ctx[17].status;
+    				switch_1_changes.checked = /*rule*/ ctx[16].status;
     				add_flush_callback(() => updating_checked = false);
     			}
 
     			switch_1.$set(switch_1_changes);
 
-    			if (!current || dirty & /*result*/ 1 && a0_href_value !== (a0_href_value = "#/rule/" + /*rule*/ ctx[17].id)) {
+    			if (!current || dirty & /*result*/ 1 && a0_href_value !== (a0_href_value = "#/rule/" + /*rule*/ ctx[16].id)) {
     				attr_dev(a0, "href", a0_href_value);
     			}
     		},
@@ -2354,7 +2354,7 @@ var app = (function () {
     		block,
     		id: create_each_block$4.name,
     		type: "each",
-    		source: "(102:12) {#each Object.entries( result ) as [key, rule ] }",
+    		source: "(98:12) {#each Object.entries( result ) as [key, rule ] }",
     		ctx
     	});
 
@@ -2415,24 +2415,24 @@ var app = (function () {
 
     			attr_dev(input, "type", "checkbox");
     			attr_dev(input, "name", "selectAllRules");
-    			add_location(input, file$7, 90, 20, 2485);
+    			add_location(input, file$7, 86, 20, 2406);
     			attr_dev(div0, "class", "check-column svelte-rneqfa");
-    			add_location(div0, file$7, 89, 16, 2438);
+    			add_location(div0, file$7, 85, 16, 2359);
     			attr_dev(div1, "class", "rule-name svelte-rneqfa");
     			set_style(div1, "text-align", "left");
-    			add_location(div1, file$7, 97, 16, 2751);
+    			add_location(div1, file$7, 93, 16, 2672);
     			attr_dev(div2, "class", "rule-status svelte-rneqfa");
-    			add_location(div2, file$7, 98, 16, 2853);
+    			add_location(div2, file$7, 94, 16, 2774);
     			attr_dev(div3, "class", "rule-actions svelte-rneqfa");
-    			add_location(div3, file$7, 99, 16, 2932);
+    			add_location(div3, file$7, 95, 16, 2853);
     			attr_dev(div4, "class", "discountx-single-rule rules-head svelte-rneqfa");
-    			add_location(div4, file$7, 88, 12, 2375);
+    			add_location(div4, file$7, 84, 12, 2296);
     			attr_dev(div5, "class", "discountx-rules-list");
-    			add_location(div5, file$7, 87, 8, 2328);
+    			add_location(div5, file$7, 83, 8, 2249);
     			attr_dev(div6, "class", "discountx-rules-wrap-body");
-    			add_location(div6, file$7, 86, 4, 2280);
+    			add_location(div6, file$7, 82, 4, 2201);
     			attr_dev(div7, "class", "discountx-rules-wrap");
-    			add_location(div7, file$7, 84, 0, 2240);
+    			add_location(div7, file$7, 80, 0, 2161);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -2601,10 +2601,6 @@ var app = (function () {
     		: rule));
     	};
 
-    	const handleChecked = status => {
-    		console.log(!status);
-    	};
-
     	const writable_props = [];
 
     	Object_1$2.keys($$props).forEach(key => {
@@ -2646,8 +2642,7 @@ var app = (function () {
     		handleClone,
     		handleRuleStatus,
     		toggleAllSelection,
-    		detectSelection,
-    		handleChecked
+    		detectSelection
     	});
 
     	$$self.$inject_state = $$props => {
