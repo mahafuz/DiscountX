@@ -11,7 +11,7 @@ class Strings {
         return [
             'menu-item-home'            => __( 'Home', 'discountx' ),
             'menu-item-create'          => __( 'Create', 'discountx' ),
-            'rules-title'               => __( 'All Rules', 'discountx' ),
+            'rules-title'               => __( 'Title', 'discountx' ),
             'status-title'              => __( 'Status', 'discountx' ),
             'actions-title'             => __( 'Actions', 'discountx' ),
             'table-action-edit'         => __( 'Edit', 'discountx' ),
