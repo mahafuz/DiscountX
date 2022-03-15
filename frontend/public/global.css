@@ -1,0 +1,10 @@
+.toplevel_page_discountx-settings #wpwrap {
+    background: #F1F4FA;
+}
+
+.discountx-rules-wrap {
+    padding-left: 70px;
+    padding-right: 70px;
+    min-height: 70vh;
+    margin: 15px auto 0;
+}
